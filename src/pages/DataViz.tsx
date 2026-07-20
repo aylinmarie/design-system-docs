@@ -1,0 +1,120 @@
+import { TableOfContents, type TocItem } from '../components/TableOfContents'
+import { DocNav } from '../components/DocNav'
+import { Callout } from '../components/Callout'
+import { useLocation } from 'react-router-dom'
+
+const toc: TocItem[] = [
+  { id: 'principles', label: 'Core principles', level: 2 },
+  { id: 'hierarchy', label: 'Visual hierarchy in charts', level: 2 },
+  { id: 'tokens', label: 'Data viz tokens', level: 2 },
+  { id: 'accessibility', label: 'Accessibility in charts', level: 2 },
+]
+
+export function DataViz() {
+  const { pathname } = useLocation()
+
+  return (
+    <>
+      <TableOfContents items={toc} />
+      <article className="prose">
+        <div className="mb-6">
+          <span className="text-xs font-semibold uppercase tracking-widest text-violet-600">Data Visualization</span>
+        </div>
+        <h1>Principles</h1>
+        <p className="text-lg text-gray-500 mt-2 mb-8" style={{ fontSize: '1.0625rem', lineHeight: 1.7 }}>
+          Data visualization is one of the hardest design problems to systematize. The number of ways to get it wrong vastly outnumber the ways to get it right.
+        </p>
+
+        <h2 id="principles">Core principles</h2>
+
+        <h3>Encode data, don't decorate it</h3>
+        <p>
+          Every visual element in a chart should encode information. Gradients, drop shadows, and 3D effects rarely encode data — they obscure it. Start with the simplest representation that accurately communicates the data, and add visual complexity only when it carries meaning.
+        </p>
+
+        <h3>Choose the right encoding</h3>
+        <p>
+          Cleveland and McGill's hierarchy of perceptual accuracy (most to least accurate):
+        </p>
+        <ol>
+          <li>Position along a common scale</li>
+          <li>Position along identical, non-aligned scales</li>
+          <li>Length</li>
+          <li>Angle and slope</li>
+          <li>Area</li>
+          <li>Volume, density, color saturation</li>
+          <li>Color hue</li>
+        </ol>
+        <p>
+          This is why bar charts beat pie charts for most comparisons — position along a scale is more accurately perceived than angle.
+        </p>
+
+        <h3>Don't make people do math</h3>
+        <p>
+          If the insight requires subtracting two bars or estimating a percentage of a circle, the chart has failed. Annotate directly, call out the specific value, or compute the derived number and show it explicitly.
+        </p>
+
+        <Callout type="tip" title="The annotation is the point">
+          The most effective charts in business contexts often have direct annotations — "Revenue up 23% vs. last quarter" — rather than letting the user interpret the visual. The chart provides context; the annotation delivers the insight.
+        </Callout>
+
+        <h2 id="hierarchy">Visual hierarchy in charts</h2>
+        <p>
+          A chart is a document with a visual hierarchy:
+        </p>
+        <ul>
+          <li><strong>Title</strong> — the claim the chart makes, not just a description of the data ("Revenue grew 23% in Q3", not "Q3 Revenue")</li>
+          <li><strong>Data layer</strong> — the marks (bars, lines, points) that encode the data. This is the foreground.</li>
+          <li><strong>Reference layer</strong> — axes, gridlines, baselines. This is the background. It should recede visually.</li>
+          <li><strong>Annotation layer</strong> — callouts, labels, highlights. These are editorial, above the data.</li>
+        </ul>
+        <p>
+          Most poor charts fail because the reference layer (gridlines, axis labels) competes visually with the data layer. Use light gray for gridlines, reduce label size, and remove everything that doesn't help interpretation.
+        </p>
+
+        <h2 id="tokens">Data viz tokens</h2>
+        <p>
+          Data visualization needs its own token set. These are separate from UI tokens because the color requirements differ — viz colors need to be visually distinct, perceptually ordered (for sequential scales), and work at small mark sizes.
+        </p>
+        <pre><code>{`/* Categorical palette — distinct colors for discrete series */
+--viz-color-1: #7c3aed;   /* violet */
+--viz-color-2: #2563eb;   /* blue */
+--viz-color-3: #059669;   /* green */
+--viz-color-4: #d97706;   /* amber */
+--viz-color-5: #dc2626;   /* red */
+--viz-color-6: #0891b2;   /* cyan */
+
+/* Sequential scale — single hue, for ordered data */
+--viz-seq-100: #f5f3ff;
+--viz-seq-300: #c4b5fd;
+--viz-seq-500: #8b5cf6;
+--viz-seq-700: #6d28d9;
+--viz-seq-900: #4c1d95;
+
+/* Diverging scale — two hues, for data with a meaningful midpoint */
+--viz-div-low:  #2563eb;   /* below baseline */
+--viz-div-mid:  #e5e7eb;   /* neutral */
+--viz-div-high: #dc2626;   /* above baseline */
+
+/* Structural tokens */
+--viz-axis-color:     #e5e7eb;
+--viz-gridline-color: #f3f4f6;
+--viz-label-color:    #6b7280;`}</code></pre>
+
+        <h2 id="accessibility">Accessibility in charts</h2>
+        <p>
+          Charts are one of the most inaccessible parts of most products. Minimum requirements:
+        </p>
+        <ul>
+          <li><strong>Never rely on color alone</strong> — use pattern, shape, or position as a secondary encoding</li>
+          <li><strong>Provide a text alternative</strong> — a table or summary paragraph for screen reader users</li>
+          <li><strong>Use <code>role="img"</code> and <code>aria-label</code></strong> on the chart container with a descriptive label</li>
+          <li><strong>Keyboard-accessible tooltips</strong> — if hover triggers data, Tab must too</li>
+          <li><strong>Test with color blindness simulators</strong> — Coblis and Figma's color blindness plugin. Deuteranopia (red-green) is most common.</li>
+        </ul>
+
+        <DocNav currentPath={pathname} />
+      </article>
+    </>
+  )
+}
