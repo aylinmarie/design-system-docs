@@ -39,7 +39,7 @@ export function DesignTokens() {
           The atomic decisions of your system. Every visual property that repeats is a candidate for a token.
         </p>
 
-        <h2 id="what-are-tokens">What are tokens?</h2>
+        <h2 id={toc[0].id}>{toc[0].label}</h2>
         <p>
           Design tokens are named entities that store design values. Instead of hardcoding <code>#7c3aed</code> in a component, you reference <code>color.interactive.primary</code>. The name carries intent; the value can change without the component knowing.
         </p>
@@ -73,7 +73,7 @@ export function DesignTokens() {
           </div>
         </div>
 
-        <h2 id="taxonomy">Taxonomy: global → semantic → component</h2>
+        <h2 id={toc[1].id}>{toc[1].label}</h2>
         <p>
           The most scalable token systems use three tiers:
         </p>
@@ -122,7 +122,7 @@ export function DesignTokens() {
           Most teams start with component tokens and then struggle to theme the system. Start with semantic tokens — they give you theming for free.
         </Callout>
 
-        <h2 id="naming">Naming conventions</h2>
+        <h2 id={toc[2].id}>{toc[2].label}</h2>
         <p>
           Good token names follow a predictable pattern: <code>category.property.variant.state</code>.
         </p>
@@ -140,7 +140,7 @@ spacing.component.padding.sm    // small component padding`}</code></pre>
 
         <p>Avoid encoding values in names (<code>color-gray-200</code> is a global token, not a semantic one) and avoid encoding components in semantic names (<code>button-blue</code> leaks into the wrong tier).</p>
 
-        <h2 id="tooling">Tooling & delivery</h2>
+        <h2 id={toc[3].id}>{toc[3].label}</h2>
         <p>
           The primary tools in this space:
         </p>
@@ -160,7 +160,7 @@ Build step (Style Dictionary)
 ├── Swift/ObjC constants  (iOS)
 └── Kotlin constants       (Android)`}</code></pre>
 
-        <h2 id="token-formats">Token formats (W3C)</h2>
+        <h2 id={toc[4].id}>{toc[4].label}</h2>
         <p>
           The <a href="https://www.w3.org/community/design-tokens/" target="_blank" rel="noopener noreferrer">W3C Design Tokens Community Group</a> is standardizing a JSON format for design tokens. Aligning to it makes your tokens portable between tools — Tokens Studio, Style Dictionary, and others already support reading and writing this format.
         </p>

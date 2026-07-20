@@ -42,7 +42,7 @@ export function Iconography() {
           Icons are functional glyphs, not decoration. They need to be legible, consistent, and accessible.
         </p>
 
-        <h2 id="icon-system">Designing the system</h2>
+        <h2 id={toc[0].id}>{toc[0].label}</h2>
         <p>
           Most teams don't design their own icon set — they choose an existing one and customize it. The decision criteria:
         </p>
@@ -72,7 +72,7 @@ export function Iconography() {
           </div>
         </div>
 
-        <h2 id="sizes">Sizes & grid</h2>
+        <h2 id={toc[1].id}>{toc[1].label}</h2>
         <p>
           Icons should be drawn on a consistent grid (16×16 or 24×24 being most common) and scaled in multiples. Define your sizes as tokens:
         </p>
@@ -88,7 +88,7 @@ export function Iconography() {
           A 24px icon scaled to 16px looks thin and weak. An icon drawn for 16px has a heavier stroke that compensates for its small size. Use icons from the correct size grid, or switch to a variable icon set that handles this automatically.
         </Callout>
 
-        <h2 id="accessibility">Accessible icons</h2>
+        <h2 id={toc[2].id}>{toc[2].label}</h2>
         <p>
           Icons are one of the most common sources of accessibility failures. The rule is simple:
         </p>
@@ -115,7 +115,7 @@ export function Iconography() {
   Invalid email address
 </span>`}</code></pre>
 
-        <h2 id="delivery">Delivery formats</h2>
+        <h2 id={toc[3].id}>{toc[3].label}</h2>
         <p>
           Three options for delivering icons in a design system:
         </p>

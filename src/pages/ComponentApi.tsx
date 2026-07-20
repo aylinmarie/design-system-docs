@@ -25,7 +25,7 @@ export function ComponentApi() {
           A component's API is a contract with every team that uses it. Design it with the same care you'd give a public SDK.
         </p>
 
-        <h2 id="props-api">Designing the props API</h2>
+        <h2 id={toc[0].id}>{toc[0].label}</h2>
         <p>
           Good component APIs share common traits:
         </p>
@@ -55,7 +55,7 @@ export function ComponentApi() {
           If a developer has to read the documentation to understand a prop, the prop name is wrong. Name it so the usage is self-documenting.
         </Callout>
 
-        <h2 id="slots">Slots & composition</h2>
+        <h2 id={toc[1].id}>{toc[1].label}</h2>
         <p>
           Props-only APIs break down when component interiors need to be customized. Use slots (named children) to give consumers control over interior content without exposing every internal detail:
         </p>
@@ -82,7 +82,7 @@ export function ComponentApi() {
           The slot pattern is more verbose but far more flexible. Reserve props-only APIs for truly atomic components where slot composition would be unnecessary.
         </p>
 
-        <h2 id="variants">Variants vs. props</h2>
+        <h2 id={toc[2].id}>{toc[2].label}</h2>
         <p>
           A common API design question: should visual variations be a single <code>variant</code> prop or separate boolean props?
         </p>
@@ -101,7 +101,7 @@ export function ComponentApi() {
   isDisabled={!isValid}
 />`}</code></pre>
 
-        <h2 id="primitives">Unstyled primitives</h2>
+        <h2 id={toc[3].id}>{toc[3].label}</h2>
         <p>
           The most extensible design system architecture separates logic and behavior from styling. Radix UI popularized this pattern: headless, unstyled primitives that handle accessibility and interaction, with styling layered on top.
         </p>

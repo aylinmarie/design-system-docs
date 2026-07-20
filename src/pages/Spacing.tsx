@@ -39,7 +39,7 @@ export function Spacing() {
           Spacing and layout are where visual rhythm lives. Consistent spacing makes interfaces feel considered, not arbitrary.
         </p>
 
-        <h2 id="base-unit">The base unit</h2>
+        <h2 id={toc[0].id}>{toc[0].label}</h2>
         <p>
           Every spacing system starts from a base unit. <strong>4px</strong> works well — everything becomes a multiple of 4. It's granular enough for tight UI work and constrained enough to prevent arbitrary values.
         </p>
@@ -51,7 +51,7 @@ export function Spacing() {
           "Use multiples of 4" only works if it's hard to do otherwise. Spacing tokens make it structural — designers pick from a finite set, and engineers map to a Tailwind scale or CSS custom properties. Arbitrary values become obvious violations.
         </Callout>
 
-        <h2 id="spacing-scale">Spacing scale</h2>
+        <h2 id={toc[1].id}>{toc[1].label}</h2>
         <p>
           The scale below is a solid starting point. Steps 1–6 are for component-level spacing; 8–16 for layout-level spacing.
         </p>
@@ -79,7 +79,7 @@ export function Spacing() {
           </div>
         </div>
 
-        <h2 id="grid">Layout grid</h2>
+        <h2 id={toc[2].id}>{toc[2].label}</h2>
         <p>
           A layout grid defines how content aligns within a viewport. The standard web approach:
         </p>
@@ -94,7 +94,7 @@ export function Spacing() {
           Document your breakpoints explicitly. A common five-step set: <code>xs (0)</code>, <code>sm (640)</code>, <code>md (768)</code>, <code>lg (1024)</code>, <code>xl (1280)</code>. Match these to your token system and your team's mental model.
         </p>
 
-        <h2 id="spacing-tokens">Spacing tokens</h2>
+        <h2 id={toc[3].id}>{toc[3].label}</h2>
         <p>
           Spacing tokens come in two flavors: raw scale tokens, and semantic component tokens.
         </p>

@@ -34,7 +34,7 @@ export function AccessibilityContrast() {
           Contrast is a prerequisite for legibility. Every text and interactive element needs a measurable, passing contrast ratio.
         </p>
 
-        <h2 id="ratios">Contrast ratios</h2>
+        <h2 id={toc[0].id}>{toc[0].label}</h2>
         <p>
           WCAG contrast ratios are calculated against the relative luminance of foreground and background colors. The formula is well-defined but rarely done by hand — use a checker.
         </p>
@@ -72,7 +72,7 @@ export function AccessibilityContrast() {
           </div>
         </div>
 
-        <h2 id="wcag3">WCAG 3 & APCA</h2>
+        <h2 id={toc[1].id}>{toc[1].label}</h2>
         <p>
           <a href="https://www.w3.org/TR/wcag-3.0/" target="_blank" rel="noopener noreferrer">WCAG 3</a> introduces the <a href="https://apcacontrast.com/" target="_blank" rel="noopener noreferrer">Advanced Perceptual Contrast Algorithm (APCA)</a>, which is a more accurate model of human contrast perception. Differences from WCAG 2.1:
         </p>
@@ -87,7 +87,7 @@ export function AccessibilityContrast() {
           APCA is not yet the legal standard anywhere. Target <a href="https://www.w3.org/TR/WCAG21/" target="_blank" rel="noopener noreferrer">WCAG 2.1</a> AA for compliance; use APCA for a more accurate perceptual quality check. The Figma plugin "Contrast" and the <a href="https://apcacontrast.com/" target="_blank" rel="noopener noreferrer">APCA calculator</a> both support it.
         </Callout>
 
-        <h2 id="token-pairs">Safe token pairings</h2>
+        <h2 id={toc[2].id}>{toc[2].label}</h2>
         <p>
           The safest approach: define which token combinations are valid. Document approved background / foreground pairings so components don't have to check at runtime.
         </p>
@@ -105,7 +105,7 @@ export function AccessibilityContrast() {
   background: var(--color-interactive-subtle);
   color: var(--color-interactive-primary);`}</code></pre>
 
-        <h2 id="non-text">Non-text contrast</h2>
+        <h2 id={toc[3].id}>{toc[3].label}</h2>
         <p>
           WCAG 1.4.11 (Non-text Contrast, AA) requires 3:1 contrast for:
         </p>

@@ -36,7 +36,7 @@ export function DataVizColor() {
           Data viz color has different constraints than UI color. Distinctness, perceptual ordering, and colorblind accessibility all demand specific choices.
         </p>
 
-        <h2 id="scale-types">Scale types</h2>
+        <h2 id={toc[0].id}>{toc[0].label}</h2>
         <p>
           Choose the palette type based on what the data represents:
         </p>
@@ -46,7 +46,7 @@ export function DataVizColor() {
           <li><strong>Diverging</strong> — for data with a meaningful midpoint (above/below baseline, positive/negative). Two hues meeting at a neutral center.</li>
         </ul>
 
-        <h2 id="categorical">Categorical palettes</h2>
+        <h2 id={toc[1].id}>{toc[1].label}</h2>
         <p>
           Building a good categorical palette is harder than it looks. Requirements: colors must be visually distinct (hue difference ≥ 30°), distinguishable when small (line weight, marker size), and work on both white and dark backgrounds.
         </p>
@@ -100,7 +100,7 @@ export function DataVizColor() {
           ))}
         </div>
 
-        <h2 id="colorblind">Color blindness</h2>
+        <h2 id={toc[2].id}>{toc[2].label}</h2>
         <p>
           About 8% of men and 0.5% of women have some form of color vision deficiency. The most common: deuteranopia (green deficiency) and protanopia (red deficiency), collectively "red-green" color blindness.
         </p>
@@ -118,7 +118,7 @@ export function DataVizColor() {
           "Red = bad, green = good" is the most common colorblind failure in product analytics. Use a diverging scale with blue/orange instead — distinguishable under all common forms of color vision deficiency.
         </Callout>
 
-        <h2 id="dark-mode">Viz in dark mode</h2>
+        <h2 id={toc[3].id}>{toc[3].label}</h2>
         <p>
           Visualization colors need a separate dark mode adjustment — the same saturated colors that work on white become harsh and over-vibrant on dark backgrounds. In dark mode:
         </p>

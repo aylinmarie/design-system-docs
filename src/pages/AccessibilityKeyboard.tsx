@@ -36,7 +36,7 @@ export function AccessibilityKeyboard() {
           Keyboard accessibility enables anyone who can't use a pointer — motor disabilities, power users, assistive tech users — to use your product fully.
         </p>
 
-        <h2 id="why-keyboard">Why keyboard access</h2>
+        <h2 id={toc[0].id}>{toc[0].label}</h2>
         <p>
           Keyboard-accessible interfaces support: people with motor impairments who use keyboards, switches, or voice control; screen reader users who navigate primarily via keyboard; power users who prefer keyboard for efficiency; and developers testing the product.
         </p>
@@ -48,7 +48,7 @@ export function AccessibilityKeyboard() {
           The most common keyboard failure: attaching behavior only to <code>click</code> events on non-button elements. A <code>div</code> with <code>onClick</code> doesn't receive keyboard events, doesn't appear in the tab order, and provides no semantic role. Use native elements (<code>button</code>, <code>a</code>) or add <code>role</code>, <code>tabindex</code>, and <code>onKeyDown</code>.
         </Callout>
 
-        <h2 id="focus-order">Focus order & management</h2>
+        <h2 id={toc[1].id}>{toc[1].label}</h2>
         <p>
           The natural tab order follows DOM order. This means the visual layout and DOM order must be aligned — don't reorder elements with CSS in a way that breaks keyboard traversal.
         </p>
@@ -75,7 +75,7 @@ function closeDialog(triggerRef: RefObject<HTMLElement>) {
   triggerRef.current?.focus()
 }`}</code></pre>
 
-        <h2 id="patterns">Common keyboard patterns</h2>
+        <h2 id={toc[2].id}>{toc[2].label}</h2>
         <p>
           The <a href="https://www.w3.org/WAI/ARIA/apg/" target="_blank" rel="noopener noreferrer">ARIA Authoring Practices Guide (APG)</a> defines keyboard interaction patterns for common widget types. These are the patterns your system components should implement:
         </p>
@@ -97,7 +97,7 @@ function closeDialog(triggerRef: RefObject<HTMLElement>) {
           </div>
         </div>
 
-        <h2 id="traps">Focus traps</h2>
+        <h2 id={toc[3].id}>{toc[3].label}</h2>
         <p>
           A focus trap keeps keyboard focus inside a container — required for modals and dialogs (users shouldn't be able to Tab out of an open modal). Implementing one correctly:
         </p>

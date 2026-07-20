@@ -33,7 +33,7 @@ export function DataVizCharts() {
           When all dashboards in a product use the same chart anatomy, users can switch between them without relearning how to read axes, legends, or tooltips. That's the practical return on standardizing chart patterns.
         </p>
 
-        <h2 id="chart-selection">Choosing the right chart</h2>
+        <h2 id={toc[0].id}>{toc[0].label}</h2>
         <p>
           The choice of chart type should be driven by the data relationship you're communicating, not aesthetic preference. Use this as a reference:
         </p>
@@ -58,7 +58,7 @@ export function DataVizCharts() {
           </div>
         </div>
 
-        <h2 id="common-patterns">Common chart patterns</h2>
+        <h2 id={toc[1].id}>{toc[1].label}</h2>
 
         <h3>The anatomy of a system chart</h3>
         <p>
@@ -84,7 +84,7 @@ export function DataVizCharts() {
   <Sparkline data={historicalData} aria-hidden="true" />
 </div>`}</code></pre>
 
-        <h2 id="anti-patterns">Anti-patterns to avoid</h2>
+        <h2 id={toc[2].id}>{toc[2].label}</h2>
 
         <Callout type="warning" title="The worst offenders">
           These chart patterns appear constantly and communicate poorly.

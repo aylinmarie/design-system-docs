@@ -30,7 +30,7 @@ export function WhatIsADesignSystem() {
           components.
         </p>
 
-        <h2 id="the-definition">The definition</h2>
+        <h2 id={toc[0].id}>{toc[0].label}</h2>
         <p>
           A design system is the set of decisions a team has made about how to
           build — and the tools, documentation, and components that make those
@@ -58,7 +58,7 @@ export function WhatIsADesignSystem() {
           component spec, they're starting a design system.
         </p>
 
-        <h2 id="layers">The three layers</h2>
+        <h2 id={toc[1].id}>{toc[1].label}</h2>
         <p>
           Design systems are usefully thought of in three layers, each building
           on the one below:
@@ -123,7 +123,7 @@ export function WhatIsADesignSystem() {
           everything above it more coherent.
         </p>
 
-        <h2 id="what-it-is-not">What it's not</h2>
+        <h2 id={toc[2].id}>{toc[2].label}</h2>
         <p>
           A design system is <strong>not</strong>:
         </p>
@@ -146,7 +146,7 @@ export function WhatIsADesignSystem() {
           </li>
         </ul>
 
-        <h2 id="the-real-value">The real value</h2>
+        <h2 id={toc[3].id}>{toc[3].label}</h2>
         <p>
           The ROI of a design system is rarely in the components themselves.
           It's in the decisions that don't have to be made twice. Every time a

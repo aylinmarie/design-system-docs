@@ -25,7 +25,7 @@ export function Versioning() {
           How you version and release your system determines how much trust product teams put in it. Predictability is the goal.
         </p>
 
-        <h2 id="semver">Semantic versioning</h2>
+        <h2 id={toc[0].id}>{toc[0].label}</h2>
         <p>
           Design systems should follow semantic versioning (semver): <code>MAJOR.MINOR.PATCH</code>.
         </p>
@@ -42,7 +42,7 @@ export function Versioning() {
           Some teams use <code>0.x</code> versioning to avoid commitment to a stable API. This is fine early in development but creates problems as teams adopt the system. Move to <code>1.0</code> when you're ready to make stability commitments — and then keep them.
         </Callout>
 
-        <h2 id="breaking-changes">Managing breaking changes</h2>
+        <h2 id={toc[1].id}>{toc[1].label}</h2>
         <p>
           Breaking changes are sometimes necessary. When they are:
         </p>
@@ -63,7 +63,7 @@ function Button({ isDisabled, disabled, ...props }) {
   return <button disabled={isDisabled ?? disabled} {...props} />
 }`}</code></pre>
 
-        <h2 id="release-process">Release process</h2>
+        <h2 id={toc[2].id}>{toc[2].label}</h2>
         <p>
           A good release process is automated, predictable, and generates useful changelogs:
         </p>
@@ -74,7 +74,7 @@ function Button({ isDisabled, disabled, ...props }) {
           <li><strong>Automated publish</strong> — CI publishes on merge to main; no manual npm publish steps</li>
         </ul>
 
-        <h2 id="multi-version">Supporting multiple versions</h2>
+        <h2 id={toc[3].id}>{toc[3].label}</h2>
         <p>
           As the organization grows, some product teams will lag behind on versions. At scale, you'll likely need to support N and N-1 simultaneously with security patches.
         </p>

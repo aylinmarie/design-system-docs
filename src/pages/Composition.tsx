@@ -24,7 +24,7 @@ export function Composition() {
           Components compose upward. The patterns you choose at the component level determine how flexible the system is at the product level.
         </p>
 
-        <h2 id="atomic-design">Atomic design in practice</h2>
+        <h2 id={toc[0].id}>{toc[0].label}</h2>
         <p>
           Brad Frost's atomic design gives us a useful vocabulary: atoms (Button, Input), molecules (FormField = Label + Input + Error), organisms (LoginForm = multiple molecules), templates, and pages.
         </p>
@@ -40,7 +40,7 @@ export function Composition() {
           The design system should own primitives and some widely-shared patterns. It shouldn't try to own product components — that's where teams need maximum flexibility.
         </p>
 
-        <h2 id="compound">Compound components</h2>
+        <h2 id={toc[1].id}>{toc[1].label}</h2>
         <p>
           Compound components are a pattern where multiple sub-components work together through shared context, rather than a single monolithic component with dozens of props:
         </p>
@@ -70,7 +70,7 @@ export function Composition() {
           Compound components are more powerful but more complex for consumers to learn. Use them for complex widgets (Select, Dialog, Tabs, Menu). For simple components, a flat props API is easier to adopt.
         </Callout>
 
-        <h2 id="context">Context & state sharing</h2>
+        <h2 id={toc[2].id}>{toc[2].label}</h2>
         <p>
           Compound components usually rely on React context to share state between parent and children without prop drilling. The pattern:
         </p>

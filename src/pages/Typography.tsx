@@ -36,7 +36,7 @@ export function Typography() {
           A type system is a fixed set of size, weight, and spacing decisions made once, named by purpose, and reused everywhere. Without one, teams pick values ad hoc and the interface reads as inconsistent.
         </p>
 
-        <h2 id="type-scale">The type scale</h2>
+        <h2 id={toc[0].id}>{toc[0].label}</h2>
         <p>
           A type scale is a limited set of font sizes with names that describe their purpose, not their pixel value. Naming sizes semantically — <code>heading.lg</code> rather than <code>24px</code> — decouples intent from implementation and makes responsive scaling possible.
         </p>
@@ -77,7 +77,7 @@ export function Typography() {
           </div>
         </div>
 
-        <h2 id="typeface-selection">Typeface selection</h2>
+        <h2 id={toc[1].id}>{toc[1].label}</h2>
         <p>
           Most design systems use one typeface family with a variable or multi-weight setup. Criteria for selecting one:
         </p>
@@ -93,7 +93,7 @@ export function Typography() {
           System-ui renders differently on Windows vs macOS vs iOS. Use a web font with explicit fallbacks. Inter is the right call for most products — it was designed for screens, has excellent OpenType support, and is free.
         </Callout>
 
-        <h2 id="line-height">Line height & measure</h2>
+        <h2 id={toc[2].id}>{toc[2].label}</h2>
         <p>
           Two properties that designers often underspecify:
         </p>
@@ -106,7 +106,7 @@ export function Typography() {
           The optimal reading length is 50–75 characters per line. In CSS: <code>max-width: 65ch</code> on your prose containers. Never let content run full-width on wide screens — it destroys readability.
         </p>
 
-        <h2 id="type-tokens">Typography tokens</h2>
+        <h2 id={toc[3].id}>{toc[3].label}</h2>
         <p>
           Tokenize the full type style, not just font size. A type style token bundles size, weight, line height, and letter spacing:
         </p>
@@ -127,7 +127,7 @@ export function Typography() {
   }
 }`}</code></pre>
 
-        <h2 id="responsive">Responsive type</h2>
+        <h2 id={toc[4].id}>{toc[4].label}</h2>
         <p>
           Don't just scale text down on mobile — rethink the hierarchy. A 3rem display heading often needs to drop to 2rem on small screens, and the relative weights may need to shift too.
         </p>

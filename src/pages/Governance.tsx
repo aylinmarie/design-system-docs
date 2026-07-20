@@ -25,7 +25,7 @@ export function Governance() {
           Who can contribute what, and how? Governance is what separates a design system that scales from one that quietly forks.
         </p>
 
-        <h2 id="models">Contribution models</h2>
+        <h2 id={toc[0].id}>{toc[0].label}</h2>
         <p>
           Three archetypes, each with different tradeoffs:
         </p>
@@ -68,7 +68,7 @@ export function Governance() {
           ))}
         </div>
 
-        <h2 id="intake">Intake & prioritization</h2>
+        <h2 id={toc[1].id}>{toc[1].label}</h2>
         <p>
           Define a clear process for how component requests enter the system. The questions that should drive prioritization:
         </p>
@@ -83,7 +83,7 @@ export function Governance() {
           Keep a public log of all component requests, their status, and rationale for accept/reject decisions. Transparency reduces the frustration of teams whose requests are declined. They can see the reasoning and know their request was considered.
         </Callout>
 
-        <h2 id="review">Review process</h2>
+        <h2 id={toc[2].id}>{toc[2].label}</h2>
         <p>
           For contributed components, a quality bar checklist before merge:
         </p>
@@ -96,7 +96,7 @@ export function Governance() {
           <li><strong>Testing</strong> — unit tests, visual regression baseline</li>
         </ol>
 
-        <h2 id="adoption">Driving adoption</h2>
+        <h2 id={toc[3].id}>{toc[3].label}</h2>
         <p>
           The hardest part of running a design system isn't building it — it's getting teams to use it and stay on it. Things that work:
         </p>

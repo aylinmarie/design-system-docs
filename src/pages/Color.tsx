@@ -46,7 +46,7 @@ export function Color() {
           A color system is a structured set of palette and semantic decisions. Without one, the same interactive state gets a different shade in every component and the visual language breaks down.
         </p>
 
-        <h2 id="palette">The palette structure</h2>
+        <h2 id={toc[0].id}>{toc[0].label}</h2>
         <p>
           Start with a global palette — a full range of named steps for each color. A 50–900 step system (following Tailwind's approach) gives enough resolution for subtle backgrounds, borders, and high-contrast text.
         </p>
@@ -76,7 +76,7 @@ export function Color() {
           The global palette should be exhaustive but not opinionated about usage. It's a vocabulary — semantic tokens assign the meaning.
         </p>
 
-        <h2 id="semantic">Semantic color roles</h2>
+        <h2 id={toc[1].id}>{toc[1].label}</h2>
         <p>
           Semantic tokens give names to color roles. The four main categories:
         </p>
@@ -105,7 +105,7 @@ export function Color() {
   --color-feedback-warning: var(--global-amber-600);
 }`}</code></pre>
 
-        <h2 id="dark-mode">Dark mode</h2>
+        <h2 id={toc[2].id}>{toc[2].label}</h2>
         <p>
           Dark mode is where a semantic token layer pays off immediately. With semantic tokens, dark mode is a token override — not a stylesheet full of overrides on every component.
         </p>
@@ -120,7 +120,7 @@ export function Color() {
           Dark mode isn't a color inversion. Dark surfaces should use slightly elevated grays (not pure black), and you often need to reduce the saturation of accent colors to prevent them from vibrating against dark backgrounds.
         </Callout>
 
-        <h2 id="contrast">Contrast & accessibility</h2>
+        <h2 id={toc[3].id}>{toc[3].label}</h2>
         <p>
           <a href="https://www.w3.org/TR/WCAG21/" target="_blank" rel="noopener noreferrer">WCAG 2.1</a> sets minimums: 4.5:1 for body text, 3:1 for large text and UI components. WCAG 3.0 introduces <a href="https://apcacontrast.com/" target="_blank" rel="noopener noreferrer">APCA</a>, a perceptual model that factors in font weight and size.
         </p>

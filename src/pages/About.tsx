@@ -85,7 +85,7 @@ export function About() {
           ))}
         </div>
 
-        <h2 id="contribute">Contribute</h2>
+        <h2 id={toc[3].id}>{toc[3].label}</h2>
         <p>
           This guide is open source. If you find an error, want to add nuance to
           a section, or think something important is missing, contributions are

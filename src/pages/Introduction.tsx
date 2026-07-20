@@ -45,7 +45,7 @@ export function Introduction() {
           course to buy, no email to give, no paywall to hit.
         </p>
 
-        <h2 id="who-this-is-for">Who this is for</h2>
+        <h2 id={toc[0].id}>{toc[0].label}</h2>
         <p>
           This guide is for practitioners — designers and engineers who are
           building, contributing to, or inheriting a design system. It assumes
@@ -58,7 +58,7 @@ export function Introduction() {
           scale across dozens of product squads, there's something here for you.
         </p>
 
-        <h2 id="how-to-use">How to use this guide</h2>
+        <h2 id={toc[1].id}>{toc[1].label}</h2>
         <p>
           This isn't meant to be read cover to cover. Use the sidebar to jump to
           what's relevant right now. Topics are organized roughly by the order
@@ -81,7 +81,7 @@ export function Introduction() {
           </li>
         </ol>
 
-        <h2 id="why-free">Why it's free</h2>
+        <h2 id={toc[2].id}>{toc[2].label}</h2>
         <p>
           There are a lot of courses, ebooks, and workshops about design systems
           — most of them cost money. The practitioners who need this knowledge
@@ -123,7 +123,7 @@ export function Introduction() {
           ))}
         </div>
 
-        <h2 id="philosophy">A note on philosophy</h2>
+        <h2 id={toc[3].id}>{toc[3].label}</h2>
         <p>
           A design system is not a component library. It's a product with
           customers — your internal teams. Like any product, it needs to solve
@@ -143,7 +143,7 @@ export function Introduction() {
           always look back and wonder how they shipped anything without it.
         </p>
 
-        <h2 id="contribute">Contribute</h2>
+        <h2 id={toc[4].id}>{toc[4].label}</h2>
         <p>
           This guide is open source. If you find an error, want to add nuance to
           a section, or think something important is missing, contributions are

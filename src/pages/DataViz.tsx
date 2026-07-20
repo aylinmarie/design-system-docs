@@ -25,7 +25,7 @@ export function DataViz() {
           Data visualization is one of the hardest design problems to systematize. The number of ways to get it wrong vastly outnumber the ways to get it right.
         </p>
 
-        <h2 id="principles">Core principles</h2>
+        <h2 id={toc[0].id}>{toc[0].label}</h2>
 
         <h3>Encode data, don't decorate it</h3>
         <p>
@@ -58,7 +58,7 @@ export function DataViz() {
           The most effective charts in business contexts often have direct annotations — "Revenue up 23% vs. last quarter" — rather than letting the user interpret the visual. The chart provides context; the annotation delivers the insight.
         </Callout>
 
-        <h2 id="hierarchy">Visual hierarchy in charts</h2>
+        <h2 id={toc[1].id}>{toc[1].label}</h2>
         <p>
           A chart is a document with a visual hierarchy:
         </p>
@@ -72,7 +72,7 @@ export function DataViz() {
           Most poor charts fail because the reference layer (gridlines, axis labels) competes visually with the data layer. Use light gray for gridlines, reduce label size, and remove everything that doesn't help interpretation.
         </p>
 
-        <h2 id="tokens">Data viz tokens</h2>
+        <h2 id={toc[2].id}>{toc[2].label}</h2>
         <p>
           Data visualization needs its own token set. These are separate from UI tokens because the color requirements differ — viz colors need to be visually distinct, perceptually ordered (for sequential scales), and work at small mark sizes.
         </p>
@@ -101,7 +101,7 @@ export function DataViz() {
 --viz-gridline-color: #f3f4f6;
 --viz-label-color:    #6b7280;`}</code></pre>
 
-        <h2 id="accessibility">Accessibility in charts</h2>
+        <h2 id={toc[3].id}>{toc[3].label}</h2>
         <p>
           Charts are one of the most inaccessible parts of most products. Minimum requirements:
         </p>

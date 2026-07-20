@@ -25,7 +25,7 @@ export function AccessibilityAria() {
           Semantic HTML communicates structure. ARIA fills the gaps for patterns that HTML can't express natively.
         </p>
 
-        <h2 id="first-rule">First rule of ARIA</h2>
+        <h2 id={toc[0].id}>{toc[0].label}</h2>
         <p>
           The first rule of ARIA use: <strong>don't use ARIA if you can use a native HTML element that already has the role and behavior you need.</strong>
         </p>
@@ -42,7 +42,7 @@ export function AccessibilityAria() {
           Native HTML elements give you role, keyboard behavior, and state management for free. ARIA only adds a role to the accessibility tree — it doesn't add keyboard interaction. You still have to wire that up.
         </p>
 
-        <h2 id="roles">Roles, states, properties</h2>
+        <h2 id={toc[1].id}>{toc[1].label}</h2>
         <p>
           ARIA has three categories of attributes:
         </p>
@@ -82,7 +82,7 @@ function Accordion({ label, children }) {
           ARIA attributes modify the accessibility tree only. <code>aria-hidden="true"</code> removes something from screen readers but doesn't hide it visually. Always pair ARIA with appropriate visual presentation.
         </Callout>
 
-        <h2 id="live-regions">Live regions</h2>
+        <h2 id={toc[2].id}>{toc[2].label}</h2>
         <p>
           Live regions announce dynamic content changes to screen readers without moving focus. Critical for: form validation errors, toast notifications, search results updating, status messages.
         </p>
@@ -106,7 +106,7 @@ function Accordion({ label, children }) {
           Use <code>assertive</code> sparingly — it interrupts whatever the screen reader is currently reading. Reserve it for actual errors. Use <code>polite</code> for status updates and confirmations.
         </p>
 
-        <h2 id="labeling">Labeling patterns</h2>
+        <h2 id={toc[3].id}>{toc[3].label}</h2>
         <p>
           Every interactive element needs an accessible name. The precedence order (highest to lowest):
         </p>

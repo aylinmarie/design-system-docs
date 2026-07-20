@@ -29,7 +29,7 @@ export function Accessibility() {
           Fix accessibility in the system once and every product team that consumes it inherits the fix. That's a much better return than each team solving the same problem independently.
         </Callout>
 
-        <h2 id="wcag">WCAG conformance levels</h2>
+        <h2 id={toc[0].id}>{toc[0].label}</h2>
         <p>
           The <a href="https://www.w3.org/WAI/standards-guidelines/wcag/" target="_blank" rel="noopener noreferrer">Web Content Accessibility Guidelines (WCAG)</a> organize requirements into three levels:
         </p>
@@ -56,7 +56,7 @@ export function Accessibility() {
           ))}
         </div>
 
-        <h2 id="system-role">The system's role</h2>
+        <h2 id={toc[1].id}>{toc[1].label}</h2>
         <p>
           A design system can't guarantee accessible products — that depends on how components are used in context. But it can dramatically raise the floor by making accessible patterns the default and inaccessible patterns harder to produce.
         </p>
@@ -71,7 +71,7 @@ export function Accessibility() {
           <li>Motion reduction support via <code>prefers-reduced-motion</code></li>
         </ul>
 
-        <h2 id="built-in">Baking in accessibility</h2>
+        <h2 id={toc[2].id}>{toc[2].label}</h2>
         <p>
           Concrete things to do at the system level:
         </p>
@@ -110,7 +110,7 @@ export function Accessibility() {
   Skip to main content
 </a>`}</code></pre>
 
-        <h2 id="testing">Testing strategy</h2>
+        <h2 id={toc[3].id}>{toc[3].label}</h2>
         <p>
           Automated tools catch ~30–40% of accessibility issues. Manual testing catches the rest. A solid strategy covers both:
         </p>
