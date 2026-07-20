@@ -29,7 +29,7 @@ export function Composition() {
           Brad Frost's atomic design gives us a useful vocabulary: atoms (Button, Input), molecules (FormField = Label + Input + Error), organisms (LoginForm = multiple molecules), templates, and pages.
         </p>
         <p>
-          In practice, I've found that strict adherence to all five levels creates overhead without benefit. The more useful distinction is between:
+          In practice, strict adherence to all five levels creates overhead without benefit. The more useful distinction is between:
         </p>
         <ul>
           <li><strong>Primitive components</strong> — atomic, low-level (Button, Input, Icon, Badge). These live in the design system.</li>

@@ -75,7 +75,7 @@ export function DesignTokens() {
 
         <h2 id="taxonomy">Taxonomy: global → semantic → component</h2>
         <p>
-          The most scalable token systems I've seen use three tiers:
+          The most scalable token systems use three tiers:
         </p>
 
         <h3>1. Global (primitive) tokens</h3>
@@ -124,7 +124,7 @@ export function DesignTokens() {
 
         <h2 id="naming">Naming conventions</h2>
         <p>
-          Good token names follow a predictable pattern. I use <code>category.property.variant.state</code>:
+          Good token names follow a predictable pattern: <code>category.property.variant.state</code>.
         </p>
 
         <pre><code>{`// Category: what it applies to

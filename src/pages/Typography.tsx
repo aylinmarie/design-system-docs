@@ -79,7 +79,7 @@ export function Typography() {
 
         <h2 id="typeface-selection">Typeface selection</h2>
         <p>
-          Most design systems use one typeface family with a variable or multi-weight setup. The criteria I use when selecting:
+          Most design systems use one typeface family with a variable or multi-weight setup. Criteria for selecting one:
         </p>
         <ul>
           <li><strong>Legibility at small sizes</strong> — the UI needs to work at 12–14px labels, not just 32px headlines</li>
@@ -108,7 +108,7 @@ export function Typography() {
 
         <h2 id="type-tokens">Typography tokens</h2>
         <p>
-          I recommend tokenizing the full type style, not just font size. A type style token bundles size, weight, line height, and letter spacing:
+          Tokenize the full type style, not just font size. A type style token bundles size, weight, line height, and letter spacing:
         </p>
         <pre><code>{`{
   "font": {

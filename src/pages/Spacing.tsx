@@ -41,7 +41,7 @@ export function Spacing() {
 
         <h2 id="base-unit">The base unit</h2>
         <p>
-          Every spacing system starts from a base unit. I use <strong>4px</strong> — everything is a multiple of 4. It's the sweet spot: granular enough for tight UI work, constrained enough to prevent arbitrary values.
+          Every spacing system starts from a base unit. <strong>4px</strong> works well — everything becomes a multiple of 4. It's granular enough for tight UI work and constrained enough to prevent arbitrary values.
         </p>
         <p>
           Some teams use 8px as the base (the "8-point grid"). 4px is more flexible for component-level spacing while still being consistent at the layout level.
@@ -53,7 +53,7 @@ export function Spacing() {
 
         <h2 id="spacing-scale">Spacing scale</h2>
         <p>
-          The scale below is what I use as a starting point. Steps 1–6 are for component-level spacing; 8–16 for layout-level spacing.
+          The scale below is a solid starting point. Steps 1–6 are for component-level spacing; 8–16 for layout-level spacing.
         </p>
 
         <div className="my-6 rounded-xl border border-gray-100 overflow-hidden">
@@ -91,7 +91,7 @@ export function Spacing() {
         </ul>
 
         <p>
-          Document your breakpoints explicitly. I use five: <code>xs (0)</code>, <code>sm (640)</code>, <code>md (768)</code>, <code>lg (1024)</code>, <code>xl (1280)</code>. Match these to your token system and your team's mental model.
+          Document your breakpoints explicitly. A common five-step set: <code>xs (0)</code>, <code>sm (640)</code>, <code>md (768)</code>, <code>lg (1024)</code>, <code>xl (1280)</code>. Match these to your token system and your team's mental model.
         </p>
 
         <h2 id="spacing-tokens">Spacing tokens</h2>

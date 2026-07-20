@@ -48,7 +48,7 @@ export function Color() {
 
         <h2 id="palette">The palette structure</h2>
         <p>
-          Start with a global palette — a full range of named steps for each color. I use 50–900 steps (following Tailwind's approach), which gives enough resolution for subtle backgrounds, borders, and high-contrast text.
+          Start with a global palette — a full range of named steps for each color. A 50–900 step system (following Tailwind's approach) gives enough resolution for subtle backgrounds, borders, and high-contrast text.
         </p>
 
         {palette.map(color => (

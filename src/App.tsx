@@ -1,6 +1,5 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { Layout } from './components/Layout'
-import { About } from './pages/About'
 import { Introduction } from './pages/Introduction'
 import { WhatIsADesignSystem } from './pages/WhatIsADesignSystem'
 import { DesignTokens } from './pages/DesignTokens'
@@ -25,7 +24,6 @@ export default function App() {
     <BrowserRouter>
       <Routes>
         <Route element={<Layout />}>
-          <Route path="/about" element={<About />} />
           <Route path="/" element={<Introduction />} />
           <Route path="/what-is-a-design-system" element={<WhatIsADesignSystem />} />
           <Route path="/design-tokens" element={<DesignTokens />} />
