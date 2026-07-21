@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { Analytics } from '@vercel/analytics/react'
 import { Layout } from './components/Layout'
 import { Introduction } from './pages/Introduction'
 import { WhatIsADesignSystem } from './pages/WhatIsADesignSystem'
@@ -44,6 +45,7 @@ export default function App() {
           <Route path="/versioning" element={<Versioning />} />
         </Route>
       </Routes>
+      <Analytics />
     </BrowserRouter>
   )
 }
