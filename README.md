@@ -1,32 +1,36 @@
-# React + TypeScript + Vite
+# Design Systems Docs
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+An open source knowledge base on design systems, for designers and engineers who are building, contributing to, or inheriting one. It covers the ground between a solo designer formalizing conventions and a tech lead architecting a platform for dozens of product squads: foundations, component architecture, accessibility, data visualization, and governance.
 
-Currently, two official plugins are available:
+## Sections
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- **Getting Started** — what a design system is, and who this guide is for
+- **Foundations** — design tokens, typography, color, spacing & grid, iconography
+- **Component Architecture** — component API design, composition patterns
+- **Accessibility** — WCAG conformance, color & contrast, keyboard navigation, ARIA & semantics
+- **Data Visualization** — principles, color, chart patterns
+- **Governance** — contribution models, versioning & releases
 
-## React Compiler
+## Stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+React 19, React Router 7, [Radix UI Themes](https://www.radix-ui.com/themes), Vite, TypeScript. Linted with [oxlint](https://oxc.rs).
 
-## Expanding the Oxlint configuration
+## Development
 
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
-
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
+```bash
+npm install
+npm run dev      # start the dev server
+npm run build    # type-check and build for production
+npm run lint     # run oxlint
+npm run preview  # preview the production build locally
 ```
 
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+## Contributing
+
+This guide is open source and opinionated but not dogmatic — where there are genuine tradeoffs, it names them rather than pretending there's one right answer.
+
+- **Corrections** — open an issue or PR with a specific change and why
+- **New sections** — open an issue first to discuss scope before writing
+- **Examples** — real-world examples from your own experience are the highest-value addition
+
+Source: [github.com/aylinmarie/design-system-docs](https://github.com/aylinmarie/design-system-docs)
