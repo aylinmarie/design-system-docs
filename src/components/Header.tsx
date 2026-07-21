@@ -1,5 +1,5 @@
-import { Box, Text, IconButton, TextField, Kbd, Link } from '@radix-ui/themes'
-import { Search, Menu, X } from 'lucide-react'
+import { Box, Text, IconButton, Badge, Link, Flex } from '@radix-ui/themes'
+import { Menu, X } from 'lucide-react'
 import { Link as RouterLink } from 'react-router-dom'
 
 interface HeaderProps {
@@ -21,20 +21,11 @@ export function Header({ onMenuToggle, menuOpen }: HeaderProps) {
               <rect x="8" y="8" width="5" height="5" rx="1" fill="white" fillOpacity="0.9" />
             </svg>
           </Box>
-          <Text size="2" weight="medium" color="gray">Design Systems Guide</Text>
+          <Flex align="center" gap="2">
+            <Text size="2" weight="medium" color="gray">Design Systems Docs</Text>
+            <Badge color="violet" variant="soft" size="1">Beta</Badge>
+          </Flex>
         </RouterLink>
-
-        {/* Search */}
-        <Box className="header-search">
-          <TextField.Root size="1" placeholder="Search docs…" aria-label="Search docs">
-            <TextField.Slot>
-              <Search size={13} aria-hidden="true" />
-            </TextField.Slot>
-            <TextField.Slot side="right">
-              <Kbd size="1">⌘K</Kbd>
-            </TextField.Slot>
-          </TextField.Root>
-        </Box>
 
         <Box className="header-spacer" />
 
