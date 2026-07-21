@@ -30,7 +30,7 @@ export function DataVizColor() {
     <>
       <TableOfContents items={toc} />
       <article className="doc-article">
-        <Text size="1" weight="bold" color="violet" className="doc-category">Data Visualization</Text>
+        <Text size="1" weight="bold" color="blue" className="doc-category">Data Visualization</Text>
         <Heading as="h1" size="8" mb="2">Color in Data Viz</Heading>
         <Text as="p" size="3" color="gray" className="doc-lead">
           Data viz color has different constraints than UI color. Distinctness, perceptual ordering, and colorblind accessibility all demand specific choices.

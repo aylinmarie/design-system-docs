@@ -29,7 +29,7 @@ export function AccessibilityKeyboard() {
     <>
       <TableOfContents items={toc} />
       <article className="doc-article">
-        <Text size="1" weight="bold" color="violet" className="doc-category">Accessibility</Text>
+        <Text size="1" weight="bold" color="blue" className="doc-category">Accessibility</Text>
         <Heading as="h1" size="8" mb="2">Keyboard Navigation</Heading>
         <Text as="p" size="3" color="gray" className="doc-lead">
           Keyboard accessibility enables anyone who can't use a pointer — motor disabilities, power users, assistive tech users — to use your product fully.

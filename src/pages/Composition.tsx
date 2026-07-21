@@ -17,7 +17,7 @@ export function Composition() {
     <>
       <TableOfContents items={toc} />
       <article className="doc-article">
-        <Text size="1" weight="bold" color="violet" className="doc-category">Component Architecture</Text>
+        <Text size="1" weight="bold" color="blue" className="doc-category">Component Architecture</Text>
         <Heading as="h1" size="8" mb="2">Composition Patterns</Heading>
         <Text as="p" size="3" color="gray" className="doc-lead">
           Components compose upward. The patterns you choose at the component level determine how flexible the system is at the product level.

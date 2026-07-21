@@ -30,7 +30,7 @@ export function AccessibilityContrast() {
     <>
       <TableOfContents items={toc} />
       <article className="doc-article">
-        <Text size="1" weight="bold" color="violet" className="doc-category">Accessibility</Text>
+        <Text size="1" weight="bold" color="blue" className="doc-category">Accessibility</Text>
         <Heading as="h1" size="8" mb="2">Color & Contrast</Heading>
         <Text as="p" size="3" color="gray" className="doc-lead">
           Contrast is a prerequisite for legibility. Every text and interactive element needs a measurable, passing contrast ratio.

@@ -26,7 +26,7 @@ export function DataVizCharts() {
     <>
       <TableOfContents items={toc} />
       <article className="doc-article">
-        <Text size="1" weight="bold" color="violet" className="doc-category">Data Visualization</Text>
+        <Text size="1" weight="bold" color="blue" className="doc-category">Data Visualization</Text>
         <Heading as="h1" size="8" mb="2">Chart Patterns</Heading>
         <Text as="p" size="3" color="gray" className="doc-lead">
           When all dashboards in a product use the same chart anatomy, users can switch between them without relearning how to read axes, legends, or tooltips. That's the practical return on standardizing chart patterns.

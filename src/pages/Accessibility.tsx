@@ -24,7 +24,7 @@ export function Accessibility() {
     <>
       <TableOfContents items={toc} />
       <article className="doc-article">
-        <Text size="1" weight="bold" color="violet" className="doc-category">Accessibility</Text>
+        <Text size="1" weight="bold" color="blue" className="doc-category">Accessibility</Text>
         <Heading as="h1" size="8" mb="2">Why it matters</Heading>
         <Text as="p" size="3" color="gray" className="doc-lead">
           Accessibility is a technical and design standard that determines whether your product works for the full range of people who use it — including those with visual, motor, cognitive, or auditory disabilities.

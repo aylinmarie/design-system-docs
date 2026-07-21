@@ -32,7 +32,7 @@ export function DesignTokens() {
     <>
       <TableOfContents items={toc} />
       <article className="doc-article">
-        <Text size="1" weight="bold" color="violet" className="doc-category">Foundations</Text>
+        <Text size="1" weight="bold" color="blue" className="doc-category">Foundations</Text>
         <Heading as="h1" size="8" mb="2">Design Tokens</Heading>
         <Text as="p" size="3" color="gray" className="doc-lead">
           The atomic decisions of your system. Every visual property that repeats is a candidate for a token.

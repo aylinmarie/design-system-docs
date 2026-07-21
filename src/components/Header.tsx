@@ -1,6 +1,7 @@
-import { Box, Text, IconButton, Badge, Link, Flex } from '@radix-ui/themes'
-import { Menu, X } from 'lucide-react'
+import { Box, Text, IconButton, Link, Flex } from '@radix-ui/themes'
+import { Menu, X, Search, Sun, Moon } from 'lucide-react'
 import { Link as RouterLink } from 'react-router-dom'
+import { useThemeMode } from './ThemeModeProvider'
 
 interface HeaderProps {
   onMenuToggle: () => void
@@ -8,6 +9,8 @@ interface HeaderProps {
 }
 
 export function Header({ onMenuToggle, menuOpen }: HeaderProps) {
+  const { mode, toggle } = useThemeMode()
+
   return (
     <header className="app-header">
       <Box className="header-inner">
@@ -23,9 +26,21 @@ export function Header({ onMenuToggle, menuOpen }: HeaderProps) {
           </Box>
           <Flex align="center" gap="2">
             <Text size="2" weight="medium" color="gray">Design Systems Docs</Text>
-            <Badge color="violet" variant="soft" size="1">Beta</Badge>
+            <Box className="header-divider" aria-hidden="true" />
+            <Text size="1" weight="bold" color="gray" className="header-beta">Beta</Text>
           </Flex>
         </RouterLink>
+
+        {/* Search (visual placeholder — no search index yet) */}
+        <Box className="header-search">
+          <Box className="header-search-box">
+            <Search size={14} className="header-search-icon" aria-hidden="true" />
+            <Text size="2" color="gray" className="header-search-placeholder">Search docs&hellip;</Text>
+            <Text asChild className="header-kbd">
+              <kbd>&#8984;K</kbd>
+            </Text>
+          </Box>
+        </Box>
 
         <Box className="header-spacer" />
 
@@ -43,6 +58,17 @@ export function Header({ onMenuToggle, menuOpen }: HeaderProps) {
             GitHub
           </Link>
         </Box>
+
+        {/* Dark mode toggle */}
+        <IconButton
+          variant="ghost"
+          color="gray"
+          onClick={toggle}
+          aria-label={mode === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+          size="2"
+        >
+          {mode === 'dark' ? <Sun size={16} aria-hidden="true" /> : <Moon size={16} aria-hidden="true" />}
+        </IconButton>
 
         {/* Mobile menu toggle */}
         <IconButton
