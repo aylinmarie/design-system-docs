@@ -1,3 +1,4 @@
+import { Box, Heading, Text, Flex } from '@radix-ui/themes'
 import { TableOfContents, type TocItem } from '../components/TableOfContents'
 import { DocNav } from '../components/DocNav'
 import { Callout } from '../components/Callout'
@@ -24,46 +25,42 @@ export function DataVizCharts() {
   return (
     <>
       <TableOfContents items={toc} />
-      <article className="prose">
-        <div className="mb-6">
-          <span className="text-xs font-semibold uppercase tracking-widest text-violet-600">Data Visualization</span>
-        </div>
-        <h1>Chart Patterns</h1>
-        <p className="text-lg text-gray-500 mt-2 mb-8" style={{ fontSize: '1.0625rem', lineHeight: 1.7 }}>
+      <article className="doc-article">
+        <Text size="1" weight="bold" color="violet" className="doc-category">Data Visualization</Text>
+        <Heading as="h1" size="8" mb="2">Chart Patterns</Heading>
+        <Text as="p" size="3" color="gray" className="doc-lead">
           When all dashboards in a product use the same chart anatomy, users can switch between them without relearning how to read axes, legends, or tooltips. That's the practical return on standardizing chart patterns.
-        </p>
+        </Text>
 
-        <h2 id={toc[0].id}>{toc[0].label}</h2>
-        <p>
+        <Heading as="h2" size="6" mt="7" mb="3" className="doc-h2" id={toc[0].id}>{toc[0].label}</Heading>
+        <Text as="p" size="3" mb="3">
           The choice of chart type should be driven by the data relationship you're communicating, not aesthetic preference. Use this as a reference:
-        </p>
+        </Text>
 
-        <div className="my-5 rounded-xl border border-gray-100 overflow-hidden">
-          <div className="px-4 py-3 bg-gray-50 border-b border-gray-100 grid grid-cols-3 gap-4">
-            <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider m-0">Chart type</p>
-            <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider m-0">Use when</p>
-            <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider m-0">Avoid when</p>
-          </div>
-          <div className="divide-y divide-gray-50">
-            {chartTypes.map(chart => (
-              <div key={chart.type} className="px-4 py-3 grid grid-cols-3 gap-4 text-sm">
-                <div className="flex items-center gap-2">
-                  <span className="text-gray-300 text-lg leading-none">{chart.icon}</span>
-                  <span className="font-medium text-gray-900 text-xs">{chart.type}</span>
-                </div>
-                <span className="text-gray-600 text-xs leading-relaxed">{chart.use}</span>
-                <span className="text-gray-400 text-xs leading-relaxed">{chart.avoid}</span>
-              </div>
-            ))}
-          </div>
-        </div>
+        <Box className="demo-card">
+          <Box className="chart-table-header">
+            <Text size="1" weight="bold" color="gray" className="demo-label">Chart type</Text>
+            <Text size="1" weight="bold" color="gray" className="demo-label">Use when</Text>
+            <Text size="1" weight="bold" color="gray" className="demo-label">Avoid when</Text>
+          </Box>
+          {chartTypes.map(chart => (
+            <Box key={chart.type} className="chart-table-row">
+              <Flex align="center" gap="2">
+                <span className="chart-icon">{chart.icon}</span>
+                <Text size="1" weight="medium">{chart.type}</Text>
+              </Flex>
+              <Text size="1" color="gray">{chart.use}</Text>
+              <Text size="1" color="gray">{chart.avoid}</Text>
+            </Box>
+          ))}
+        </Box>
 
-        <h2 id={toc[1].id}>{toc[1].label}</h2>
+        <Heading as="h2" size="6" mt="7" mb="3" className="doc-h2" id={toc[1].id}>{toc[1].label}</Heading>
 
         <h3>The anatomy of a system chart</h3>
-        <p>
+        <Text as="p" size="3" mb="3">
           Document the anatomy of your standard chart components so that all instances share the same structure:
-        </p>
+        </Text>
         <ul>
           <li><strong>Chart container</strong> — handles sizing, responsive behavior, loading/empty states</li>
           <li><strong>Title region</strong> — title, subtitle, optional metadata (date range, source)</li>
@@ -74,9 +71,9 @@ export function DataVizCharts() {
         </ul>
 
         <h3>Sparklines & summary metrics</h3>
-        <p>
+        <Text as="p" size="3" mb="3">
           For dashboards, a common pattern is a metric card with an inline sparkline — a small trend chart without axes. Keep sparklines strictly presentational (no interaction). The metric number is what the user needs; the sparkline provides directional context only.
-        </p>
+        </Text>
         <pre><code>{`// Metric card pattern
 <div role="figure" aria-label="Monthly active users: 24,891 (↑12% vs. last month)">
   <MetricValue value={24891} label="Monthly active users" />
@@ -84,7 +81,7 @@ export function DataVizCharts() {
   <Sparkline data={historicalData} aria-hidden="true" />
 </div>`}</code></pre>
 
-        <h2 id={toc[2].id}>{toc[2].label}</h2>
+        <Heading as="h2" size="6" mt="7" mb="3" className="doc-h2" id={toc[2].id}>{toc[2].label}</Heading>
 
         <Callout type="warning" title="The worst offenders">
           These chart patterns appear constantly and communicate poorly.
@@ -100,7 +97,7 @@ export function DataVizCharts() {
         </ul>
 
         <DocNav currentPath={pathname} />
-      </article>
+    </article>
     </>
   )
 }

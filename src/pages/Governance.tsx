@@ -1,3 +1,4 @@
+import { Box, Heading, Text, Card, Flex } from '@radix-ui/themes'
 import { TableOfContents, type TocItem } from '../components/TableOfContents'
 import { DocNav } from '../components/DocNav'
 import { Callout } from '../components/Callout'
@@ -10,68 +11,64 @@ const toc: TocItem[] = [
   { id: 'adoption', label: 'Driving adoption', level: 2 },
 ]
 
+const contributionModels = [
+  {
+    model: 'Centralized',
+    desc: 'A dedicated design system team owns everything. Contributions go through formal review.',
+    pro: 'Highest consistency and quality control',
+    con: 'Bottleneck at scale; product teams feel blocked',
+    when: 'Early-stage systems, small organizations',
+  },
+  {
+    model: 'Federated',
+    desc: 'Core team maintains foundations; product teams contribute patterns under guidance.',
+    pro: 'Scales with the organization; reduces bottlenecks',
+    con: 'Requires strong documentation and review processes to maintain quality',
+    when: 'Most medium-to-large organizations',
+  },
+  {
+    model: 'Distributed',
+    desc: 'Any team can contribute; system team curates and ratifies.',
+    pro: 'Maximum contribution velocity',
+    con: 'High governance overhead; inconsistency risk without strong tooling',
+    when: 'Large orgs with mature systems and established culture',
+  },
+]
+
 export function Governance() {
   const { pathname } = useLocation()
 
   return (
     <>
       <TableOfContents items={toc} />
-      <article className="prose">
-        <div className="mb-6">
-          <span className="text-xs font-semibold uppercase tracking-widest text-violet-600">Governance</span>
-        </div>
-        <h1>Contribution Model</h1>
-        <p className="text-lg text-gray-500 mt-2 mb-8" style={{ fontSize: '1.0625rem', lineHeight: 1.7 }}>
+      <article className="doc-article">
+        <Text size="1" weight="bold" color="violet" className="doc-category">Governance</Text>
+        <Heading as="h1" size="8" mb="2">Contribution Model</Heading>
+        <Text as="p" size="3" color="gray" className="doc-lead">
           Who can contribute what, and how? Governance is what separates a design system that scales from one that quietly forks.
-        </p>
+        </Text>
 
-        <h2 id={toc[0].id}>{toc[0].label}</h2>
-        <p>
-          Three archetypes, each with different tradeoffs:
-        </p>
+        <Heading as="h2" size="6" mt="7" mb="3" className="doc-h2" id={toc[0].id}>{toc[0].label}</Heading>
+        <Text as="p" size="3" mb="3">Three archetypes, each with different tradeoffs:</Text>
 
-        <div className="my-5 space-y-3">
-          {[
-            {
-              model: 'Centralized',
-              desc: 'A dedicated design system team owns everything. Contributions go through formal review.',
-              pro: 'Highest consistency and quality control',
-              con: 'Bottleneck at scale; product teams feel blocked',
-              when: 'Early-stage systems, small organizations',
-            },
-            {
-              model: 'Federated',
-              desc: 'Core team maintains foundations; product teams contribute patterns under guidance.',
-              pro: 'Scales with the organization; reduces bottlenecks',
-              con: 'Requires strong documentation and review processes to maintain quality',
-              when: 'Most medium-to-large organizations',
-            },
-            {
-              model: 'Distributed',
-              desc: 'Any team can contribute; system team curates and ratifies.',
-              pro: 'Maximum contribution velocity',
-              con: 'High governance overhead; inconsistency risk without strong tooling',
-              when: 'Large orgs with mature systems and established culture',
-            },
-          ].map(item => (
-            <div key={item.model} className="p-4 rounded-xl border border-gray-100">
-              <div className="flex items-center gap-2 mb-2">
-                <span className="text-sm font-semibold text-gray-900">{item.model}</span>
-              </div>
-              <p className="text-sm text-gray-600 mb-2">{item.desc}</p>
-              <div className="flex gap-4 text-xs">
-                <span className="text-green-600"><strong>+</strong> {item.pro}</span>
-                <span className="text-red-500"><strong>–</strong> {item.con}</span>
-              </div>
-              <p className="text-xs text-gray-400 mt-1">Best for: {item.when}</p>
-            </div>
+        <Box mb="5">
+          {contributionModels.map(item => (
+            <Card key={item.model} variant="surface" mb="3">
+              <Text as="div" size="2" weight="bold" mb="1">{item.model}</Text>
+              <Text as="p" size="2" color="gray" mb="3">{item.desc}</Text>
+              <Flex gap="4">
+                <Text size="1" color="green"><strong>+</strong> {item.pro}</Text>
+                <Text size="1" color="red"><strong>–</strong> {item.con}</Text>
+              </Flex>
+              <Text size="1" color="gray" mt="2" style={{ display: 'block' }}>Best for: {item.when}</Text>
+            </Card>
           ))}
-        </div>
+        </Box>
 
-        <h2 id={toc[1].id}>{toc[1].label}</h2>
-        <p>
+        <Heading as="h2" size="6" mt="7" mb="3" className="doc-h2" id={toc[1].id}>{toc[1].label}</Heading>
+        <Text as="p" size="3" mb="3">
           Define a clear process for how component requests enter the system. The questions that should drive prioritization:
-        </p>
+        </Text>
         <ul>
           <li><strong>How many teams need this?</strong> — A component needed by 5 teams is a better investment than one needed by 1</li>
           <li><strong>What's the current divergence cost?</strong> — If 5 teams have all built their own version, the system version consolidates maintenance</li>
@@ -83,10 +80,10 @@ export function Governance() {
           Keep a public log of all component requests, their status, and rationale for accept/reject decisions. Transparency reduces the frustration of teams whose requests are declined. They can see the reasoning and know their request was considered.
         </Callout>
 
-        <h2 id={toc[2].id}>{toc[2].label}</h2>
-        <p>
+        <Heading as="h2" size="6" mt="7" mb="3" className="doc-h2" id={toc[2].id}>{toc[2].label}</Heading>
+        <Text as="p" size="3" mb="3">
           For contributed components, a quality bar checklist before merge:
-        </p>
+        </Text>
         <ol>
           <li><strong>Design review</strong> — does it align with existing patterns? Is it visually consistent?</li>
           <li><strong>Accessibility review</strong> — keyboard operable, screen reader tested, passes automated axe-core scan</li>
@@ -96,10 +93,10 @@ export function Governance() {
           <li><strong>Testing</strong> — unit tests, visual regression baseline</li>
         </ol>
 
-        <h2 id={toc[3].id}>{toc[3].label}</h2>
-        <p>
+        <Heading as="h2" size="6" mt="7" mb="3" className="doc-h2" id={toc[3].id}>{toc[3].label}</Heading>
+        <Text as="p" size="3" mb="3">
           The hardest part of running a design system isn't building it — it's getting teams to use it and stay on it. Things that work:
-        </p>
+        </Text>
         <ul>
           <li><strong>Make the right thing easy</strong> — the system component should be the path of least resistance, not a hurdle</li>
           <li><strong>Office hours</strong> — regular time for product teams to get help from the system team</li>
@@ -109,7 +106,7 @@ export function Governance() {
         </ul>
 
         <DocNav currentPath={pathname} />
-      </article>
+    </article>
     </>
   )
 }

@@ -1,3 +1,4 @@
+import { Box, Heading, Text, Flex } from '@radix-ui/themes'
 import { TableOfContents, type TocItem } from '../components/TableOfContents'
 import { DocNav } from '../components/DocNav'
 import { Callout } from '../components/Callout'
@@ -11,7 +12,6 @@ const toc: TocItem[] = [
 ]
 
 const spacingScale = [
-  { name: 'spacing.0', value: '0px', px: 0 },
   { name: 'spacing.1', value: '4px', px: 4 },
   { name: 'spacing.2', value: '8px', px: 8 },
   { name: 'spacing.3', value: '12px', px: 12 },
@@ -30,74 +30,65 @@ export function Spacing() {
   return (
     <>
       <TableOfContents items={toc} />
-      <article className="prose">
-        <div className="mb-6">
-          <span className="text-xs font-semibold uppercase tracking-widest text-violet-600">Foundations</span>
-        </div>
-        <h1>Spacing & Grid</h1>
-        <p className="text-lg text-gray-500 mt-2 mb-8" style={{ fontSize: '1.0625rem', lineHeight: 1.7 }}>
+      <article className="doc-article">
+        <Text size="1" weight="bold" color="violet" className="doc-category">Foundations</Text>
+        <Heading as="h1" size="8" mb="2">Spacing & Grid</Heading>
+        <Text as="p" size="3" color="gray" className="doc-lead">
           Spacing and layout are where visual rhythm lives. Consistent spacing makes interfaces feel considered, not arbitrary.
-        </p>
+        </Text>
 
-        <h2 id={toc[0].id}>{toc[0].label}</h2>
-        <p>
+        <Heading as="h2" size="6" mt="7" mb="3" className="doc-h2" id={toc[0].id}>{toc[0].label}</Heading>
+        <Text as="p" size="3" mb="3">
           Every spacing system starts from a base unit. <strong>4px</strong> works well — everything becomes a multiple of 4. It's granular enough for tight UI work and constrained enough to prevent arbitrary values.
-        </p>
-        <p>
+        </Text>
+        <Text as="p" size="3" mb="3">
           Some teams use 8px as the base (the "8-point grid"). 4px is more flexible for component-level spacing while still being consistent at the layout level.
-        </p>
+        </Text>
 
         <Callout type="tip" title="Enforce via tokens, not convention">
           "Use multiples of 4" only works if it's hard to do otherwise. Spacing tokens make it structural — designers pick from a finite set, and engineers map to a Tailwind scale or CSS custom properties. Arbitrary values become obvious violations.
         </Callout>
 
-        <h2 id={toc[1].id}>{toc[1].label}</h2>
-        <p>
+        <Heading as="h2" size="6" mt="7" mb="3" className="doc-h2" id={toc[1].id}>{toc[1].label}</Heading>
+        <Text as="p" size="3" mb="3">
           The scale below is a solid starting point. Steps 1–6 are for component-level spacing; 8–16 for layout-level spacing.
-        </p>
+        </Text>
 
-        <div className="my-6 rounded-xl border border-gray-100 overflow-hidden">
-          <div className="px-4 py-3 bg-gray-50 border-b border-gray-100">
-            <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Spacing scale (4px base)</p>
-          </div>
-          <div className="divide-y divide-gray-50">
-            {spacingScale.filter(s => s.px > 0).map(step => (
-              <div key={step.name} className="flex items-center gap-4 px-4 py-2">
-                <code className="text-xs text-violet-500 w-28 flex-shrink-0" style={{ fontFamily: 'JetBrains Mono, monospace', background: 'none', border: 'none', padding: 0 }}>
-                  {step.name}
-                </code>
-                <div
-                  className="flex-shrink-0"
-                  style={{ width: `${Math.min(step.px * 3, 240)}px`, height: '16px', background: 'rgba(124, 58, 237, 0.15)', borderRadius: '3px', minWidth: '4px' }}
-                  aria-hidden="true"
-                />
-                <code className="text-xs text-gray-400 ml-auto" style={{ fontFamily: 'JetBrains Mono, monospace', background: 'none', border: 'none', padding: 0 }}>
-                  {step.value}
-                </code>
-              </div>
-            ))}
-          </div>
-        </div>
+        <Box className="demo-card">
+          <Box className="demo-card-header">
+            <Text size="1" weight="bold" color="gray" className="demo-label">Spacing scale (4px base)</Text>
+          </Box>
+          {spacingScale.map(step => (
+            <Flex key={step.name} align="center" gap="4" className="demo-row">
+              <Text as="span" className="token-mono token-mono-accent" style={{ width: '7rem', flexShrink: 0 }}>{step.name}</Text>
+              <Box
+                className="spacing-bar"
+                aria-hidden="true"
+                style={{ '--bar-width': `${Math.min(step.px * 3, 240)}px` } as React.CSSProperties}
+              />
+              <Text as="span" className="token-mono token-mono-muted" style={{ marginLeft: 'auto' }}>{step.value}</Text>
+            </Flex>
+          ))}
+        </Box>
 
-        <h2 id={toc[2].id}>{toc[2].label}</h2>
-        <p>
+        <Heading as="h2" size="6" mt="7" mb="3" className="doc-h2" id={toc[2].id}>{toc[2].label}</Heading>
+        <Text as="p" size="3" mb="3">
           A layout grid defines how content aligns within a viewport. The standard web approach:
-        </p>
+        </Text>
         <ul>
           <li><strong>12 columns</strong> — gives the most flexibility for 1, 2, 3, 4, and 6-column layouts</li>
           <li><strong>24px gutter</strong> — increases to 32px on large screens</li>
           <li><strong>16–24px margin</strong> — the outer padding on small screens</li>
           <li><strong>Max-width container</strong> — 1280px or 1440px on large displays</li>
         </ul>
-
-        <p>
+        <Text as="p" size="3" mb="3">
           Document your breakpoints explicitly. A common five-step set: <code>xs (0)</code>, <code>sm (640)</code>, <code>md (768)</code>, <code>lg (1024)</code>, <code>xl (1280)</code>. Match these to your token system and your team's mental model.
-        </p>
+        </Text>
 
-        <h2 id={toc[3].id}>{toc[3].label}</h2>
-        <p>
+        <Heading as="h2" size="6" mt="7" mb="3" className="doc-h2" id={toc[3].id}>{toc[3].label}</Heading>
+        <Text as="p" size="3" mb="3">
           Spacing tokens come in two flavors: raw scale tokens, and semantic component tokens.
-        </p>
+        </Text>
         <pre><code>{`/* Raw scale — the vocabulary */
 --spacing-1:  4px;
 --spacing-2:  8px;
@@ -115,7 +106,7 @@ export function Spacing() {
 --layout-section-gap: var(--spacing-16); /* 64px */`}</code></pre>
 
         <DocNav currentPath={pathname} />
-      </article>
+    </article>
     </>
   )
 }

@@ -1,4 +1,5 @@
-import { Link } from 'react-router-dom'
+import { Box, Flex, Text, Separator, Link } from '@radix-ui/themes'
+import { Link as RouterLink } from 'react-router-dom'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 import { navigation } from '../data/navigation'
 
@@ -9,44 +10,42 @@ interface DocNavProps {
 export function DocNav({ currentPath }: DocNavProps) {
   const allItems = navigation.flatMap(group => group.items)
   const idx = allItems.findIndex(item => item.path === currentPath)
-
   const prev = idx > 0 ? allItems[idx - 1] : null
   const next = idx < allItems.length - 1 ? allItems[idx + 1] : null
 
   if (!prev && !next) return null
 
   return (
-    <nav className="flex items-center justify-between mt-12 pt-6 border-t border-gray-100">
-      {prev ? (
-        <Link
-          to={prev.path}
-          className="group flex items-center gap-2 text-sm text-gray-500 hover:text-gray-900 transition-colors no-underline"
-          style={{ textDecoration: 'none' }}
-        >
-          <ChevronLeft size={15} className="text-gray-400 group-hover:text-violet-600 transition-colors" />
-          <span>
-            <span className="block text-xs text-gray-400 mb-0.5">Previous</span>
-            {prev.label}
-          </span>
-        </Link>
-      ) : (
-        <div />
-      )}
-      {next ? (
-        <Link
-          to={next.path}
-          className="group flex items-center gap-2 text-sm text-gray-500 hover:text-gray-900 transition-colors text-right no-underline"
-          style={{ textDecoration: 'none' }}
-        >
-          <span>
-            <span className="block text-xs text-gray-400 mb-0.5">Next</span>
-            {next.label}
-          </span>
-          <ChevronRight size={15} className="text-gray-400 group-hover:text-violet-600 transition-colors" />
-        </Link>
-      ) : (
-        <div />
-      )}
-    </nav>
+    <Box mt="8">
+      <Separator size="4" mb="5" />
+      <Flex justify="between" align="center">
+        {prev ? (
+          <Link asChild color="gray" underline="none" className="docnav-link">
+            <RouterLink to={prev.path}>
+              <Flex align="center" gap="2">
+                <ChevronLeft size={14} className="docnav-icon" aria-hidden="true" />
+                <Box>
+                  <Text as="div" size="1" color="gray">Previous</Text>
+                  <Text as="div" size="2" weight="medium">{prev.label}</Text>
+                </Box>
+              </Flex>
+            </RouterLink>
+          </Link>
+        ) : <Box />}
+        {next ? (
+          <Link asChild color="gray" underline="none" className="docnav-link">
+            <RouterLink to={next.path}>
+              <Flex align="center" gap="2">
+                <Box style={{ textAlign: 'right' }}>
+                  <Text as="div" size="1" color="gray">Next</Text>
+                  <Text as="div" size="2" weight="medium">{next.label}</Text>
+                </Box>
+                <ChevronRight size={14} className="docnav-icon" aria-hidden="true" />
+              </Flex>
+            </RouterLink>
+          </Link>
+        ) : <Box />}
+      </Flex>
+    </Box>
   )
 }

@@ -1,3 +1,4 @@
+import { Box, Heading, Text, Flex } from '@radix-ui/themes'
 import { TableOfContents, type TocItem } from '../components/TableOfContents'
 import { DocNav } from '../components/DocNav'
 import { Callout } from '../components/Callout'
@@ -27,60 +28,50 @@ export function Typography() {
   return (
     <>
       <TableOfContents items={toc} />
-      <article className="prose">
-        <div className="mb-6">
-          <span className="text-xs font-semibold uppercase tracking-widest text-violet-600">Foundations</span>
-        </div>
-        <h1>Typography</h1>
-        <p className="text-lg text-gray-500 mt-2 mb-8" style={{ fontSize: '1.0625rem', lineHeight: 1.7 }}>
+      <article className="doc-article">
+        <Text size="1" weight="bold" color="violet" className="doc-category">Foundations</Text>
+        <Heading as="h1" size="8" mb="2">Typography</Heading>
+        <Text as="p" size="3" color="gray" className="doc-lead">
           A type system is a fixed set of size, weight, and spacing decisions made once, named by purpose, and reused everywhere. Without one, teams pick values ad hoc and the interface reads as inconsistent.
-        </p>
+        </Text>
 
-        <h2 id={toc[0].id}>{toc[0].label}</h2>
-        <p>
+        <Heading as="h2" size="6" mt="7" mb="3" className="doc-h2" id={toc[0].id}>{toc[0].label}</Heading>
+        <Text as="p" size="3" mb="3">
           A type scale is a limited set of font sizes with names that describe their purpose, not their pixel value. Naming sizes semantically — <code>heading.lg</code> rather than <code>24px</code> — decouples intent from implementation and makes responsive scaling possible.
-        </p>
-        <p>
+        </Text>
+        <Text as="p" size="3" mb="3">
           Use a mathematical ratio to generate your scale. Common ratios: <strong>1.25 (Major Third)</strong> for compact UIs, <strong>1.333 (Perfect Fourth)</strong> for content-heavy products, <strong>1.5 (Perfect Fifth)</strong> for dramatic hierarchy.
-        </p>
+        </Text>
 
-        {/* Live type scale */}
-        <div className="my-6 rounded-xl border border-gray-100 overflow-hidden">
-          <div className="px-4 py-3 bg-gray-50 border-b border-gray-100">
-            <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Type scale — Inter, Major Third (1.25)</p>
-          </div>
-          <div className="divide-y divide-gray-50">
-            {typeScale.map(step => (
-              <div key={step.name} className="px-4 py-4 flex items-baseline gap-6">
-                <div className="w-28 flex-shrink-0">
-                  <code className="text-xs text-gray-400" style={{ fontFamily: 'JetBrains Mono, monospace', background: 'none', border: 'none', padding: 0 }}>
-                    {step.size}
-                  </code>
-                  <br />
-                  <code className="text-xs text-violet-400" style={{ fontFamily: 'JetBrains Mono, monospace', background: 'none', border: 'none', padding: 0 }}>
-                    {step.name}
-                  </code>
-                </div>
-                <p
-                  className="text-gray-900 m-0"
-                  style={{
-                    fontSize: step.size,
-                    fontWeight: step.weight,
-                    lineHeight: step.lh,
-                    letterSpacing: parseFloat(step.size) > 1.5 ? '-0.02em' : 'normal',
-                  }}
-                >
-                  {step.sample}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
+        <Box className="demo-card">
+          <Box className="demo-card-header">
+            <Text size="1" weight="bold" color="gray" className="demo-label">Type scale — Inter, Major Third (1.25)</Text>
+          </Box>
+          {typeScale.map(step => (
+            <Flex key={step.name} align="baseline" className="type-scale-row">
+              <Box className="type-scale-meta">
+                <Text as="span" className="token-mono token-mono-muted" style={{ display: 'block' }}>{step.size}</Text>
+                <Text as="span" className="token-mono token-mono-accent" style={{ display: 'block' }}>{step.name}</Text>
+              </Box>
+              <p
+                className="type-sample"
+                data-negative-tracking={parseFloat(step.size) > 1.5 ? 'true' : undefined}
+                style={{
+                  '--sample-size': step.size,
+                  '--sample-weight': step.weight,
+                  '--sample-lh': step.lh,
+                } as React.CSSProperties}
+              >
+                {step.sample}
+              </p>
+            </Flex>
+          ))}
+        </Box>
 
-        <h2 id={toc[1].id}>{toc[1].label}</h2>
-        <p>
+        <Heading as="h2" size="6" mt="7" mb="3" className="doc-h2" id={toc[1].id}>{toc[1].label}</Heading>
+        <Text as="p" size="3" mb="3">
           Most design systems use one typeface family with a variable or multi-weight setup. Criteria for selecting one:
-        </p>
+        </Text>
         <ul>
           <li><strong>Legibility at small sizes</strong> — the UI needs to work at 12–14px labels, not just 32px headlines</li>
           <li><strong>Weight range</strong> — you need at least 4 weights: 400, 500, 600, 700</li>
@@ -93,23 +84,21 @@ export function Typography() {
           System-ui renders differently on Windows vs macOS vs iOS. Use a web font with explicit fallbacks. Inter is the right call for most products — it was designed for screens, has excellent OpenType support, and is free.
         </Callout>
 
-        <h2 id={toc[2].id}>{toc[2].label}</h2>
-        <p>
-          Two properties that designers often underspecify:
-        </p>
+        <Heading as="h2" size="6" mt="7" mb="3" className="doc-h2" id={toc[2].id}>{toc[2].label}</Heading>
+        <Text as="p" size="3" mb="3">Two properties that designers often underspecify:</Text>
         <h3>Line height</h3>
-        <p>
+        <Text as="p" size="3" mb="3">
           Use a <strong>unitless multiplier</strong> in tokens, not a fixed pixel value. <code>1.7</code> scales with font size; <code>27px</code> doesn't. For headings: 1.1–1.3. For body: 1.6–1.8. For UI labels: 1.3–1.4.
-        </p>
+        </Text>
         <h3>Measure (line length)</h3>
-        <p>
+        <Text as="p" size="3" mb="3">
           The optimal reading length is 50–75 characters per line. In CSS: <code>max-width: 65ch</code> on your prose containers. Never let content run full-width on wide screens — it destroys readability.
-        </p>
+        </Text>
 
-        <h2 id={toc[3].id}>{toc[3].label}</h2>
-        <p>
+        <Heading as="h2" size="6" mt="7" mb="3" className="doc-h2" id={toc[3].id}>{toc[3].label}</Heading>
+        <Text as="p" size="3" mb="3">
           Tokenize the full type style, not just font size. A type style token bundles size, weight, line height, and letter spacing:
-        </p>
+        </Text>
         <pre><code>{`{
   "font": {
     "style": {
@@ -127,18 +116,18 @@ export function Typography() {
   }
 }`}</code></pre>
 
-        <h2 id={toc[4].id}>{toc[4].label}</h2>
-        <p>
+        <Heading as="h2" size="6" mt="7" mb="3" className="doc-h2" id={toc[4].id}>{toc[4].label}</Heading>
+        <Text as="p" size="3" mb="3">
           Don't just scale text down on mobile — rethink the hierarchy. A 3rem display heading often needs to drop to 2rem on small screens, and the relative weights may need to shift too.
-        </p>
-        <p>
+        </Text>
+        <Text as="p" size="3" mb="3">
           Use CSS <code>clamp()</code> for fluid type that scales with the viewport without breakpoint math:
-        </p>
+        </Text>
         <pre><code>{`/* Fluid display heading: 1.75rem at 320px, 3rem at 1280px */
 font-size: clamp(1.75rem, 4vw + 0.5rem, 3rem);`}</code></pre>
 
         <DocNav currentPath={pathname} />
-      </article>
+    </article>
     </>
   )
 }

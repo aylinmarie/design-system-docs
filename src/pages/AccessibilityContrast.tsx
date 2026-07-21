@@ -1,3 +1,4 @@
+import { Box, Heading, Text, Flex, Badge } from '@radix-ui/themes'
 import { TableOfContents, type TocItem } from '../components/TableOfContents'
 import { DocNav } from '../components/DocNav'
 import { Callout } from '../components/Callout'
@@ -19,63 +20,54 @@ const contrastPairs = [
   { bg: '#7c3aed', text: '#ffffff', ratio: '5.2:1', pass: 'AA', bgLabel: 'violet-600', textLabel: 'white' },
 ]
 
+const badgeColor = (pass: string): 'green' | 'violet' | 'yellow' =>
+  pass === 'AAA' ? 'green' : pass === 'AA' ? 'violet' : 'yellow'
+
 export function AccessibilityContrast() {
   const { pathname } = useLocation()
 
   return (
     <>
       <TableOfContents items={toc} />
-      <article className="prose">
-        <div className="mb-6">
-          <span className="text-xs font-semibold uppercase tracking-widest text-violet-600">Accessibility</span>
-        </div>
-        <h1>Color & Contrast</h1>
-        <p className="text-lg text-gray-500 mt-2 mb-8" style={{ fontSize: '1.0625rem', lineHeight: 1.7 }}>
+      <article className="doc-article">
+        <Text size="1" weight="bold" color="violet" className="doc-category">Accessibility</Text>
+        <Heading as="h1" size="8" mb="2">Color & Contrast</Heading>
+        <Text as="p" size="3" color="gray" className="doc-lead">
           Contrast is a prerequisite for legibility. Every text and interactive element needs a measurable, passing contrast ratio.
-        </p>
+        </Text>
 
-        <h2 id={toc[0].id}>{toc[0].label}</h2>
-        <p>
+        <Heading as="h2" size="6" mt="7" mb="3" className="doc-h2" id={toc[0].id}>{toc[0].label}</Heading>
+        <Text as="p" size="3" mb="3">
           WCAG contrast ratios are calculated against the relative luminance of foreground and background colors. The formula is well-defined but rarely done by hand — use a checker.
-        </p>
+        </Text>
 
-        <div className="my-6 rounded-xl border border-gray-100 overflow-hidden">
-          <div className="px-4 py-3 bg-gray-50 border-b border-gray-100">
-            <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider">System color pairings — contrast check</p>
-          </div>
-          <div className="divide-y divide-gray-50">
-            {contrastPairs.map((pair, i) => (
-              <div key={i} className="flex items-center gap-4 px-4 py-3">
-                <div
-                  className="w-20 h-8 rounded-md flex-shrink-0 flex items-center justify-center text-xs font-medium border border-gray-100"
-                  style={{ background: pair.bg, color: pair.text }}
-                >
-                  Sample
-                </div>
-                <div className="flex-1 text-xs text-gray-500">
-                  <span className="text-gray-700 font-medium">{pair.bgLabel}</span>
-                  <span className="text-gray-300 mx-1">/</span>
-                  <span>{pair.textLabel}</span>
-                </div>
-                <span className="text-xs font-mono text-gray-600">{pair.ratio}</span>
-                <span
-                  className="text-xs font-semibold px-2 py-0.5 rounded"
-                  style={{
-                    background: pair.pass === 'AAA' ? '#dcfce7' : pair.pass === 'AA' ? '#ede9fe' : '#fef9c3',
-                    color: pair.pass === 'AAA' ? '#15803d' : pair.pass === 'AA' ? '#7c3aed' : '#854d0e',
-                  }}
-                >
-                  {pair.pass}
-                </span>
-              </div>
-            ))}
-          </div>
-        </div>
+        <Box className="demo-card">
+          <Box className="demo-card-header">
+            <Text size="1" weight="bold" color="gray" className="demo-label">System color pairings — contrast check</Text>
+          </Box>
+          {contrastPairs.map((pair, i) => (
+            <Flex key={i} align="center" gap="4" className="demo-row">
+              <Box
+                className="contrast-sample"
+                style={{ '--sample-bg': pair.bg, '--sample-fg': pair.text } as React.CSSProperties}
+              >
+                Sample
+              </Box>
+              <Text as="span" size="2" color="gray" style={{ flex: 1 }}>
+                <strong>{pair.bgLabel}</strong>
+                <span style={{ color: 'var(--gray-8)', margin: '0 4px' }}>/</span>
+                {pair.textLabel}
+              </Text>
+              <Text as="span" className="token-mono">{pair.ratio}</Text>
+              <Badge color={badgeColor(pair.pass)} variant="soft" size="1">{pair.pass}</Badge>
+            </Flex>
+          ))}
+        </Box>
 
-        <h2 id={toc[1].id}>{toc[1].label}</h2>
-        <p>
+        <Heading as="h2" size="6" mt="7" mb="3" className="doc-h2" id={toc[1].id}>{toc[1].label}</Heading>
+        <Text as="p" size="3" mb="3">
           <a href="https://www.w3.org/TR/wcag-3.0/" target="_blank" rel="noopener noreferrer">WCAG 3</a> introduces the <a href="https://apcacontrast.com/" target="_blank" rel="noopener noreferrer">Advanced Perceptual Contrast Algorithm (APCA)</a>, which is a more accurate model of human contrast perception. Differences from WCAG 2.1:
-        </p>
+        </Text>
         <ul>
           <li>APCA is asymmetric — light text on dark is scored differently than dark text on light</li>
           <li>Font weight and size are factored into the score, not just color</li>
@@ -87,10 +79,10 @@ export function AccessibilityContrast() {
           APCA is not yet the legal standard anywhere. Target <a href="https://www.w3.org/TR/WCAG21/" target="_blank" rel="noopener noreferrer">WCAG 2.1</a> AA for compliance; use APCA for a more accurate perceptual quality check. The Figma plugin "Contrast" and the <a href="https://apcacontrast.com/" target="_blank" rel="noopener noreferrer">APCA calculator</a> both support it.
         </Callout>
 
-        <h2 id={toc[2].id}>{toc[2].label}</h2>
-        <p>
+        <Heading as="h2" size="6" mt="7" mb="3" className="doc-h2" id={toc[2].id}>{toc[2].label}</Heading>
+        <Text as="p" size="3" mb="3">
           The safest approach: define which token combinations are valid. Document approved background / foreground pairings so components don't have to check at runtime.
-        </p>
+        </Text>
         <pre><code>{`/* Approved pairings — comment which WCAG level they meet */
 --pair-primary:       /* violet-600 on white — AA (5.2:1) */
   background: var(--color-interactive-primary);
@@ -105,21 +97,21 @@ export function AccessibilityContrast() {
   background: var(--color-interactive-subtle);
   color: var(--color-interactive-primary);`}</code></pre>
 
-        <h2 id={toc[3].id}>{toc[3].label}</h2>
-        <p>
+        <Heading as="h2" size="6" mt="7" mb="3" className="doc-h2" id={toc[3].id}>{toc[3].label}</Heading>
+        <Text as="p" size="3" mb="3">
           WCAG 1.4.11 (Non-text Contrast, AA) requires 3:1 contrast for:
-        </p>
+        </Text>
         <ul>
           <li>UI component boundaries (input borders, button outlines)</li>
           <li>Focus indicators</li>
           <li>Graphical objects (icons used to convey information, chart lines)</li>
         </ul>
-        <p>
+        <Text as="p" size="3" mb="3">
           This is frequently missed. A gray border on a white background is often the failure point. Check your input and form element borders — they're the most common violation in audit findings.
-        </p>
+        </Text>
 
         <DocNav currentPath={pathname} />
-      </article>
+    </article>
     </>
   )
 }

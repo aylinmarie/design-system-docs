@@ -1,3 +1,4 @@
+import { Box, Heading, Text, Flex } from '@radix-ui/themes'
 import { TableOfContents, type TocItem } from '../components/TableOfContents'
 import { DocNav } from '../components/DocNav'
 import { Callout } from '../components/Callout'
@@ -20,6 +21,7 @@ const categoricalColors = [
 ]
 
 const sequentialColors = ['#f5f3ff', '#ddd6fe', '#a78bfa', '#7c3aed', '#5b21b6', '#3b0764']
+const barHeights = [70, 50, 85, 40, 65, 55]
 
 export function DataVizColor() {
   const { pathname } = useLocation()
@@ -27,86 +29,79 @@ export function DataVizColor() {
   return (
     <>
       <TableOfContents items={toc} />
-      <article className="prose">
-        <div className="mb-6">
-          <span className="text-xs font-semibold uppercase tracking-widest text-violet-600">Data Visualization</span>
-        </div>
-        <h1>Color in Data Viz</h1>
-        <p className="text-lg text-gray-500 mt-2 mb-8" style={{ fontSize: '1.0625rem', lineHeight: 1.7 }}>
+      <article className="doc-article">
+        <Text size="1" weight="bold" color="violet" className="doc-category">Data Visualization</Text>
+        <Heading as="h1" size="8" mb="2">Color in Data Viz</Heading>
+        <Text as="p" size="3" color="gray" className="doc-lead">
           Data viz color has different constraints than UI color. Distinctness, perceptual ordering, and colorblind accessibility all demand specific choices.
-        </p>
+        </Text>
 
-        <h2 id={toc[0].id}>{toc[0].label}</h2>
-        <p>
+        <Heading as="h2" size="6" mt="7" mb="3" className="doc-h2" id={toc[0].id}>{toc[0].label}</Heading>
+        <Text as="p" size="3" mb="3">
           Choose the palette type based on what the data represents:
-        </p>
+        </Text>
         <ul>
           <li><strong>Categorical</strong> — for nominal data with no order (product lines, countries, cohorts). Each category gets a visually distinct color.</li>
           <li><strong>Sequential</strong> — for ordered, continuous data (temperature, revenue). Uses a single hue ramping from light to dark.</li>
           <li><strong>Diverging</strong> — for data with a meaningful midpoint (above/below baseline, positive/negative). Two hues meeting at a neutral center.</li>
         </ul>
 
-        <h2 id={toc[1].id}>{toc[1].label}</h2>
-        <p>
+        <Heading as="h2" size="6" mt="7" mb="3" className="doc-h2" id={toc[1].id}>{toc[1].label}</Heading>
+        <Text as="p" size="3" mb="3">
           Building a good categorical palette is harder than it looks. Requirements: colors must be visually distinct (hue difference ≥ 30°), distinguishable when small (line weight, marker size), and work on both white and dark backgrounds.
-        </p>
+        </Text>
 
-        <div className="my-5 rounded-xl border border-gray-100 overflow-hidden">
-          <div className="px-4 py-3 bg-gray-50 border-b border-gray-100">
-            <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Categorical palette — 6 colors</p>
-          </div>
-          <div className="p-4 flex gap-3">
+        <Box className="demo-card">
+          <Box className="demo-card-header">
+            <Text size="1" weight="bold" color="gray" className="demo-label">Categorical palette — 6 colors</Text>
+          </Box>
+          <Flex p="4" gap="3">
             {categoricalColors.map(color => (
-              <div key={color.name} className="flex-1 text-center">
-                <div
-                  className="w-full h-12 rounded-lg mb-2"
-                  style={{ background: color.hex }}
+              <Box key={color.name} className="cat-color-item">
+                <Box
+                  className="cat-swatch"
+                  style={{ '--swatch-bg': color.hex } as React.CSSProperties}
                   aria-label={`${color.name}: ${color.hex}`}
                 />
-                <p className="text-gray-500 m-0" style={{ fontSize: '0.65rem', fontFamily: 'JetBrains Mono, monospace' }}>
-                  {color.label}
-                </p>
-              </div>
+                <Text as="span" className="cat-swatch-label">{color.label}</Text>
+              </Box>
             ))}
-          </div>
-          <div className="px-4 pb-4">
-            <p className="text-xs text-gray-400 mb-2">Simulated use — bar chart</p>
-            <div className="flex items-end gap-2 h-20 bg-gray-50 rounded-lg px-3 pt-3">
+          </Flex>
+          <Box px="4" pb="4">
+            <Text size="1" color="gray" mb="2" style={{ display: 'block' }}>Simulated use — bar chart</Text>
+            <Flex className="bar-chart-demo">
               {categoricalColors.map((color, i) => (
-                <div
+                <Box
                   key={color.name}
-                  className="flex-1 rounded-t"
+                  className="bar-chart-bar"
                   style={{
-                    background: color.hex,
-                    height: `${[70, 50, 85, 40, 65, 55][i]}%`,
-                    opacity: 0.85,
-                  }}
+                    '--bar-color': color.hex,
+                    '--bar-height': `${barHeights[i]}%`,
+                  } as React.CSSProperties}
                   aria-label={`${color.name} bar`}
                 />
               ))}
-            </div>
-          </div>
-        </div>
+            </Flex>
+          </Box>
+        </Box>
 
-        <p className="text-xs text-gray-500 mb-4">Sequential scale — single hue (violet)</p>
-        <div className="flex rounded-lg overflow-hidden mb-6 h-10">
+        <Text size="1" color="gray" mb="2" style={{ display: 'block' }}>Sequential scale — single hue (violet)</Text>
+        <Flex className="seq-strip" mb="6">
           {sequentialColors.map((hex, i) => (
-            <div
+            <Box
               key={i}
-              className="flex-1"
-              style={{ background: hex }}
+              className="seq-strip-item"
+              style={{ '--strip-color': hex } as React.CSSProperties}
               aria-label={hex}
             />
           ))}
-        </div>
+        </Flex>
 
-        <h2 id={toc[2].id}>{toc[2].label}</h2>
-        <p>
+        <Heading as="h2" size="6" mt="7" mb="3" className="doc-h2" id={toc[2].id}>{toc[2].label}</Heading>
+        <Text as="p" size="3" mb="3">
           About 8% of men and 0.5% of women have some form of color vision deficiency. The most common: deuteranopia (green deficiency) and protanopia (red deficiency), collectively "red-green" color blindness.
-        </p>
-        <p>
-          Rules for colorblind-accessible visualization:
-        </p>
+        </Text>
+        <Text as="p" size="3" mb="3">Rules for colorblind-accessible visualization:</Text>
         <ul>
           <li><strong>Never use red + green as the only distinguishing encoding</strong> — the most common failure in alert/success charts and positive/negative series</li>
           <li><strong>Vary lightness, not just hue</strong> — colors at different lightness values remain distinguishable even with color vision deficiencies</li>
@@ -118,10 +113,10 @@ export function DataVizColor() {
           "Red = bad, green = good" is the most common colorblind failure in product analytics. Use a diverging scale with blue/orange instead — distinguishable under all common forms of color vision deficiency.
         </Callout>
 
-        <h2 id={toc[3].id}>{toc[3].label}</h2>
-        <p>
+        <Heading as="h2" size="6" mt="7" mb="3" className="doc-h2" id={toc[3].id}>{toc[3].label}</Heading>
+        <Text as="p" size="3" mb="3">
           Visualization colors need a separate dark mode adjustment — the same saturated colors that work on white become harsh and over-vibrant on dark backgrounds. In dark mode:
-        </p>
+        </Text>
         <ul>
           <li>Reduce saturation by 15–25%</li>
           <li>Increase lightness slightly so colors don't disappear</li>
@@ -130,7 +125,7 @@ export function DataVizColor() {
         </ul>
 
         <DocNav currentPath={pathname} />
-      </article>
+    </article>
     </>
   )
 }

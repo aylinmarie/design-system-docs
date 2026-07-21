@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { Text, Link } from '@radix-ui/themes'
 
 export interface TocItem {
   id: string
@@ -15,53 +16,39 @@ export function TableOfContents({ items }: TableOfContentsProps) {
 
   useEffect(() => {
     if (!items.length) return
-
     const observer = new IntersectionObserver(
       entries => {
         entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            setActive(entry.target.id)
-          }
+          if (entry.isIntersecting) setActive(entry.target.id)
         })
       },
       { rootMargin: '-60px 0px -70% 0px', threshold: 0 }
     )
-
     items.forEach(({ id }) => {
       const el = document.getElementById(id)
       if (el) observer.observe(el)
     })
-
     return () => observer.disconnect()
   }, [items])
 
   if (!items.length) return null
 
   return (
-    <nav
-      className="hidden xl:block fixed top-[var(--header-height)] right-0 pt-8 pb-6 px-6 overflow-y-auto"
-      style={{ width: 'var(--toc-width)', height: 'calc(100vh - var(--header-height))' }}
-      aria-label="On this page"
-    >
-      <p className="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-3">
-        On this page
-      </p>
-      <ul className="space-y-0.5">
+    <nav className="app-toc" aria-label="On this page">
+      <Text size="1" weight="bold" color="gray" className="toc-heading">On this page</Text>
+      <ul className="toc-list">
         {items.map(item => (
           <li key={item.id}>
-            <a
+            <Link
               href={`#${item.id}`}
-              className={`block text-xs py-1 transition-colors no-underline ${
-                item.level === 3 ? 'pl-3' : ''
-              } ${
-                active === item.id
-                  ? 'text-violet-600 font-medium'
-                  : 'text-gray-500 hover:text-gray-900'
-              }`}
-              style={{ textDecoration: 'none' }}
+              size="1"
+              color={active === item.id ? 'violet' : 'gray'}
+              weight={active === item.id ? 'medium' : 'regular'}
+              underline="none"
+              className={`toc-link${item.level === 3 ? ' toc-link--sub' : ''}`}
             >
               {item.label}
-            </a>
+            </Link>
           </li>
         ))}
       </ul>

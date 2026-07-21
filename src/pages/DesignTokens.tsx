@@ -1,3 +1,4 @@
+import { Box, Heading, Text, Flex } from '@radix-ui/themes'
 import { TableOfContents, type TocItem } from '../components/TableOfContents'
 import { DocNav } from '../components/DocNav'
 import { Callout } from '../components/Callout'
@@ -30,103 +31,82 @@ export function DesignTokens() {
   return (
     <>
       <TableOfContents items={toc} />
-      <article className="prose">
-        <div className="mb-6">
-          <span className="text-xs font-semibold uppercase tracking-widest text-violet-600">Foundations</span>
-        </div>
-        <h1>Design Tokens</h1>
-        <p className="text-lg text-gray-500 mt-2 mb-8" style={{ fontSize: '1.0625rem', lineHeight: 1.7 }}>
+      <article className="doc-article">
+        <Text size="1" weight="bold" color="violet" className="doc-category">Foundations</Text>
+        <Heading as="h1" size="8" mb="2">Design Tokens</Heading>
+        <Text as="p" size="3" color="gray" className="doc-lead">
           The atomic decisions of your system. Every visual property that repeats is a candidate for a token.
-        </p>
+        </Text>
 
-        <h2 id={toc[0].id}>{toc[0].label}</h2>
-        <p>
+        <Heading as="h2" size="6" mt="7" mb="3" className="doc-h2" id={toc[0].id}>{toc[0].label}</Heading>
+        <Text as="p" size="3" mb="3">
           Design tokens are named entities that store design values. Instead of hardcoding <code>#7c3aed</code> in a component, you reference <code>color.interactive.primary</code>. The name carries intent; the value can change without the component knowing.
-        </p>
-        <p>
+        </Text>
+        <Text as="p" size="3" mb="3">
           This indirection is what makes tokens powerful. You can theme your system, support dark mode, and swap brand colors without touching component code.
-        </p>
+        </Text>
 
-        {/* Live token demo */}
-        <div className="my-6 rounded-xl border border-gray-100 overflow-hidden">
-          <div className="px-4 py-3 bg-gray-50 border-b border-gray-100">
-            <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Global color tokens</p>
-          </div>
-          <div className="divide-y divide-gray-50">
-            {tokenSwatches.map(token => (
-              <div key={token.name} className="flex items-center gap-4 px-4 py-3">
-                <div
-                  className="w-8 h-8 rounded-md flex-shrink-0 border border-gray-100"
-                  style={{ background: token.value }}
-                  aria-hidden="true"
-                />
-                <div className="flex-1 min-w-0">
-                  <code className="text-xs text-gray-700" style={{ fontFamily: 'JetBrains Mono, monospace', background: 'none', border: 'none', padding: 0 }}>
-                    {token.name}
-                  </code>
-                </div>
-                <code className="text-xs text-gray-400" style={{ fontFamily: 'JetBrains Mono, monospace', background: 'none', border: 'none', padding: 0 }}>
-                  {token.label}
-                </code>
-              </div>
-            ))}
-          </div>
-        </div>
+        <Box className="demo-card">
+          <Box className="demo-card-header">
+            <Text size="1" weight="bold" color="gray" className="demo-label">Global color tokens</Text>
+          </Box>
+          {tokenSwatches.map(token => (
+            <Flex key={token.name} align="center" gap="4" className="demo-row">
+              <Box
+                className="color-swatch"
+                style={{ '--swatch-bg': token.value } as React.CSSProperties}
+                aria-hidden="true"
+              />
+              <Text as="span" className="token-mono token-mono-flex">{token.name}</Text>
+              <Text as="span" className="token-mono token-mono-muted">{token.label}</Text>
+            </Flex>
+          ))}
+        </Box>
 
-        <h2 id={toc[1].id}>{toc[1].label}</h2>
-        <p>
-          The most scalable token systems use three tiers:
-        </p>
+        <Heading as="h2" size="6" mt="7" mb="3" className="doc-h2" id={toc[1].id}>{toc[1].label}</Heading>
+        <Text as="p" size="3" mb="3">The most scalable token systems use three tiers:</Text>
 
         <h3>1. Global (primitive) tokens</h3>
-        <p>
+        <Text as="p" size="3" mb="3">
           Raw values — the full palette, the full type scale. Named by what they are, not how they're used. <code>global.color.violet.600</code> is a global token. There can be many of these, and that's fine — they're the vocabulary, not the grammar.
-        </p>
+        </Text>
 
         <h3>2. Semantic (alias) tokens</h3>
-        <p>
+        <Text as="p" size="3" mb="3">
           Intent-bearing names that reference global tokens. <code>color.interactive.primary</code> points to <code>global.color.violet.600</code>. This is the layer you swap for theming. Components reference semantic tokens, never globals directly.
-        </p>
+        </Text>
 
-        {/* Semantic token table */}
-        <div className="my-4 rounded-xl border border-gray-100 overflow-hidden">
-          <div className="px-4 py-3 bg-gray-50 border-b border-gray-100">
-            <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Semantic tokens → Global references</p>
-          </div>
-          <div className="divide-y divide-gray-50">
-            {semanticTokens.map(token => (
-              <div key={token.name} className="flex items-center gap-4 px-4 py-3">
-                <div
-                  className="w-6 h-6 rounded flex-shrink-0 border border-gray-100"
-                  style={{ background: token.value }}
-                  aria-hidden="true"
-                />
-                <code className="text-xs text-gray-800 flex-1" style={{ fontFamily: 'JetBrains Mono, monospace', background: 'none', border: 'none', padding: 0 }}>
-                  {token.name}
-                </code>
-                <span className="text-gray-300 text-xs">→</span>
-                <code className="text-xs text-gray-400" style={{ fontFamily: 'JetBrains Mono, monospace', background: 'none', border: 'none', padding: 0 }}>
-                  {token.references}
-                </code>
-              </div>
-            ))}
-          </div>
-        </div>
+        <Box className="demo-card">
+          <Box className="demo-card-header">
+            <Text size="1" weight="bold" color="gray" className="demo-label">Semantic tokens → Global references</Text>
+          </Box>
+          {semanticTokens.map(token => (
+            <Flex key={token.name} align="center" gap="4" className="demo-row">
+              <Box
+                className="color-swatch-sm"
+                style={{ '--swatch-bg': token.value } as React.CSSProperties}
+                aria-hidden="true"
+              />
+              <Text as="span" className="token-mono token-mono-flex">{token.name}</Text>
+              <Text as="span" color="gray" size="1">→</Text>
+              <Text as="span" className="token-mono token-mono-muted">{token.references}</Text>
+            </Flex>
+          ))}
+        </Box>
 
         <h3>3. Component tokens</h3>
-        <p>
+        <Text as="p" size="3" mb="3">
           Scoped to a specific component. <code>button.background.primary</code> → <code>color.interactive.primary</code>. Use these when components have unique styling needs that shouldn't be shared globally.
-        </p>
+        </Text>
 
         <Callout type="tip" title="Start with semantic tokens">
           Most teams start with component tokens and then struggle to theme the system. Start with semantic tokens — they give you theming for free.
         </Callout>
 
-        <h2 id={toc[2].id}>{toc[2].label}</h2>
-        <p>
+        <Heading as="h2" size="6" mt="7" mb="3" className="doc-h2" id={toc[2].id}>{toc[2].label}</Heading>
+        <Text as="p" size="3" mb="3">
           Good token names follow a predictable pattern: <code>category.property.variant.state</code>.
-        </p>
-
+        </Text>
         <pre><code>{`// Category: what it applies to
 // Property: what visual attribute
 // Variant: which variant of that attribute
@@ -137,21 +117,19 @@ color.text.muted            // secondary/helper text
 color.border.interactive    // borders on interactive elements
 color.border.interactive.focus  // focus state border
 spacing.component.padding.sm    // small component padding`}</code></pre>
+        <Text as="p" size="3" mb="3">
+          Avoid encoding values in names (<code>color-gray-200</code> is a global token, not a semantic one) and avoid encoding components in semantic names (<code>button-blue</code> leaks into the wrong tier).
+        </Text>
 
-        <p>Avoid encoding values in names (<code>color-gray-200</code> is a global token, not a semantic one) and avoid encoding components in semantic names (<code>button-blue</code> leaks into the wrong tier).</p>
-
-        <h2 id={toc[3].id}>{toc[3].label}</h2>
-        <p>
-          The primary tools in this space:
-        </p>
+        <Heading as="h2" size="6" mt="7" mb="3" className="doc-h2" id={toc[3].id}>{toc[3].label}</Heading>
+        <Text as="p" size="3" mb="3">The primary tools in this space:</Text>
         <ul>
           <li><a href="https://styledictionary.com/" target="_blank" rel="noopener noreferrer"><strong>Style Dictionary</strong></a> (Amazon) — transform tokens into CSS custom properties, Sass variables, iOS/Android formats. The most battle-tested tool.</li>
           <li><strong>Theo</strong> (Salesforce) — similar to Style Dictionary, slightly different DX.</li>
           <li><strong>Token Pipeline</strong> / <strong>Token Transformer</strong> — part of the <a href="https://tokens.studio/" target="_blank" rel="noopener noreferrer">Tokens Studio</a> ecosystem, closer to the W3C spec format.</li>
           <li><a href="https://tokens.studio/" target="_blank" rel="noopener noreferrer"><strong>Tokens Studio for Figma</strong></a> — design-side authoring that outputs W3C-format JSON, consumed by a build step.</li>
         </ul>
-
-        <p>The general architecture looks like this:</p>
+        <Text as="p" size="3" mb="3">The general architecture looks like this:</Text>
         <pre><code>{`Design (Figma / Tokens Studio)
   ↓  JSON token files
 Build step (Style Dictionary)
@@ -160,10 +138,10 @@ Build step (Style Dictionary)
 ├── Swift/ObjC constants  (iOS)
 └── Kotlin constants       (Android)`}</code></pre>
 
-        <h2 id={toc[4].id}>{toc[4].label}</h2>
-        <p>
+        <Heading as="h2" size="6" mt="7" mb="3" className="doc-h2" id={toc[4].id}>{toc[4].label}</Heading>
+        <Text as="p" size="3" mb="3">
           The <a href="https://www.w3.org/community/design-tokens/" target="_blank" rel="noopener noreferrer">W3C Design Tokens Community Group</a> is standardizing a JSON format for design tokens. Aligning to it makes your tokens portable between tools — Tokens Studio, Style Dictionary, and others already support reading and writing this format.
-        </p>
+        </Text>
         <pre><code>{`{
   "color": {
     "interactive": {
@@ -181,7 +159,7 @@ Build step (Style Dictionary)
         </Callout>
 
         <DocNav currentPath={pathname} />
-      </article>
+    </article>
     </>
   )
 }

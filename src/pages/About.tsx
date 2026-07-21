@@ -46,7 +46,7 @@ export function About() {
             marginBottom: "2.5rem",
           }}
         >
-          A free (and ad-free), open source knowledge base on design systems.
+          An open source knowledge base on design systems.
         </p>
 
         <h2 id="why-free">Why</h2>

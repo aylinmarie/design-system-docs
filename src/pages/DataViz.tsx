@@ -1,3 +1,4 @@
+import { Heading, Text } from '@radix-ui/themes'
 import { TableOfContents, type TocItem } from '../components/TableOfContents'
 import { DocNav } from '../components/DocNav'
 import { Callout } from '../components/Callout'
@@ -16,26 +17,24 @@ export function DataViz() {
   return (
     <>
       <TableOfContents items={toc} />
-      <article className="prose">
-        <div className="mb-6">
-          <span className="text-xs font-semibold uppercase tracking-widest text-violet-600">Data Visualization</span>
-        </div>
-        <h1>Principles</h1>
-        <p className="text-lg text-gray-500 mt-2 mb-8" style={{ fontSize: '1.0625rem', lineHeight: 1.7 }}>
+      <article className="doc-article">
+        <Text size="1" weight="bold" color="violet" className="doc-category">Data Visualization</Text>
+        <Heading as="h1" size="8" mb="2">Principles</Heading>
+        <Text as="p" size="3" color="gray" className="doc-lead">
           Data visualization is one of the hardest design problems to systematize. The number of ways to get it wrong vastly outnumber the ways to get it right.
-        </p>
+        </Text>
 
-        <h2 id={toc[0].id}>{toc[0].label}</h2>
+        <Heading as="h2" size="6" mt="7" mb="3" className="doc-h2" id={toc[0].id}>{toc[0].label}</Heading>
 
         <h3>Encode data, don't decorate it</h3>
-        <p>
+        <Text as="p" size="3" mb="3">
           Every visual element in a chart should encode information. Gradients, drop shadows, and 3D effects rarely encode data — they obscure it. Start with the simplest representation that accurately communicates the data, and add visual complexity only when it carries meaning.
-        </p>
+        </Text>
 
         <h3>Choose the right encoding</h3>
-        <p>
+        <Text as="p" size="3" mb="3">
           Cleveland and McGill's hierarchy of perceptual accuracy (most to least accurate):
-        </p>
+        </Text>
         <ol>
           <li>Position along a common scale</li>
           <li>Position along identical, non-aligned scales</li>
@@ -45,37 +44,35 @@ export function DataViz() {
           <li>Volume, density, color saturation</li>
           <li>Color hue</li>
         </ol>
-        <p>
+        <Text as="p" size="3" mb="3">
           This is why bar charts beat pie charts for most comparisons — position along a scale is more accurately perceived than angle.
-        </p>
+        </Text>
 
         <h3>Don't make people do math</h3>
-        <p>
+        <Text as="p" size="3" mb="3">
           If the insight requires subtracting two bars or estimating a percentage of a circle, the chart has failed. Annotate directly, call out the specific value, or compute the derived number and show it explicitly.
-        </p>
+        </Text>
 
         <Callout type="tip" title="The annotation is the point">
           The most effective charts in business contexts often have direct annotations — "Revenue up 23% vs. last quarter" — rather than letting the user interpret the visual. The chart provides context; the annotation delivers the insight.
         </Callout>
 
-        <h2 id={toc[1].id}>{toc[1].label}</h2>
-        <p>
-          A chart is a document with a visual hierarchy:
-        </p>
+        <Heading as="h2" size="6" mt="7" mb="3" className="doc-h2" id={toc[1].id}>{toc[1].label}</Heading>
+        <Text as="p" size="3" mb="3">A chart is a document with a visual hierarchy:</Text>
         <ul>
           <li><strong>Title</strong> — the claim the chart makes, not just a description of the data ("Revenue grew 23% in Q3", not "Q3 Revenue")</li>
           <li><strong>Data layer</strong> — the marks (bars, lines, points) that encode the data. This is the foreground.</li>
           <li><strong>Reference layer</strong> — axes, gridlines, baselines. This is the background. It should recede visually.</li>
           <li><strong>Annotation layer</strong> — callouts, labels, highlights. These are editorial, above the data.</li>
         </ul>
-        <p>
+        <Text as="p" size="3" mb="3">
           Most poor charts fail because the reference layer (gridlines, axis labels) competes visually with the data layer. Use light gray for gridlines, reduce label size, and remove everything that doesn't help interpretation.
-        </p>
+        </Text>
 
-        <h2 id={toc[2].id}>{toc[2].label}</h2>
-        <p>
+        <Heading as="h2" size="6" mt="7" mb="3" className="doc-h2" id={toc[2].id}>{toc[2].label}</Heading>
+        <Text as="p" size="3" mb="3">
           Data visualization needs its own token set. These are separate from UI tokens because the color requirements differ — viz colors need to be visually distinct, perceptually ordered (for sequential scales), and work at small mark sizes.
-        </p>
+        </Text>
         <pre><code>{`/* Categorical palette — distinct colors for discrete series */
 --viz-color-1: #7c3aed;   /* violet */
 --viz-color-2: #2563eb;   /* blue */
@@ -101,10 +98,10 @@ export function DataViz() {
 --viz-gridline-color: #f3f4f6;
 --viz-label-color:    #6b7280;`}</code></pre>
 
-        <h2 id={toc[3].id}>{toc[3].label}</h2>
-        <p>
+        <Heading as="h2" size="6" mt="7" mb="3" className="doc-h2" id={toc[3].id}>{toc[3].label}</Heading>
+        <Text as="p" size="3" mb="3">
           Charts are one of the most inaccessible parts of most products. Minimum requirements:
-        </p>
+        </Text>
         <ul>
           <li><strong>Never rely on color alone</strong> — use pattern, shape, or position as a secondary encoding</li>
           <li><strong>Provide a text alternative</strong> — a table or summary paragraph for screen reader users</li>
@@ -114,7 +111,7 @@ export function DataViz() {
         </ul>
 
         <DocNav currentPath={pathname} />
-      </article>
+    </article>
     </>
   )
 }

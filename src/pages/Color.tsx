@@ -1,3 +1,4 @@
+import { Box, Heading, Text, Flex } from '@radix-ui/themes'
 import { TableOfContents, type TocItem } from '../components/TableOfContents'
 import { DocNav } from '../components/DocNav'
 import { Callout } from '../components/Callout'
@@ -37,56 +38,51 @@ export function Color() {
   return (
     <>
       <TableOfContents items={toc} />
-      <article className="prose">
-        <div className="mb-6">
-          <span className="text-xs font-semibold uppercase tracking-widest text-violet-600">Foundations</span>
-        </div>
-        <h1>Color</h1>
-        <p className="text-lg text-gray-500 mt-2 mb-8" style={{ fontSize: '1.0625rem', lineHeight: 1.7 }}>
+      <article className="doc-article">
+        <Text size="1" weight="bold" color="violet" className="doc-category">Foundations</Text>
+        <Heading as="h1" size="8" mb="2">Color</Heading>
+        <Text as="p" size="3" color="gray" className="doc-lead">
           A color system is a structured set of palette and semantic decisions. Without one, the same interactive state gets a different shade in every component and the visual language breaks down.
-        </p>
+        </Text>
 
-        <h2 id={toc[0].id}>{toc[0].label}</h2>
-        <p>
+        <Heading as="h2" size="6" mt="7" mb="3" className="doc-h2" id={toc[0].id}>{toc[0].label}</Heading>
+        <Text as="p" size="3" mb="3">
           Start with a global palette — a full range of named steps for each color. A 50–900 step system (following Tailwind's approach) gives enough resolution for subtle backgrounds, borders, and high-contrast text.
-        </p>
+        </Text>
 
         {palette.map(color => (
-          <div key={color.name} className="my-4">
-            <p className="text-xs font-semibold text-gray-500 mb-2 uppercase tracking-wider">{color.name}</p>
-            <div className="flex gap-1.5">
+          <Box key={color.name} mb="4">
+            <Text size="1" weight="bold" color="gray" className="demo-label" mb="2" style={{ display: 'block' }}>{color.name}</Text>
+            <Flex gap="2">
               {color.shades.map(shade => (
-                <div key={shade.step} className="flex-1 min-w-0">
-                  <div
-                    className="h-10 rounded-md mb-1"
-                    style={{ background: shade.hex }}
+                <Box key={shade.step} className="palette-col">
+                  <Box
+                    className="palette-swatch"
+                    style={{ '--swatch-bg': shade.hex } as React.CSSProperties}
                     title={shade.hex}
                     aria-label={`${color.name} ${shade.step}: ${shade.hex}`}
                   />
-                  <p className="text-center text-gray-400 m-0" style={{ fontSize: '0.65rem', fontFamily: 'JetBrains Mono, monospace' }}>
-                    {shade.step}
-                  </p>
-                </div>
+                  <Text as="span" className="swatch-step">{shade.step}</Text>
+                </Box>
               ))}
-            </div>
-          </div>
+            </Flex>
+          </Box>
         ))}
 
-        <p>
+        <Text as="p" size="3" mb="3">
           The global palette should be exhaustive but not opinionated about usage. It's a vocabulary — semantic tokens assign the meaning.
-        </p>
+        </Text>
 
-        <h2 id={toc[1].id}>{toc[1].label}</h2>
-        <p>
+        <Heading as="h2" size="6" mt="7" mb="3" className="doc-h2" id={toc[1].id}>{toc[1].label}</Heading>
+        <Text as="p" size="3" mb="3">
           Semantic tokens give names to color roles. The four main categories:
-        </p>
+        </Text>
         <ul>
           <li><strong>Interactive</strong> — primary action color (buttons, links, focus rings)</li>
           <li><strong>Neutral</strong> — text, borders, surfaces in the gray range</li>
           <li><strong>Feedback</strong> — success (green), warning (amber), error (red), info (blue)</li>
           <li><strong>Brand</strong> — marketing/brand-specific uses, often same as interactive but kept separate to allow divergence</li>
         </ul>
-
         <pre><code>{`/* Semantic layer in CSS custom properties */
 :root {
   /* Interactive */
@@ -105,10 +101,10 @@ export function Color() {
   --color-feedback-warning: var(--global-amber-600);
 }`}</code></pre>
 
-        <h2 id={toc[2].id}>{toc[2].label}</h2>
-        <p>
+        <Heading as="h2" size="6" mt="7" mb="3" className="doc-h2" id={toc[2].id}>{toc[2].label}</Heading>
+        <Text as="p" size="3" mb="3">
           Dark mode is where a semantic token layer pays off immediately. With semantic tokens, dark mode is a token override — not a stylesheet full of overrides on every component.
-        </p>
+        </Text>
         <pre><code>{`[data-theme="dark"] {
   --color-interactive-primary:    var(--global-violet-400);
   --color-text-default:           var(--global-gray-50);
@@ -120,16 +116,16 @@ export function Color() {
           Dark mode isn't a color inversion. Dark surfaces should use slightly elevated grays (not pure black), and you often need to reduce the saturation of accent colors to prevent them from vibrating against dark backgrounds.
         </Callout>
 
-        <h2 id={toc[3].id}>{toc[3].label}</h2>
-        <p>
+        <Heading as="h2" size="6" mt="7" mb="3" className="doc-h2" id={toc[3].id}>{toc[3].label}</Heading>
+        <Text as="p" size="3" mb="3">
           <a href="https://www.w3.org/TR/WCAG21/" target="_blank" rel="noopener noreferrer">WCAG 2.1</a> sets minimums: 4.5:1 for body text, 3:1 for large text and UI components. WCAG 3.0 introduces <a href="https://apcacontrast.com/" target="_blank" rel="noopener noreferrer">APCA</a>, a perceptual model that factors in font weight and size.
-        </p>
-        <p>
+        </Text>
+        <Text as="p" size="3" mb="3">
           Bake contrast checking into your token definition process. Tools like Figma's built-in checker, <code>contrast-color</code> npm package, or Polychrome can flag violations before they ship.
-        </p>
+        </Text>
 
         <DocNav currentPath={pathname} />
-      </article>
+    </article>
     </>
   )
 }

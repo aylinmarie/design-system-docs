@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { NavLink } from 'react-router-dom'
+import { Box, Text } from '@radix-ui/themes'
 import { ChevronDown } from 'lucide-react'
 import { navigation } from '../data/navigation'
 
@@ -17,60 +18,41 @@ export function Sidebar({ open, onClose }: SidebarProps) {
 
   return (
     <>
-      {/* Mobile overlay */}
       {open && (
-        <div
-          className="fixed inset-0 z-40 bg-black/20 md:hidden"
-          onClick={onClose}
-          aria-hidden="true"
-        />
+        <Box className="sidebar-overlay" onClick={onClose} aria-hidden="true" />
       )}
-
       <aside
-        className={`
-          fixed top-0 left-0 z-40 h-full bg-white border-r border-gray-100
-          transition-transform duration-200 ease-in-out
-          md:translate-x-0 md:top-[var(--header-height)]
-          ${open ? 'translate-x-0' : '-translate-x-full'}
-        `}
-        style={{ width: 'var(--sidebar-width)', paddingTop: 'var(--header-height)' }}
+        className={`app-sidebar${open ? ' sidebar-open' : ''}`}
         aria-label="Navigation"
       >
-        <div className="h-full overflow-y-auto py-6 px-4">
+        <Box className="sidebar-scroll">
           {navigation.map(group => {
             const isCollapsed = collapsed[group.title] ?? false
-
             return (
-              <div key={group.title} className="mb-6">
+              <Box key={group.title} mb="6">
                 <button
-                  className="flex items-center justify-between w-full mb-1.5 group"
+                  className="sidebar-group-toggle"
                   onClick={() => toggleGroup(group.title)}
                   aria-expanded={!isCollapsed}
                 >
-                  <span className="text-xs font-semibold uppercase tracking-wider text-gray-400 group-hover:text-gray-600 transition-colors">
+                  <Text size="1" weight="bold" color="gray" className="sidebar-group-label">
                     {group.title}
-                  </span>
+                  </Text>
                   <ChevronDown
                     size={13}
-                    className={`text-gray-300 transition-transform duration-150 ${
-                      isCollapsed ? '-rotate-90' : ''
-                    }`}
+                    className={`sidebar-chevron${isCollapsed ? ' sidebar-chevron--collapsed' : ''}`}
+                    aria-hidden="true"
                   />
                 </button>
-
                 {!isCollapsed && (
-                  <ul className="space-y-0.5" role="list">
+                  <ul className="sidebar-nav-list">
                     {group.items.map(item => (
                       <li key={item.path}>
                         <NavLink
                           to={item.path}
                           onClick={onClose}
                           className={({ isActive }) =>
-                            `block px-2.5 py-1.5 rounded-md text-sm transition-colors ${
-                              isActive
-                                ? 'bg-violet-50 text-violet-700 font-medium'
-                                : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
-                            }`
+                            `nav-link${isActive ? ' nav-link--active' : ''}`
                           }
                         >
                           {item.label}
@@ -79,10 +61,10 @@ export function Sidebar({ open, onClose }: SidebarProps) {
                     ))}
                   </ul>
                 )}
-              </div>
+              </Box>
             )
           })}
-        </div>
+        </Box>
       </aside>
     </>
   )

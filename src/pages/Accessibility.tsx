@@ -1,3 +1,4 @@
+import { Box, Heading, Text, Flex } from '@radix-ui/themes'
 import { TableOfContents, type TocItem } from '../components/TableOfContents'
 import { DocNav } from '../components/DocNav'
 import { Callout } from '../components/Callout'
@@ -10,59 +11,57 @@ const toc: TocItem[] = [
   { id: 'testing', label: 'Testing strategy', level: 2 },
 ]
 
+const wcagLevels = [
+  { level: 'A', color: '#22c55e', label: 'Minimum', desc: 'Basic access. Failing A criteria creates hard blocks for assistive technology users. These are non-negotiable.' },
+  { level: 'AA', color: '#7c3aed', label: 'Standard', desc: 'The legal standard in most jurisdictions and the target for most products. Covers contrast, keyboard access, and error handling.' },
+  { level: 'AAA', color: '#6366f1', label: 'Enhanced', desc: 'The highest level. Not required for entire sites but worth targeting for specific high-priority flows.' },
+]
+
 export function Accessibility() {
   const { pathname } = useLocation()
 
   return (
     <>
       <TableOfContents items={toc} />
-      <article className="prose">
-        <div className="mb-6">
-          <span className="text-xs font-semibold uppercase tracking-widest text-violet-600">Accessibility</span>
-        </div>
-        <h1>Why it matters</h1>
-        <p className="text-lg text-gray-500 mt-2 mb-8" style={{ fontSize: '1.0625rem', lineHeight: 1.7 }}>
+      <article className="doc-article">
+        <Text size="1" weight="bold" color="violet" className="doc-category">Accessibility</Text>
+        <Heading as="h1" size="8" mb="2">Why it matters</Heading>
+        <Text as="p" size="3" color="gray" className="doc-lead">
           Accessibility is a technical and design standard that determines whether your product works for the full range of people who use it — including those with visual, motor, cognitive, or auditory disabilities.
-        </p>
+        </Text>
 
         <Callout type="tip" title="The multiplier effect">
           Fix accessibility in the system once and every product team that consumes it inherits the fix. That's a much better return than each team solving the same problem independently.
         </Callout>
 
-        <h2 id={toc[0].id}>{toc[0].label}</h2>
-        <p>
+        <Heading as="h2" size="6" mt="7" mb="3" className="doc-h2" id={toc[0].id}>{toc[0].label}</Heading>
+        <Text as="p" size="3" mb="3">
           The <a href="https://www.w3.org/WAI/standards-guidelines/wcag/" target="_blank" rel="noopener noreferrer">Web Content Accessibility Guidelines (WCAG)</a> organize requirements into three levels:
-        </p>
+        </Text>
 
-        <div className="my-5 space-y-3">
-          {[
-            { level: 'A', color: '#22c55e', label: 'Minimum', desc: 'Basic access. Failing A criteria creates hard blocks for assistive technology users. These are non-negotiable.' },
-            { level: 'AA', color: '#7c3aed', label: 'Standard', desc: 'The legal standard in most jurisdictions and the target for most products. Covers contrast, keyboard access, and error handling.' },
-            { level: 'AAA', color: '#6366f1', label: 'Enhanced', desc: 'The highest level. Not required for entire sites but worth targeting for specific high-priority flows.' },
-          ].map(item => (
-            <div key={item.level} className="flex gap-4 p-4 rounded-lg border border-gray-100">
-              <div
-                className="w-10 h-10 rounded-lg flex items-center justify-center font-bold text-white flex-shrink-0 text-sm"
-                style={{ background: item.color }}
+        <Box mb="5">
+          {wcagLevels.map(item => (
+            <Flex key={item.level} gap="4" align="start" p="4" mb="3" style={{ border: '1px solid var(--gray-a5)', borderRadius: 'var(--radius-3)' }}>
+              <Box
+                className="wcag-badge"
+                style={{ '--badge-bg': item.color } as React.CSSProperties}
                 aria-label={`Level ${item.level}`}
               >
                 {item.level}
-              </div>
-              <div>
-                <p className="font-semibold text-sm text-gray-900 mb-0.5">{item.label}</p>
-                <p className="text-sm text-gray-600 m-0">{item.desc}</p>
-              </div>
-            </div>
+              </Box>
+              <Box>
+                <Text as="div" size="2" weight="bold" mb="1">{item.label}</Text>
+                <Text as="div" size="2" color="gray">{item.desc}</Text>
+              </Box>
+            </Flex>
           ))}
-        </div>
+        </Box>
 
-        <h2 id={toc[1].id}>{toc[1].label}</h2>
-        <p>
+        <Heading as="h2" size="6" mt="7" mb="3" className="doc-h2" id={toc[1].id}>{toc[1].label}</Heading>
+        <Text as="p" size="3" mb="3">
           A design system can't guarantee accessible products — that depends on how components are used in context. But it can dramatically raise the floor by making accessible patterns the default and inaccessible patterns harder to produce.
-        </p>
-        <p>
-          What the system should own:
-        </p>
+        </Text>
+        <Text as="p" size="3" mb="3">What the system should own:</Text>
         <ul>
           <li>Focus management and visible focus styles on all interactive elements</li>
           <li>Color token pairings that pass contrast in their intended combinations</li>
@@ -71,14 +70,12 @@ export function Accessibility() {
           <li>Motion reduction support via <code>prefers-reduced-motion</code></li>
         </ul>
 
-        <h2 id={toc[2].id}>{toc[2].label}</h2>
-        <p>
-          Concrete things to do at the system level:
-        </p>
+        <Heading as="h2" size="6" mt="7" mb="3" className="doc-h2" id={toc[2].id}>{toc[2].label}</Heading>
+        <Text as="p" size="3" mb="3">Concrete things to do at the system level:</Text>
         <h3>Focus styles</h3>
-        <p>
+        <Text as="p" size="3" mb="3">
           Never remove focus outlines without replacing them. The default browser focus ring is ugly but functional — replace it with a branded, clearly visible ring:
-        </p>
+        </Text>
         <pre><code>{`/* System-level focus reset */
 :focus-visible {
   outline: 2px solid var(--color-interactive-primary);
@@ -103,17 +100,17 @@ export function Accessibility() {
 }`}</code></pre>
 
         <h3>Skip links</h3>
-        <p>
+        <Text as="p" size="3" mb="3">
           Every page that includes a navigation sidebar needs a "Skip to main content" link as the first focusable element:
-        </p>
+        </Text>
         <pre><code>{`<a href="#main-content" class="sr-only focus:not-sr-only">
   Skip to main content
 </a>`}</code></pre>
 
-        <h2 id={toc[3].id}>{toc[3].label}</h2>
-        <p>
+        <Heading as="h2" size="6" mt="7" mb="3" className="doc-h2" id={toc[3].id}>{toc[3].label}</Heading>
+        <Text as="p" size="3" mb="3">
           Automated tools catch ~30–40% of accessibility issues. Manual testing catches the rest. A solid strategy covers both:
-        </p>
+        </Text>
         <ol>
           <li><strong>Automated</strong> — axe-core in CI (via jest-axe or Playwright), catching contrast failures, missing labels, and structure issues</li>
           <li><strong>Keyboard testing</strong> — navigate every component with Tab, Shift+Tab, Enter, Space, Escape, and arrow keys</li>
@@ -126,7 +123,7 @@ export function Accessibility() {
         </Callout>
 
         <DocNav currentPath={pathname} />
-      </article>
+    </article>
     </>
   )
 }

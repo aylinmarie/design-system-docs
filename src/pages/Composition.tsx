@@ -1,3 +1,4 @@
+import { Heading, Text } from '@radix-ui/themes'
 import { TableOfContents, type TocItem } from '../components/TableOfContents'
 import { DocNav } from '../components/DocNav'
 import { Callout } from '../components/Callout'
@@ -15,35 +16,33 @@ export function Composition() {
   return (
     <>
       <TableOfContents items={toc} />
-      <article className="prose">
-        <div className="mb-6">
-          <span className="text-xs font-semibold uppercase tracking-widest text-violet-600">Component Architecture</span>
-        </div>
-        <h1>Composition Patterns</h1>
-        <p className="text-lg text-gray-500 mt-2 mb-8" style={{ fontSize: '1.0625rem', lineHeight: 1.7 }}>
+      <article className="doc-article">
+        <Text size="1" weight="bold" color="violet" className="doc-category">Component Architecture</Text>
+        <Heading as="h1" size="8" mb="2">Composition Patterns</Heading>
+        <Text as="p" size="3" color="gray" className="doc-lead">
           Components compose upward. The patterns you choose at the component level determine how flexible the system is at the product level.
-        </p>
+        </Text>
 
-        <h2 id={toc[0].id}>{toc[0].label}</h2>
-        <p>
+        <Heading as="h2" size="6" mt="7" mb="3" className="doc-h2" id={toc[0].id}>{toc[0].label}</Heading>
+        <Text as="p" size="3" mb="3">
           Brad Frost's atomic design gives us a useful vocabulary: atoms (Button, Input), molecules (FormField = Label + Input + Error), organisms (LoginForm = multiple molecules), templates, and pages.
-        </p>
-        <p>
+        </Text>
+        <Text as="p" size="3" mb="3">
           In practice, strict adherence to all five levels creates overhead without benefit. The more useful distinction is between:
-        </p>
+        </Text>
         <ul>
           <li><strong>Primitive components</strong> — atomic, low-level (Button, Input, Icon, Badge). These live in the design system.</li>
           <li><strong>Pattern components</strong> — composed from primitives (DataTable, SearchBar, Toast). These can live in the system or in a shared product layer.</li>
           <li><strong>Product components</strong> — highly specific, assembled from patterns (CheckoutFlow, OnboardingWizard). These live in product code.</li>
         </ul>
-        <p>
+        <Text as="p" size="3" mb="3">
           The design system should own primitives and some widely-shared patterns. It shouldn't try to own product components — that's where teams need maximum flexibility.
-        </p>
+        </Text>
 
-        <h2 id={toc[1].id}>{toc[1].label}</h2>
-        <p>
+        <Heading as="h2" size="6" mt="7" mb="3" className="doc-h2" id={toc[1].id}>{toc[1].label}</Heading>
+        <Text as="p" size="3" mb="3">
           Compound components are a pattern where multiple sub-components work together through shared context, rather than a single monolithic component with dozens of props:
-        </p>
+        </Text>
         <pre><code>{`// Compound component pattern
 <Select value={selected} onChange={setSelected}>
   <Select.Trigger>
@@ -62,18 +61,18 @@ export function Composition() {
     </Select.Content>
   </Select.Portal>
 </Select>`}</code></pre>
-        <p>
+        <Text as="p" size="3" mb="3">
           This pattern (used by Radix UI) gives consumers fine-grained control over every part of the component while keeping the logic and accessibility centralized.
-        </p>
+        </Text>
 
         <Callout type="tip" title="The complexity tradeoff">
           Compound components are more powerful but more complex for consumers to learn. Use them for complex widgets (Select, Dialog, Tabs, Menu). For simple components, a flat props API is easier to adopt.
         </Callout>
 
-        <h2 id={toc[2].id}>{toc[2].label}</h2>
-        <p>
+        <Heading as="h2" size="6" mt="7" mb="3" className="doc-h2" id={toc[2].id}>{toc[2].label}</Heading>
+        <Text as="p" size="3" mb="3">
           Compound components usually rely on React context to share state between parent and children without prop drilling. The pattern:
-        </p>
+        </Text>
         <pre><code>{`// Internal context for compound component state
 const SelectContext = createContext<SelectContextValue | null>(null)
 
@@ -107,7 +106,7 @@ export function SelectItem({ value, children }) {
 }`}</code></pre>
 
         <DocNav currentPath={pathname} />
-      </article>
+    </article>
     </>
   )
 }

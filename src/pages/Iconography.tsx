@@ -1,3 +1,4 @@
+import { Box, Heading, Text, Flex } from '@radix-ui/themes'
 import { TableOfContents, type TocItem } from '../components/TableOfContents'
 import { DocNav } from '../components/DocNav'
 import { Callout } from '../components/Callout'
@@ -33,19 +34,17 @@ export function Iconography() {
   return (
     <>
       <TableOfContents items={toc} />
-      <article className="prose">
-        <div className="mb-6">
-          <span className="text-xs font-semibold uppercase tracking-widest text-violet-600">Foundations</span>
-        </div>
-        <h1>Iconography</h1>
-        <p className="text-lg text-gray-500 mt-2 mb-8" style={{ fontSize: '1.0625rem', lineHeight: 1.7 }}>
+      <article className="doc-article">
+        <Text size="1" weight="bold" color="violet" className="doc-category">Foundations</Text>
+        <Heading as="h1" size="8" mb="2">Iconography</Heading>
+        <Text as="p" size="3" color="gray" className="doc-lead">
           Icons are functional glyphs, not decoration. They need to be legible, consistent, and accessible.
-        </p>
+        </Text>
 
-        <h2 id={toc[0].id}>{toc[0].label}</h2>
-        <p>
+        <Heading as="h2" size="6" mt="7" mb="3" className="doc-h2" id={toc[0].id}>{toc[0].label}</Heading>
+        <Text as="p" size="3" mb="3">
           Most teams don't design their own icon set — they choose an existing one and customize it. The decision criteria:
-        </p>
+        </Text>
         <ul>
           <li><strong>Visual style consistency</strong> — stroke weight, corner radius, and fill approach should be uniform</li>
           <li><strong>Coverage</strong> — does it have the icons your product needs? Industry icons, directional arrows, status indicators?</li>
@@ -53,29 +52,24 @@ export function Iconography() {
           <li><strong>Figma support</strong> — the set should have a Figma library with components, not just SVG exports</li>
         </ul>
 
-        {/* Icon showcase */}
-        <div className="my-6 rounded-xl border border-gray-100 p-5">
-          <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-4">Sample icon set (Lucide)</p>
-          <div className="flex flex-wrap gap-4">
+        <Box className="demo-card">
+          <Box className="demo-card-header">
+            <Text size="1" weight="bold" color="gray" className="demo-label">Sample icon set (Lucide)</Text>
+          </Box>
+          <Flex wrap="wrap" gap="2" p="4">
             {sampleIcons.map(({ icon: Icon, name }) => (
-              <div
-                key={name}
-                className="flex flex-col items-center gap-1.5 p-2.5 rounded-lg hover:bg-violet-50 transition-colors cursor-default"
-                title={name}
-              >
-                <Icon size={20} className="text-gray-700" aria-hidden="true" />
-                <span className="text-gray-400" style={{ fontSize: '0.6rem', fontFamily: 'JetBrains Mono, monospace' }}>
-                  {name}
-                </span>
-              </div>
+              <Box key={name} className="icon-demo-item" title={name}>
+                <Icon size={20} aria-hidden="true" />
+                <span className="icon-demo-name">{name}</span>
+              </Box>
             ))}
-          </div>
-        </div>
+          </Flex>
+        </Box>
 
-        <h2 id={toc[1].id}>{toc[1].label}</h2>
-        <p>
+        <Heading as="h2" size="6" mt="7" mb="3" className="doc-h2" id={toc[1].id}>{toc[1].label}</Heading>
+        <Text as="p" size="3" mb="3">
           Icons should be drawn on a consistent grid (16×16 or 24×24 being most common) and scaled in multiples. Define your sizes as tokens:
-        </p>
+        </Text>
         <ul>
           <li><strong>12px</strong> — status indicators inside dense UI</li>
           <li><strong>16px</strong> — inline with text, most common UI size</li>
@@ -88,10 +82,10 @@ export function Iconography() {
           A 24px icon scaled to 16px looks thin and weak. An icon drawn for 16px has a heavier stroke that compensates for its small size. Use icons from the correct size grid, or switch to a variable icon set that handles this automatically.
         </Callout>
 
-        <h2 id={toc[2].id}>{toc[2].label}</h2>
-        <p>
+        <Heading as="h2" size="6" mt="7" mb="3" className="doc-h2" id={toc[2].id}>{toc[2].label}</Heading>
+        <Text as="p" size="3" mb="3">
           Icons are one of the most common sources of accessibility failures. The rule is simple:
-        </p>
+        </Text>
         <ul>
           <li><strong>Decorative icons</strong> (always paired with visible text) → <code>aria-hidden="true"</code></li>
           <li><strong>Standalone icons</strong> (icon-only buttons) → need an accessible name via <code>aria-label</code> or a visually hidden label</li>
@@ -115,10 +109,8 @@ export function Iconography() {
   Invalid email address
 </span>`}</code></pre>
 
-        <h2 id={toc[3].id}>{toc[3].label}</h2>
-        <p>
-          Three options for delivering icons in a design system:
-        </p>
+        <Heading as="h2" size="6" mt="7" mb="3" className="doc-h2" id={toc[3].id}>{toc[3].label}</Heading>
+        <Text as="p" size="3" mb="3">Three options for delivering icons in a design system:</Text>
         <ol>
           <li><strong>SVG sprites</strong> — a single SVG file with all icons, referenced by ID. Good for performance; requires a build step.</li>
           <li><strong>Inline SVG components</strong> — each icon is a React (or Vue, Svelte) component. Best DX; slightly larger bundle if not tree-shaken properly.</li>
@@ -126,7 +118,7 @@ export function Iconography() {
         </ol>
 
         <DocNav currentPath={pathname} />
-      </article>
+    </article>
     </>
   )
 }
