@@ -26,7 +26,7 @@ export function Introduction() {
           This guide is for practitioners — designers and engineers who are building, contributing to, or inheriting a design system. It assumes you're already building products and have hit some of the friction that a design system is meant to solve.
         </Text>
         <Text as="p" size="3" mb="3">
-          Whether you're a solo designer formalizing conventions, a team trying to align on patterns, or a tech lead architecting a platform that will scale across dozens of product squads, there's something here for you.
+          The scope runs from a solo designer formalizing conventions to a tech lead architecting a platform for dozens of product squads.
         </Text>
 
         <Heading as="h2" size="6" mt="7" mb="3" className="doc-h2" id={toc[1].id}>{toc[1].label}</Heading>
