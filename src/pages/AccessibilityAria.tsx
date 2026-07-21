@@ -18,7 +18,7 @@ export function AccessibilityAria() {
     <>
       <TableOfContents items={toc} />
       <article className="doc-article">
-        <Text size="1" weight="bold" color="violet" className="doc-category">Accessibility</Text>
+        <Text size="1" weight="bold" color="blue" className="doc-category">Accessibility</Text>
         <Heading as="h1" size="8" mb="2">ARIA & Semantics</Heading>
         <Text as="p" size="3" color="gray" className="doc-lead">
           Semantic HTML communicates structure. ARIA fills the gaps for patterns that HTML can't express natively.

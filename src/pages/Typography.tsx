@@ -29,7 +29,7 @@ export function Typography() {
     <>
       <TableOfContents items={toc} />
       <article className="doc-article">
-        <Text size="1" weight="bold" color="violet" className="doc-category">Foundations</Text>
+        <Text size="1" weight="bold" color="blue" className="doc-category">Foundations</Text>
         <Heading as="h1" size="8" mb="2">Typography</Heading>
         <Text as="p" size="3" color="gray" className="doc-lead">
           A type system is a fixed set of size, weight, and spacing decisions made once, named by purpose, and reused everywhere. Without one, teams pick values ad hoc and the interface reads as inconsistent.

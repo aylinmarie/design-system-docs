@@ -39,7 +39,7 @@ export function Color() {
     <>
       <TableOfContents items={toc} />
       <article className="doc-article">
-        <Text size="1" weight="bold" color="violet" className="doc-category">Foundations</Text>
+        <Text size="1" weight="bold" color="blue" className="doc-category">Foundations</Text>
         <Heading as="h1" size="8" mb="2">Color</Heading>
         <Text as="p" size="3" color="gray" className="doc-lead">
           A color system is a structured set of palette and semantic decisions. Without one, the same interactive state gets a different shade in every component and the visual language breaks down.

@@ -18,7 +18,7 @@ export function Versioning() {
     <>
       <TableOfContents items={toc} />
       <article className="doc-article">
-        <Text size="1" weight="bold" color="violet" className="doc-category">Governance</Text>
+        <Text size="1" weight="bold" color="blue" className="doc-category">Governance</Text>
         <Heading as="h1" size="8" mb="2">Versioning & Releases</Heading>
         <Text as="p" size="3" color="gray" className="doc-lead">
           How you version and release your system determines how much trust product teams put in it. Predictability is the goal.

@@ -34,7 +34,7 @@ export function WhatIsADesignSystem() {
     <>
       <TableOfContents items={toc} />
       <article className="doc-article">
-        <Text size="1" weight="bold" color="violet" className="doc-category">
+        <Text size="1" weight="bold" color="blue" className="doc-category">
           Getting Started
         </Text>
         <Heading as="h1" size="8" mb="2">

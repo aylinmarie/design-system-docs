@@ -35,7 +35,7 @@ export function Iconography() {
     <>
       <TableOfContents items={toc} />
       <article className="doc-article">
-        <Text size="1" weight="bold" color="violet" className="doc-category">Foundations</Text>
+        <Text size="1" weight="bold" color="blue" className="doc-category">Foundations</Text>
         <Heading as="h1" size="8" mb="2">Iconography</Heading>
         <Text as="p" size="3" color="gray" className="doc-lead">
           Icons are functional glyphs, not decoration. They need to be legible, consistent, and accessible.

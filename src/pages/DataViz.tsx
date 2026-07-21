@@ -18,7 +18,7 @@ export function DataViz() {
     <>
       <TableOfContents items={toc} />
       <article className="doc-article">
-        <Text size="1" weight="bold" color="violet" className="doc-category">Data Visualization</Text>
+        <Text size="1" weight="bold" color="blue" className="doc-category">Data Visualization</Text>
         <Heading as="h1" size="8" mb="2">Principles</Heading>
         <Text as="p" size="3" color="gray" className="doc-lead">
           Data visualization is one of the hardest design problems to systematize. The number of ways to get it wrong vastly outnumber the ways to get it right.

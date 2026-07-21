@@ -42,7 +42,7 @@ export function Governance() {
     <>
       <TableOfContents items={toc} />
       <article className="doc-article">
-        <Text size="1" weight="bold" color="violet" className="doc-category">Governance</Text>
+        <Text size="1" weight="bold" color="blue" className="doc-category">Governance</Text>
         <Heading as="h1" size="8" mb="2">Contribution Model</Heading>
         <Text as="p" size="3" color="gray" className="doc-lead">
           Who can contribute what, and how? Governance is what separates a design system that scales from one that quietly forks.

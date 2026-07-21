@@ -42,7 +42,7 @@ export function TableOfContents({ items }: TableOfContentsProps) {
             <Link
               href={`#${item.id}`}
               size="1"
-              color={active === item.id ? 'violet' : 'gray'}
+              color={active === item.id ? 'blue' : 'gray'}
               weight={active === item.id ? 'medium' : 'regular'}
               underline="none"
               className={`toc-link${item.level === 3 ? ' toc-link--sub' : ''}`}

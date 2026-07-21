@@ -18,7 +18,7 @@ export function ComponentApi() {
     <>
       <TableOfContents items={toc} />
       <article className="doc-article">
-        <Text size="1" weight="bold" color="violet" className="doc-category">Component Architecture</Text>
+        <Text size="1" weight="bold" color="blue" className="doc-category">Component Architecture</Text>
         <Heading as="h1" size="8" mb="2">Component API Design</Heading>
         <Text as="p" size="3" color="gray" className="doc-lead">
           A component's API is a contract with every team that uses it. Design it with the same care you'd give a public SDK.

@@ -15,11 +15,22 @@ export function Introduction() {
     <>
       <TableOfContents items={toc} />
       <article className="doc-article">
-        <Text size="1" weight="bold" color="violet" className="doc-category">Getting Started</Text>
+        <Text size="1" weight="bold" color="blue" className="doc-category">Getting Started</Text>
         <Heading as="h1" size="8" mb="2">Introduction</Heading>
         <Text as="p" size="3" color="gray" className="doc-lead">
-          An open source knowledge base on design systems.
+          An open source knowledge base on design systems &mdash; for designers and engineers building, contributing to, or inheriting one.
         </Text>
+        <Flex className="hero-cta-row">
+          <a href="#who-this-is-for" className="github-cta-btn">Start reading</a>
+          <a
+            href="https://github.com/aylinmarie/design-system-docs"
+            className="hero-link"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            View on GitHub &rarr;
+          </a>
+        </Flex>
 
         <Heading as="h2" size="6" mt="7" mb="3" className="doc-h2" id={toc[0].id}>{toc[0].label}</Heading>
         <Text as="p" size="3" mb="3">
