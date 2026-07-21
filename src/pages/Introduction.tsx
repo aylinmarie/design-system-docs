@@ -1,27 +1,12 @@
-import { Box, Heading, Text, Flex, Grid, Card } from '@radix-ui/themes'
-import { BookOpen, GitBranch } from 'lucide-react'
+import { Box, Heading, Text, Flex, Card } from '@radix-ui/themes'
+import { GitBranch } from 'lucide-react'
 import { TableOfContents, type TocItem } from '../components/TableOfContents'
 import { DocNav } from '../components/DocNav'
 import { useLocation } from 'react-router-dom'
 
 const toc: TocItem[] = [
   { id: 'who-this-is-for', label: 'Who this is for', level: 2 },
-  { id: 'how-to-use', label: 'How to use this guide', level: 2 },
-  { id: 'why-free', label: "Why it's free", level: 2 },
   { id: 'contribute', label: 'Contribute', level: 2 },
-]
-
-const principles = [
-  {
-    icon: BookOpen,
-    title: 'Open source',
-    desc: 'The source is public. If something is wrong, outdated, or incomplete, anyone can open a PR and make it better.',
-  },
-  {
-    icon: GitBranch,
-    title: 'Community owned',
-    desc: 'No single company controls this. No VC funding, no exit strategy. It exists because it should exist.',
-  },
 ]
 
 export function Introduction() {
@@ -45,36 +30,6 @@ export function Introduction() {
         </Text>
 
         <Heading as="h2" size="6" mt="7" mb="3" className="doc-h2" id={toc[1].id}>{toc[1].label}</Heading>
-        <Text as="p" size="3" mb="3">
-          This isn't meant to be read cover to cover. Use the sidebar to jump to what's relevant right now. Topics are organized roughly by the order in which they matter:
-        </Text>
-        <ol>
-          <li><strong>Foundations first</strong> — Tokens, typography, and color are the bedrock. Get these right and everything else becomes easier.</li>
-          <li><strong>Accessibility throughout</strong> — Not a layer added at the end. The accessibility section explains how to wire it in from day one.</li>
-          <li><strong>Architecture and governance last</strong> — Only after you understand what you're building do the structural questions make sense.</li>
-        </ol>
-
-        <Heading as="h2" size="6" mt="7" mb="3" className="doc-h2" id={toc[2].id}>{toc[2].label}</Heading>
-        <Text as="p" size="3" mb="3">
-          There are a lot of courses, ebooks, and workshops about design systems — most of them cost money. The practitioners who need this knowledge most — junior designers at under-resourced companies, engineers inheriting legacy codebases, teams at nonprofits — are often the least able to pay $300 for a course or $80 for an ebook.
-        </Text>
-        <Text as="p" size="3" mb="5">
-          The paid content industry around design systems has grown a lot, and some of it is genuinely excellent. But the existence of good paid content doesn't mean free content can't also exist. Information compounds. One clear explanation shared publicly reaches far more people than the same content locked behind a paywall.
-        </Text>
-
-        <Grid columns="2" gap="3" mb="7">
-          {principles.map(({ icon: Icon, title, desc }) => (
-            <Card key={title} variant="surface">
-              <Box className="principle-icon" mb="3" aria-hidden="true">
-                <Icon size={15} />
-              </Box>
-              <Text as="div" size="2" weight="bold" mb="1">{title}</Text>
-              <Text as="div" size="1" color="gray">{desc}</Text>
-            </Card>
-          ))}
-        </Grid>
-
-        <Heading as="h2" size="6" mt="7" mb="3" className="doc-h2" id={toc[3].id}>{toc[3].label}</Heading>
         <Text as="p" size="3" mb="3">
           This guide is open source. If you find an error, want to add nuance to a section, or think something important is missing, contributions are welcome.
         </Text>
@@ -108,7 +63,7 @@ export function Introduction() {
         </Card>
 
         <DocNav currentPath={pathname} />
-    </article>
+      </article>
     </>
   )
 }

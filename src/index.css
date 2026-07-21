@@ -436,6 +436,7 @@ body {
   transition: background 0.1s;
   border-bottom: none;
 }
+.github-cta-btn, .doc-article .github-cta-btn { color: #fff; }
 .github-cta-btn:hover { background: var(--accent-10); border-bottom: none; }
 
 /* Callout title */
