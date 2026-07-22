@@ -1,4 +1,4 @@
-import { Callout as RadixCallout } from '@radix-ui/themes'
+import { Callout as RadixCallout, Text } from '@radix-ui/themes'
 import { Info, Lightbulb, AlertTriangle, CheckCircle } from 'lucide-react'
 import { type ReactNode } from 'react'
 
@@ -27,10 +27,10 @@ export function Callout({ type = 'info', title, children }: CalloutProps) {
       <RadixCallout.Icon>
         <Icon size={15} aria-hidden="true" />
       </RadixCallout.Icon>
-      <RadixCallout.Text>
+      <Text as="div" size="2" className="rt-CalloutText">
         {title && <span className="callout-title">{title}</span>}
         {children}
-      </RadixCallout.Text>
+      </Text>
     </RadixCallout.Root>
   )
 }

@@ -1,0 +1,64 @@
+---
+category: Governance
+title: Versioning & Releases
+dek: >-
+  How you version and release your system determines how much trust product
+  teams put in it. Predictability is the goal.
+---
+
+import { Callout } from '../components/Callout'
+
+## Semantic versioning
+
+Design systems should follow semantic versioning (semver): `MAJOR.MINOR.PATCH`.
+
+- **PATCH** (1.0.x) — bug fixes, visual tweaks that don't break existing usage
+- **MINOR** (1.x.0) — new components, new props with defaults, non-breaking additions
+- **MAJOR** (x.0.0) — breaking changes: removed props, renamed components, changed behavior
+
+Be strict about this. A "minor" breaking change is still a major version bump. Teams pin versions and have CI — they'll feel it if you're inconsistent.
+
+<Callout type="warning" title="Version 0.x is not an excuse">
+  Some teams use `0.x` versioning to avoid commitment to a stable API. This is fine early in development but creates problems as teams adopt the system. Move to `1.0` when you're ready to make stability commitments — and then keep them.
+</Callout>
+
+## Managing breaking changes
+
+Breaking changes are sometimes necessary. When they are:
+
+1. **Communicate early** — deprecate before removing. Mark props as deprecated with a console warning 1–2 major versions before removing them
+2. **Provide codemods** — a codemod script that migrates usage automatically reduces the cost of breaking changes significantly
+3. **Write a migration guide** — before/after examples, not just "removed `isDisabled` prop"
+4. **Time it well** — batch breaking changes into fewer major releases rather than releasing major versions constantly
+
+```jsx
+// Deprecation warning pattern
+function Button({ isDisabled, disabled, ...props }) {
+  if (isDisabled !== undefined) {
+    console.warn(
+      '[DesignSystem] Button: isDisabled is deprecated. Use disabled instead. ' +
+      'isDisabled will be removed in v4.0.'
+    )
+  }
+  return <button disabled={isDisabled ?? disabled} {...props} />
+}
+```
+
+## Release process
+
+A good release process is automated, predictable, and generates useful changelogs:
+
+- **Conventional commits** — enforce commit message format (`feat:`, `fix:`, `BREAKING CHANGE:`) to automate changelog generation
+- **Changesets** — the `@changesets/cli` package manages version bumps and changelogs for monorepos. Highly recommended.
+- **Release preview** — publish alpha/beta/rc tags for large changes so adopters can test before stable release
+- **Automated publish** — CI publishes on merge to main; no manual npm publish steps
+
+## Supporting multiple versions
+
+As the organization grows, some product teams will lag behind on versions. At scale, you'll likely need to support N and N-1 simultaneously with security patches.
+
+Strategies for managing this:
+
+- Publish LTS (Long-Term Support) versions for major releases that will receive bug and security fixes for 12–18 months
+- Track adoption metrics by version — know exactly which teams are on which version
+- Set a sunset date for old major versions and hold teams accountable with product leadership support

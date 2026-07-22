@@ -1,0 +1,90 @@
+---
+category: Data Visualization
+title: Principles
+dek: >-
+  Data visualization is one of the hardest design problems to systematize.
+  The number of ways to get it wrong vastly outnumber the ways to get it
+  right.
+---
+
+import { Callout } from '../components/Callout'
+
+## Core principles
+
+### Encode data, don't decorate it
+
+Every visual element in a chart should encode information. Gradients, drop shadows, and 3D effects rarely encode data — they obscure it. Start with the simplest representation that accurately communicates the data, and add visual complexity only when it carries meaning.
+
+### Choose the right encoding
+
+Cleveland and McGill's hierarchy of perceptual accuracy (most to least accurate):
+
+1. Position along a common scale
+2. Position along identical, non-aligned scales
+3. Length
+4. Angle and slope
+5. Area
+6. Volume, density, color saturation
+7. Color hue
+
+This is why bar charts beat pie charts for most comparisons — position along a scale is more accurately perceived than angle.
+
+### Don't make people do math
+
+If the insight requires subtracting two bars or estimating a percentage of a circle, the chart has failed. Annotate directly, call out the specific value, or compute the derived number and show it explicitly.
+
+<Callout type="tip" title="The annotation is the point">
+  The most effective charts in business contexts often have direct annotations — "Revenue up 23% vs. last quarter" — rather than letting the user interpret the visual. The chart provides context; the annotation delivers the insight.
+</Callout>
+
+## Visual hierarchy in charts
+
+A chart is a document with a visual hierarchy:
+
+- **Title** — the claim the chart makes, not just a description of the data ("Revenue grew 23% in Q3", not "Q3 Revenue")
+- **Data layer** — the marks (bars, lines, points) that encode the data. This is the foreground.
+- **Reference layer** — axes, gridlines, baselines. This is the background. It should recede visually.
+- **Annotation layer** — callouts, labels, highlights. These are editorial, above the data.
+
+Most poor charts fail because the reference layer (gridlines, axis labels) competes visually with the data layer. Use light gray for gridlines, reduce label size, and remove everything that doesn't help interpretation.
+
+## Data viz tokens
+
+Data visualization needs its own token set. These are separate from UI tokens because the color requirements differ — viz colors need to be visually distinct, perceptually ordered (for sequential scales), and work at small mark sizes.
+
+```css
+/* Categorical palette — distinct colors for discrete series */
+--viz-color-1: #7c3aed;   /* violet */
+--viz-color-2: #2563eb;   /* blue */
+--viz-color-3: #059669;   /* green */
+--viz-color-4: #d97706;   /* amber */
+--viz-color-5: #dc2626;   /* red */
+--viz-color-6: #0891b2;   /* cyan */
+
+/* Sequential scale — single hue, for ordered data */
+--viz-seq-100: #f5f3ff;
+--viz-seq-300: #c4b5fd;
+--viz-seq-500: #8b5cf6;
+--viz-seq-700: #6d28d9;
+--viz-seq-900: #4c1d95;
+
+/* Diverging scale — two hues, for data with a meaningful midpoint */
+--viz-div-low:  #2563eb;   /* below baseline */
+--viz-div-mid:  #e5e7eb;   /* neutral */
+--viz-div-high: #dc2626;   /* above baseline */
+
+/* Structural tokens */
+--viz-axis-color:     #e5e7eb;
+--viz-gridline-color: #f3f4f6;
+--viz-label-color:    #6b7280;
+```
+
+## Accessibility in charts
+
+Charts are one of the most inaccessible parts of most products. Minimum requirements:
+
+- **Never rely on color alone** — use pattern, shape, or position as a secondary encoding
+- **Provide a text alternative** — a table or summary paragraph for screen reader users
+- **Use `role="img"` and `aria-label`** on the chart container with a descriptive label
+- **Keyboard-accessible tooltips** — if hover triggers data, Tab must too
+- **Test with color blindness simulators** — Coblis and Figma's color blindness plugin. Deuteranopia (red-green) is most common.

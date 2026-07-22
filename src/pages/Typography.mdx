@@ -1,0 +1,112 @@
+---
+category: Foundations
+title: Typography
+dek: >-
+  A type system is a fixed set of size, weight, and spacing decisions made
+  once, named by purpose, and reused everywhere. Without one, teams pick
+  values ad hoc and the interface reads as inconsistent.
+---
+
+import { Box, Flex, Text } from '@radix-ui/themes'
+import { Callout } from '../components/Callout'
+
+export const typeScale = [
+  { name: 'display.2xl', size: '3rem', weight: '700', lh: '1.1', sample: 'The quick brown fox', token: 'font.size.display.2xl' },
+  { name: 'display.xl', size: '2.25rem', weight: '700', lh: '1.2', sample: 'The quick brown fox jumps', token: 'font.size.display.xl' },
+  { name: 'heading.lg', size: '1.5rem', weight: '600', lh: '1.3', sample: 'Section heading example', token: 'font.size.heading.lg' },
+  { name: 'heading.md', size: '1.125rem', weight: '600', lh: '1.4', sample: 'Subsection heading for context', token: 'font.size.heading.md' },
+  { name: 'body.lg', size: '1rem', weight: '400', lh: '1.7', sample: 'Body text for reading long-form prose content in the interface', token: 'font.size.body.lg' },
+  { name: 'body.sm', size: '0.875rem', weight: '400', lh: '1.6', sample: 'Smaller body text for secondary information', token: 'font.size.body.sm' },
+  { name: 'label', size: '0.75rem', weight: '600', lh: '1.4', sample: 'LABEL TEXT', token: 'font.size.label' },
+]
+
+## The type scale
+
+A type scale is a limited set of font sizes with names that describe their purpose, not their pixel value. Naming sizes semantically — `heading.lg` rather than `24px` — decouples intent from implementation and makes responsive scaling possible.
+
+Use a mathematical ratio to generate your scale. Common ratios: **1.25 (Major Third)** for compact UIs, **1.333 (Perfect Fourth)** for content-heavy products, **1.5 (Perfect Fifth)** for dramatic hierarchy.
+
+<Box className="demo-card">
+  <Box className="demo-card-header">
+    <Text size="1" weight="bold" color="gray" className="demo-label">Type scale — Inter, Major Third (1.25)</Text>
+  </Box>
+  {typeScale.map(step => (
+    <Flex key={step.name} align="baseline" className="type-scale-row">
+      <Box className="type-scale-meta">
+        <Text as="span" className="token-mono token-mono-muted" style={{ display: 'block' }}>{step.size}</Text>
+        <Text as="span" className="token-mono token-mono-accent" style={{ display: 'block' }}>{step.name}</Text>
+      </Box>
+      <div
+        className="type-sample"
+        data-negative-tracking={parseFloat(step.size) > 1.5 ? 'true' : undefined}
+        style={{
+          '--sample-size': step.size,
+          '--sample-weight': step.weight,
+          '--sample-lh': step.lh,
+        }}
+      >
+        {step.sample}
+      </div>
+    </Flex>
+  ))}
+</Box>
+
+## Typeface selection
+
+Most design systems use one typeface family with a variable or multi-weight setup. Criteria for selecting one:
+
+- **Legibility at small sizes** — the UI needs to work at 12–14px labels, not just 32px headlines
+- **Weight range** — you need at least 4 weights: 400, 500, 600, 700
+- **Numeric variants** — tabular figures for data tables, so numbers align vertically
+- **OpenType features** — small caps, ligatures, and stylistic sets for richness
+- **Licensing** — system fonts (Inter, IBM Plex, Source Sans) are free; brand fonts need licensing budget and a fallback stack
+
+<Callout type="tip" title="Don't use system-ui as your primary typeface">
+  System-ui renders differently on Windows vs macOS vs iOS. Use a web font with explicit fallbacks. Inter is the right call for most products — it was designed for screens, has excellent OpenType support, and is free.
+</Callout>
+
+## Line height & measure
+
+Two properties that designers often underspecify:
+
+### Line height
+
+Use a **unitless multiplier** in tokens, not a fixed pixel value. `1.7` scales with font size; `27px` doesn't. For headings: 1.1–1.3. For body: 1.6–1.8. For UI labels: 1.3–1.4.
+
+### Measure (line length)
+
+The optimal reading length is 50–75 characters per line. In CSS: `max-width: 65ch` on your prose containers. Never let content run full-width on wide screens — it destroys readability.
+
+## Typography tokens
+
+Tokenize the full type style, not just font size. A type style token bundles size, weight, line height, and letter spacing:
+
+```json
+{
+  "font": {
+    "style": {
+      "heading.lg": {
+        "$type": "typography",
+        "$value": {
+          "fontFamily": "{font.family.sans}",
+          "fontSize": "{font.size.heading.lg}",
+          "fontWeight": "{font.weight.semibold}",
+          "lineHeight": "{font.lineHeight.tight}",
+          "letterSpacing": "-0.015em"
+        }
+      }
+    }
+  }
+}
+```
+
+## Responsive type
+
+Don't just scale text down on mobile — rethink the hierarchy. A 3rem display heading often needs to drop to 2rem on small screens, and the relative weights may need to shift too.
+
+Use CSS `clamp()` for fluid type that scales with the viewport without breakpoint math:
+
+```css
+/* Fluid display heading: 1.75rem at 320px, 3rem at 1280px */
+font-size: clamp(1.75rem, 4vw + 0.5rem, 3rem);
+```

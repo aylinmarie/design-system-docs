@@ -1,0 +1,109 @@
+---
+category: Foundations
+title: Color
+dek: >-
+  A color system is a structured set of palette and semantic decisions.
+  Without one, the same interactive state gets a different shade in every
+  component and the visual language breaks down.
+---
+
+import { Box, Flex, Text } from '@radix-ui/themes'
+import { Callout } from '../components/Callout'
+
+export const palette = [
+  { name: 'violet', shades: [
+    { step: '50', hex: '#f5f3ff' },
+    { step: '100', hex: '#ede9fe' },
+    { step: '200', hex: '#ddd6fe' },
+    { step: '400', hex: '#a78bfa' },
+    { step: '600', hex: '#7c3aed' },
+    { step: '700', hex: '#6d28d9' },
+    { step: '900', hex: '#4c1d95' },
+  ]},
+  { name: 'gray', shades: [
+    { step: '50', hex: '#f9fafb' },
+    { step: '100', hex: '#f3f4f6' },
+    { step: '200', hex: '#e5e7eb' },
+    { step: '400', hex: '#9ca3af' },
+    { step: '600', hex: '#4b5563' },
+    { step: '800', hex: '#1f2937' },
+    { step: '900', hex: '#111827' },
+  ]},
+]
+
+## The palette structure
+
+Start with a global palette — a full range of named steps for each color. A 50–900 step system (following Tailwind's approach) gives enough resolution for subtle backgrounds, borders, and high-contrast text.
+
+{palette.map(color => (
+  <Box key={color.name} mb="4">
+    <Text size="1" weight="bold" color="gray" className="demo-label" mb="2" style={{ display: 'block' }}>{color.name}</Text>
+    <Flex gap="2">
+      {color.shades.map(shade => (
+        <Box key={shade.step} className="palette-col">
+          <Box
+            className="palette-swatch"
+            style={{ '--swatch-bg': shade.hex }}
+            title={shade.hex}
+            aria-label={`${color.name} ${shade.step}: ${shade.hex}`}
+          />
+          <Text as="span" className="swatch-step">{shade.step}</Text>
+        </Box>
+      ))}
+    </Flex>
+  </Box>
+))}
+
+The global palette should be exhaustive but not opinionated about usage. It's a vocabulary — semantic tokens assign the meaning.
+
+## Semantic color roles
+
+Semantic tokens give names to color roles. The four main categories:
+
+- **Interactive** — primary action color (buttons, links, focus rings)
+- **Neutral** — text, borders, surfaces in the gray range
+- **Feedback** — success (green), warning (amber), error (red), info (blue)
+- **Brand** — marketing/brand-specific uses, often same as interactive but kept separate to allow divergence
+
+```css
+/* Semantic layer in CSS custom properties */
+:root {
+  /* Interactive */
+  --color-interactive-primary:    var(--global-violet-600);
+  --color-interactive-primary-hover: var(--global-violet-700);
+  --color-interactive-subtle:     var(--global-violet-50);
+
+  /* Text */
+  --color-text-default:   var(--global-gray-900);
+  --color-text-secondary: var(--global-gray-600);
+  --color-text-muted:     var(--global-gray-400);
+
+  /* Feedback */
+  --color-feedback-success: var(--global-green-600);
+  --color-feedback-error:   var(--global-red-600);
+  --color-feedback-warning: var(--global-amber-600);
+}
+```
+
+## Dark mode
+
+Dark mode is where a semantic token layer pays off immediately. With semantic tokens, dark mode is a token override — not a stylesheet full of overrides on every component.
+
+```css
+[data-theme="dark"] {
+  --color-interactive-primary:    var(--global-violet-400);
+  --color-text-default:           var(--global-gray-50);
+  --color-text-secondary:         var(--global-gray-400);
+  --color-interactive-subtle:     var(--global-violet-900);
+}
+```
+
+<Callout type="warning" title="Don't just invert">
+  Dark mode isn't a color inversion. Dark surfaces should use slightly elevated grays (not pure black), and you often need to reduce the saturation of accent colors to prevent them from vibrating against dark backgrounds.
+</Callout>
+
+## Contrast & accessibility
+
+[WCAG 2.1](https://www.w3.org/TR/WCAG21/) sets minimums: 4.5:1 for body text, 3:1 for large text and UI components. WCAG 3.0 introduces [APCA](https://apcacontrast.com/), a perceptual model that factors in font weight and size.
+
+Bake contrast checking into your token definition process. Tools like Figma's built-in checker, `contrast-color` npm package, or Polychrome can flag violations before they ship.

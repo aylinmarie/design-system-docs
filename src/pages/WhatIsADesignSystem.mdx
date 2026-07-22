@@ -1,0 +1,66 @@
+---
+category: Getting Started
+title: What Is a Design System?
+dek: A shared language for building products.
+---
+
+import { Box, Flex, Text } from '@radix-ui/themes'
+
+export const layers = [
+  {
+    label: 'Patterns & Guidance',
+    sublabel: 'How components compose into flows',
+    opacity: 1,
+  },
+  {
+    label: 'Components',
+    sublabel: 'Reusable UI building blocks',
+    opacity: 0.7,
+  },
+  {
+    label: 'Tokens & Foundations',
+    sublabel: 'The raw decisions: color, type, spacing',
+    opacity: 0.45,
+  },
+]
+
+## The definition
+
+A design system is the set of decisions a team has made about how to build — and the tools, documentation, and components that make those decisions reusable. At its core, it's a source of truth that reduces the number of decisions any one person has to make.
+
+## The three layers
+
+Design systems are usefully thought of in three layers, each building on the one below:
+
+<Box className="demo-card" mb="5">
+  {layers.map((layer, i) => (
+    <Box
+      key={i}
+      className="layer-item"
+      style={{ background: `rgba(124, 58, 237, ${layer.opacity * 0.1})` }}
+    >
+      <Box>
+        <Text as="div" size="2" weight="bold" mb="1">
+          {layer.label}
+        </Text>
+        <Text as="div" size="1" color="gray">
+          {layer.sublabel}
+        </Text>
+      </Box>
+      <Box className="layer-badge">Layer {3 - i}</Box>
+    </Box>
+  ))}
+</Box>
+
+## What it's not
+
+A design system is **not**:
+
+- A component library in isolation — code without documentation and rationale isn't a system, it's a library
+- A Storybook — Storybook is a tool for documenting components, not the system itself
+- A Figma file — Figma is where design decisions live, not the canonical source of the system
+- A one-time project — systems require ongoing investment and governance to stay healthy
+
+## The real value
+
+The ROI of a design system is rarely in the components themselves. It's in the decisions that don't have to be made twice. Every time a product team reaches for a button and doesn't have to debate its border-radius, focus state, and accessible label — that's the system working.

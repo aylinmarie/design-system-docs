@@ -1,0 +1,141 @@
+---
+category: Foundations
+title: Design Tokens
+dek: >-
+  The atomic decisions of your system. Every visual property that repeats is
+  a candidate for a token.
+---
+
+import { Box, Flex, Text } from '@radix-ui/themes'
+import { DemoCard } from '../components/mdx/DemoCard'
+import { Callout } from '../components/Callout'
+
+export const tokenSwatches = [
+  { name: 'global.color.blue.600', value: '#2563eb', label: '#2563eb' },
+  { name: 'global.color.blue.100', value: '#dbeafe', label: '#dbeafe' },
+  { name: 'global.color.gray.900', value: '#111827', label: '#111827' },
+  { name: 'global.color.gray.50', value: '#f9fafb', label: '#f9fafb' },
+]
+
+export const semanticTokens = [
+  { name: 'color.interactive.primary', references: 'global.color.blue.600', value: '#2563eb' },
+  { name: 'color.text.default', references: 'global.color.gray.900', value: '#111827' },
+  { name: 'color.surface.subtle', references: 'global.color.gray.50', value: '#f9fafb' },
+]
+
+## What are tokens?
+
+Design tokens are named entities that store design values. Instead of hardcoding `#2563eb` in a component, you reference `color.interactive.primary`. The name carries intent; the value can change without the component knowing.
+
+This indirection is what makes tokens powerful. You can theme your system, support dark mode, and swap brand colors without touching component code.
+
+<DemoCard label="Global color tokens">
+  {tokenSwatches.map(token => (
+    <Flex key={token.name} align="center" gap="4" className="demo-row">
+      <Box
+        className="color-swatch"
+        style={{ '--swatch-bg': token.value }}
+        aria-hidden="true"
+      />
+      <Text as="span" className="token-mono token-mono-flex">{token.name}</Text>
+      <Text as="span" className="token-mono token-mono-muted">{token.label}</Text>
+    </Flex>
+  ))}
+</DemoCard>
+
+## Taxonomy: global → semantic → component
+
+The most scalable token systems use three tiers:
+
+### 1. Global (primitive) tokens
+
+Raw values — the full palette, the full type scale. Named by what they are, not how they're used. `global.color.blue.600` is a global token. There can be many of these, and that's fine — they're the vocabulary, not the grammar.
+
+### 2. Semantic (alias) tokens
+
+Intent-bearing names that reference global tokens. `color.interactive.primary` points to `global.color.blue.600`. This is the layer you swap for theming. Components reference semantic tokens, never globals directly.
+
+<DemoCard label="Semantic tokens → Global references">
+  {semanticTokens.map(token => (
+    <Flex key={token.name} align="center" gap="4" className="demo-row">
+      <Box
+        className="color-swatch-sm"
+        style={{ '--swatch-bg': token.value }}
+        aria-hidden="true"
+      />
+      <Text as="span" className="token-mono token-mono-flex">{token.name}</Text>
+      <Text as="span" color="gray" size="1">→</Text>
+      <Text as="span" className="token-mono token-mono-muted">{token.references}</Text>
+    </Flex>
+  ))}
+</DemoCard>
+
+### 3. Component tokens
+
+Scoped to a specific component. `button.background.primary` → `color.interactive.primary`. Use these when components have unique styling needs that shouldn't be shared globally.
+
+<Callout type="tip" title="Start with semantic tokens">
+  Most teams start with component tokens and then struggle to theme the system. Start with semantic tokens — they give you theming for free.
+</Callout>
+
+## Naming conventions
+
+Good token names follow a predictable pattern: `category.property.variant.state`.
+
+```
+// Category: what it applies to
+// Property: what visual attribute
+// Variant: which variant of that attribute
+// State: optional — hover, focus, disabled
+
+color.text.default          // default body text
+color.text.muted            // secondary/helper text
+color.border.interactive    // borders on interactive elements
+color.border.interactive.focus  // focus state border
+spacing.component.padding.sm    // small component padding
+```
+
+Avoid encoding values in names (`color-gray-200` is a global token, not a semantic one) and avoid encoding components in semantic names (`button-blue` leaks into the wrong tier).
+
+## Tooling & delivery
+
+The primary tools in this space:
+
+- [**Style Dictionary**](https://styledictionary.com/) (Amazon) — transform tokens into CSS custom properties, Sass variables, iOS/Android formats. The most battle-tested tool.
+- **Theo** (Salesforce) — similar to Style Dictionary, slightly different DX.
+- **Token Pipeline** / **Token Transformer** — part of the [Tokens Studio](https://tokens.studio/) ecosystem, closer to the W3C spec format.
+- [**Tokens Studio for Figma**](https://tokens.studio/) — design-side authoring that outputs W3C-format JSON, consumed by a build step.
+
+The general architecture looks like this:
+
+```
+Design (Figma / Tokens Studio)
+  ↓  JSON token files
+Build step (Style Dictionary)
+  ↓  Platform-specific outputs
+├── CSS custom properties  (web)
+├── Swift/ObjC constants  (iOS)
+└── Kotlin constants       (Android)
+```
+
+## Token formats (W3C)
+
+The [W3C Design Tokens Community Group](https://www.w3.org/community/design-tokens/) is standardizing a JSON format for design tokens. Aligning to it makes your tokens portable between tools — Tokens Studio, Style Dictionary, and others already support reading and writing this format.
+
+```json
+{
+  "color": {
+    "interactive": {
+      "primary": {
+        "$value": "{global.color.blue.600}",
+        "$type": "color",
+        "$description": "Primary action color"
+      }
+    }
+  }
+}
+```
+
+<Callout type="info">
+  The [W3C Design Tokens spec](https://tr.designtokens.org/format/) uses `$type` and `$value` as reserved keys, and references other tokens with curly brace syntax: `{token.name}`.
+</Callout>
