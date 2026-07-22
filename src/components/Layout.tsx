@@ -11,11 +11,15 @@ export function Layout() {
     <Box>
       <Header onMenuToggle={() => setMenuOpen(p => !p)} menuOpen={menuOpen} />
       <Sidebar open={menuOpen} onClose={() => setMenuOpen(false)} />
-      <Box className="app-content">
-        <Box className="app-article">
+      <Box className="app-content" ml={{ initial: '0', sm: 'var(--sidebar-width)' }}>
+        <Box
+          className="app-article"
+          px={{ initial: '5', sm: '7', md: '8' }}
+          py={{ initial: '7', sm: '8', md: '9' }}
+        >
           <Outlet />
         </Box>
-        <Box className="app-toc-spacer" />
+        <Box className="app-toc-spacer" display={{ initial: 'none', lg: 'block' }} />
       </Box>
     </Box>
   )
