@@ -28,7 +28,12 @@ export function Introduction() {
           building, contributing to, or inheriting one.
         </Text>
         <Flex className="hero-cta-row">
-          <a href="#who-this-is-for" className="github-cta-btn">
+          <a
+            href="https://github.com/aylinmarie/design-system-docs"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="github-cta-btn"
+          >
             View on GitHub &rarr;
           </a>
         </Flex>
