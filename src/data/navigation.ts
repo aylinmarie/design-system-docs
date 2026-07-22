@@ -16,6 +16,12 @@ export const navigation: NavGroup[] = [
       { label: "What Is a Design System?", path: "/what-is-a-design-system" },
     ],
   },
+  {
+    title: "Resources",
+    items: [
+      { label: "DS Collections", path: "/resources/ds-collections" },
+    ],
+  },
   // {
   //   title: "Foundations",
   //   items: [
