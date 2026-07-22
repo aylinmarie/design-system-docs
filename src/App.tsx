@@ -19,6 +19,7 @@ import { ComponentApi } from './pages/ComponentApi'
 import { Composition } from './pages/Composition'
 import { Governance } from './pages/Governance'
 import { Versioning } from './pages/Versioning'
+import { DSCollections } from './pages/DSCollections'
 
 export default function App() {
   return (
@@ -43,6 +44,7 @@ export default function App() {
           <Route path="/composition" element={<Composition />} />
           <Route path="/governance" element={<Governance />} />
           <Route path="/versioning" element={<Versioning />} />
+          <Route path="/resources/ds-collections" element={<DSCollections />} />
         </Route>
       </Routes>
       <Analytics />
