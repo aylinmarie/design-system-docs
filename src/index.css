@@ -5,7 +5,6 @@
   --header-height: 64px;
   --sidebar-width: 268px;
   --toc-width: 220px;
-  --font-heading: 'Bodoni Moda', serif;
 }
 
 /* ==========================================
@@ -14,12 +13,10 @@
 *, *::before, *::after { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
 body {
-  font-family: 'Inter', var(--default-font-family, system-ui, sans-serif);
   margin: 0;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-h1, h2, h3, h4, h5, h6 { font-family: var(--font-heading); }
 ::-webkit-scrollbar { width: 4px; height: 4px; }
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb { background: var(--gray-a7); border-radius: 2px; }
@@ -83,7 +80,7 @@ h1, h2, h3, h4, h5, h6 { font-family: var(--font-heading); }
 .header-search-icon { flex-shrink: 0; }
 .header-search-placeholder { flex: 1; }
 .header-kbd {
-  font-family: 'JetBrains Mono', monospace;
+  font-family: var(--code-font-family);
   font-size: 11px;
   color: var(--gray-9);
   background: var(--color-background);
@@ -107,7 +104,7 @@ h1, h2, h3, h4, h5, h6 { font-family: var(--font-heading); }
   position: fixed;
   inset: 0;
   z-index: 40;
-  background: rgba(0, 0, 0, 0.2);
+  background: var(--black-a6);
 }
 @media (min-width: 768px) { .sidebar-overlay { display: none; } }
 .app-sidebar {
@@ -311,21 +308,21 @@ h1, h2, h3, h4, h5, h6 { font-family: var(--font-heading); }
 }
 .doc-article li > strong { font-weight: 600; color: var(--gray-12); }
 .doc-article li > a { color: var(--accent-11); text-decoration: underline; }
-.doc-article li > code { font-family: 'JetBrains Mono', monospace; font-size: 0.8125rem; background: var(--gray-a3); color: var(--accent-11); padding: 0.1em 0.35em; border-radius: var(--radius-1); border: 1px solid var(--gray-a5); }
+.doc-article li > code { font-family: var(--code-font-family); font-size: 0.8125rem; background: var(--gray-a3); color: var(--accent-11); padding: 0.1em 0.35em; border-radius: var(--radius-1); border: 1px solid var(--gray-a5); }
 
 /* Pre/code blocks */
 .doc-article pre {
-  background: #1e1b2e;
+  background: var(--gray-3);
   border-radius: var(--radius-4);
   padding: var(--space-4) var(--space-5);
   overflow-x: auto;
   margin: var(--space-4) 0;
-  border: 1px solid #2d2a4a;
+  border: 1px solid var(--gray-6);
 }
 .doc-article pre code {
-  font-family: 'JetBrains Mono', monospace;
+  font-family: var(--code-font-family);
   font-size: 0.8125rem;
-  color: #e2e8f0;
+  color: var(--gray-12);
   line-height: 1.7;
   background: none;
   border: none;
@@ -337,7 +334,7 @@ h1, h2, h3, h4, h5, h6 { font-family: var(--font-heading); }
 .doc-article a { color: var(--accent-11); text-decoration: none; border-bottom: 1px solid var(--accent-a8); transition: border-color 0.15s; }
 .doc-article a:hover { border-bottom-color: var(--accent-11); }
 .doc-article code:not(pre code) {
-  font-family: 'JetBrains Mono', monospace;
+  font-family: var(--code-font-family);
   font-size: 0.8125rem;
   background: var(--gray-a3);
   color: var(--accent-11);
@@ -417,14 +414,14 @@ h1, h2, h3, h4, h5, h6 { font-family: var(--font-heading); }
 .swatch-step {
   display: block;
   text-align: center;
-  font-family: 'JetBrains Mono', monospace;
+  font-family: var(--code-font-family);
   font-size: 0.6rem;
   color: var(--gray-9);
 }
 
 /* Monospace token values (no bg, just font) */
 .token-mono {
-  font-family: 'JetBrains Mono', monospace;
+  font-family: var(--code-font-family);
   font-size: 0.8125rem;
   background: none;
   border: none;
@@ -466,7 +463,7 @@ h1, h2, h3, h4, h5, h6 { font-family: var(--font-heading); }
   padding: var(--space-1) var(--space-3);
   border-radius: var(--radius-2);
   background: var(--accent-9);
-  color: #fff;
+  color: var(--accent-contrast);
   font-size: var(--font-size-1);
   font-weight: 500;
   text-decoration: none;
@@ -474,7 +471,7 @@ h1, h2, h3, h4, h5, h6 { font-family: var(--font-heading); }
   transition: background 0.1s;
   border-bottom: none;
 }
-.github-cta-btn, .doc-article .github-cta-btn { color: #fff; }
+.github-cta-btn, .doc-article .github-cta-btn { color: var(--accent-contrast); }
 .github-cta-btn:hover { background: var(--accent-10); border-bottom: none; }
 
 /* Callout title */
@@ -512,7 +509,7 @@ h1, h2, h3, h4, h5, h6 { font-family: var(--font-heading); }
   transition: background 0.1s;
 }
 .icon-demo-item:hover { background: var(--accent-a2); }
-.icon-demo-name { font-family: 'JetBrains Mono', monospace; font-size: 0.6rem; color: var(--gray-8); }
+.icon-demo-name { font-family: var(--code-font-family); font-size: 0.6rem; color: var(--gray-8); }
 
 /* Categorical color items */
 .cat-color-item { flex: 1; text-align: center; }
@@ -523,7 +520,7 @@ h1, h2, h3, h4, h5, h6 { font-family: var(--font-heading); }
   background: var(--swatch-bg, #ccc);
   margin-bottom: var(--space-2);
 }
-.cat-swatch-label { font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; color: var(--gray-9); }
+.cat-swatch-label { font-family: var(--code-font-family); font-size: 0.65rem; color: var(--gray-9); }
 
 /* Sequential color strip */
 .seq-strip { border-radius: var(--radius-3); overflow: hidden; height: 40px; }
@@ -623,7 +620,7 @@ h1, h2, h3, h4, h5, h6 { font-family: var(--font-heading); }
 }
 .kbd-table-row:first-child { border-top: none; }
 .kbd-mono {
-  font-family: 'JetBrains Mono', monospace;
+  font-family: var(--code-font-family);
   font-size: 0.75rem;
   color: var(--accent-11);
 }
