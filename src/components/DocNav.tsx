@@ -1,4 +1,4 @@
-import { Box, Flex, Text, Separator, Link } from '@radix-ui/themes'
+import { Box, Flex, Text, Link } from '@radix-ui/themes'
 import { Link as RouterLink } from 'react-router-dom'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 import { navigation } from '../data/navigation'
@@ -17,7 +17,6 @@ export function DocNav({ currentPath }: DocNavProps) {
 
   return (
     <Box mt="8">
-      <Separator size="4" mb="5" />
       <Flex justify="between" align="center">
         {prev ? (
           <Link asChild color="gray" underline="none" className="docnav-link">
