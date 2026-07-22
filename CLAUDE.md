@@ -8,15 +8,17 @@ Design Systems Docs — an open source knowledge base on design systems (foundat
 
 ## Commands
 
+This project uses **pnpm** (`pnpm-lock.yaml` is the only committed lockfile — don't run plain `npm install`, it regenerates a stray `package-lock.json` that conflicts with the pnpm-based Vercel deploy):
+
 ```bash
-npm install
-npm run dev      # dev server
-npm run build    # tsc -b && vite build (type-check is part of the build, not a separate step)
-npm run lint      # oxlint (not ESLint — config in .oxlintrc.json)
-npm run preview   # preview the production build
+pnpm install
+pnpm run dev      # dev server
+pnpm run build    # tsc -b && vite build (type-check is part of the build, not a separate step)
+pnpm run lint      # oxlint (not ESLint — config in .oxlintrc.json)
+pnpm run preview   # preview the production build
 ```
 
-No test suite or CI is configured in this repo.
+No test suite is configured in this repo. Vercel deploys on every push/PR and runs `pnpm install --frozen-lockfile`, so `pnpm-lock.yaml` must stay in sync with `package.json` — run `pnpm install` (not `npm install`) after changing dependencies.
 
 **Environment gotcha**: oxlint requires Node `^20.19.0 || >=22.12.0`. Under older Node 22.x builds it fails with a native-binding `MODULE_NOT_FOUND` error rather than a normal lint error — that's an engine mismatch, not a broken install.
 
