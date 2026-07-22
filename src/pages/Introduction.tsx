@@ -22,8 +22,10 @@ export function Introduction() {
           Introduction
         </Heading>
         <Text as="p" size="3" color="gray" className="doc-lead">
-          An open source knowledge base on design systems &mdash; for designers
-          and engineers building, contributing to, or inheriting one.
+          designsystemdocs.io is an open source, community-driven knowledge
+          base and reference directory for design system strategy,
+          architecture, and governance &mdash; for designers and engineers
+          building, contributing to, or inheriting one.
         </Text>
         <Flex className="hero-cta-row">
           <a href="#who-this-is-for" className="github-cta-btn">

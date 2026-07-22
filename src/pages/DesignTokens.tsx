@@ -13,14 +13,14 @@ const toc: TocItem[] = [
 ]
 
 const tokenSwatches = [
-  { name: 'global.color.violet.600', value: '#7c3aed', label: '#7c3aed' },
-  { name: 'global.color.violet.100', value: '#ede9fe', label: '#ede9fe' },
+  { name: 'global.color.blue.600', value: '#2563eb', label: '#2563eb' },
+  { name: 'global.color.blue.100', value: '#dbeafe', label: '#dbeafe' },
   { name: 'global.color.gray.900', value: '#111827', label: '#111827' },
   { name: 'global.color.gray.50', value: '#f9fafb', label: '#f9fafb' },
 ]
 
 const semanticTokens = [
-  { name: 'color.interactive.primary', references: 'global.color.violet.600', value: '#7c3aed' },
+  { name: 'color.interactive.primary', references: 'global.color.blue.600', value: '#2563eb' },
   { name: 'color.text.default', references: 'global.color.gray.900', value: '#111827' },
   { name: 'color.surface.subtle', references: 'global.color.gray.50', value: '#f9fafb' },
 ]
@@ -40,7 +40,7 @@ export function DesignTokens() {
 
         <Heading as="h2" size="6" mt="7" mb="3" className="doc-h2" id={toc[0].id}>{toc[0].label}</Heading>
         <Text as="p" size="3" mb="3">
-          Design tokens are named entities that store design values. Instead of hardcoding <code>#7c3aed</code> in a component, you reference <code>color.interactive.primary</code>. The name carries intent; the value can change without the component knowing.
+          Design tokens are named entities that store design values. Instead of hardcoding <code>#2563eb</code> in a component, you reference <code>color.interactive.primary</code>. The name carries intent; the value can change without the component knowing.
         </Text>
         <Text as="p" size="3" mb="3">
           This indirection is what makes tokens powerful. You can theme your system, support dark mode, and swap brand colors without touching component code.
@@ -68,12 +68,12 @@ export function DesignTokens() {
 
         <h3>1. Global (primitive) tokens</h3>
         <Text as="p" size="3" mb="3">
-          Raw values — the full palette, the full type scale. Named by what they are, not how they're used. <code>global.color.violet.600</code> is a global token. There can be many of these, and that's fine — they're the vocabulary, not the grammar.
+          Raw values — the full palette, the full type scale. Named by what they are, not how they're used. <code>global.color.blue.600</code> is a global token. There can be many of these, and that's fine — they're the vocabulary, not the grammar.
         </Text>
 
         <h3>2. Semantic (alias) tokens</h3>
         <Text as="p" size="3" mb="3">
-          Intent-bearing names that reference global tokens. <code>color.interactive.primary</code> points to <code>global.color.violet.600</code>. This is the layer you swap for theming. Components reference semantic tokens, never globals directly.
+          Intent-bearing names that reference global tokens. <code>color.interactive.primary</code> points to <code>global.color.blue.600</code>. This is the layer you swap for theming. Components reference semantic tokens, never globals directly.
         </Text>
 
         <Box className="demo-card">
@@ -146,7 +146,7 @@ Build step (Style Dictionary)
   "color": {
     "interactive": {
       "primary": {
-        "$value": "{global.color.violet.600}",
+        "$value": "{global.color.blue.600}",
         "$type": "color",
         "$description": "Primary action color"
       }
