@@ -5,12 +5,13 @@ import type { DesignSystemEntry } from '../../data/designSystems'
 
 export function DesignSystemCard({ name, url }: DesignSystemEntry) {
   const [faviconFailed, setFaviconFailed] = useState(false)
-  const faviconUrl = `${new URL(url).origin}/favicon.ico`
+  const { origin, hostname } = new URL(url)
+  const faviconUrl = `${origin}/favicon.ico`
 
   return (
     <Card asChild variant="surface" size="1" className="ds-card">
       <a href={url} target="_blank" rel="noopener noreferrer">
-        <Flex align="center" gap="3">
+        <Flex align="start" gap="3">
           <Box className="ds-card-thumb">
             {faviconFailed ? (
               <Logomark />
@@ -24,7 +25,10 @@ export function DesignSystemCard({ name, url }: DesignSystemEntry) {
               />
             )}
           </Box>
-          <Text size="2" weight="medium">{name}</Text>
+          <Box>
+            <Text as="div" size="2" weight="bold">{name}</Text>
+            <Text as="div" size="2" color="gray">{hostname.replace(/^www\./, '')}</Text>
+          </Box>
         </Flex>
       </a>
     </Card>
