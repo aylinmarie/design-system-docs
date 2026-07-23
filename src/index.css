@@ -23,6 +23,31 @@ body {
 :focus-visible { outline: 2px solid var(--accent-8); outline-offset: 2px; }
 
 /* ==========================================
+   Skip link
+   ========================================== */
+.skip-link {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  transform: translateY(-100%);
+  padding: var(--space-3) var(--space-4);
+  background: var(--color-background);
+  color: var(--gray-12);
+  border: 1px solid var(--gray-a5);
+  border-radius: 0 0 var(--radius-3) 0;
+  font-size: var(--font-size-2);
+  font-weight: 500;
+  text-decoration: none;
+}
+.skip-link:focus {
+  transform: translateY(0);
+}
+#main-content:focus-visible {
+  outline: none;
+}
+
+/* ==========================================
    Header
    ========================================== */
 .app-header {
@@ -81,7 +106,7 @@ body {
 .header-kbd {
   font-family: var(--code-font-family);
   font-size: 11px;
-  color: var(--gray-9);
+  color: var(--gray-11);
   background: var(--color-background);
   border: 1px solid var(--gray-a5);
   border-radius: var(--radius-1);
@@ -433,7 +458,7 @@ body {
   text-align: center;
   font-family: var(--code-font-family);
   font-size: 0.6rem;
-  color: var(--gray-9);
+  color: var(--gray-11);
 }
 
 /* Monospace token values (no bg, just font) */
@@ -446,7 +471,7 @@ body {
   color: var(--gray-11);
 }
 .token-mono-accent { color: var(--accent-11); }
-.token-mono-muted { color: var(--gray-8); }
+.token-mono-muted { color: var(--gray-11); }
 .token-mono-flex { flex: 1; }
 
 /* Principle / feature cards */
@@ -526,7 +551,7 @@ body {
   transition: background 0.1s;
 }
 .icon-demo-item:hover { background: var(--accent-a2); }
-.icon-demo-name { font-family: var(--code-font-family); font-size: 0.6rem; color: var(--gray-8); }
+.icon-demo-name { font-family: var(--code-font-family); font-size: 0.6rem; color: var(--gray-11); }
 
 /* Categorical color items */
 .cat-color-item { flex: 1; text-align: center; }
@@ -537,7 +562,7 @@ body {
   background: var(--swatch-bg, #ccc);
   margin-bottom: var(--space-2);
 }
-.cat-swatch-label { font-family: var(--code-font-family); font-size: 0.65rem; color: var(--gray-9); }
+.cat-swatch-label { font-family: var(--code-font-family); font-size: 0.65rem; color: var(--gray-11); }
 
 /* Sequential color strip */
 .seq-strip { border-radius: var(--radius-3); overflow: hidden; height: 40px; }
