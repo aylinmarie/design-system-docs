@@ -2,50 +2,75 @@
 category: Foundations
 title: Design Tokens
 dek: >
-  The atomic decisions of your system. Every visual property that repeats is
-  a candidate for a token.
+  A collection of visual design values.
 ---
 
-import { Box, Flex, Text } from '@radix-ui/themes'
-import { DemoCard } from '../components/mdx/DemoCard'
-import { Callout } from '../components/Callout'
+import { Box, Flex, Text } from "@radix-ui/themes";
+import { DemoCard } from "../components/mdx/DemoCard";
+import { Callout } from "../components/Callout";
 
 export const tokenSwatches = [
-  { name: 'global.color.blue.600', value: '#2563eb', label: '#2563eb' },
-  { name: 'global.color.blue.100', value: '#dbeafe', label: '#dbeafe' },
-  { name: 'global.color.gray.900', value: '#111827', label: '#111827' },
-  { name: 'global.color.gray.50', value: '#f9fafb', label: '#f9fafb' },
-]
+  { name: "global.color.blue.600", value: "#2563eb", label: "#2563eb" },
+  { name: "global.color.blue.100", value: "#dbeafe", label: "#dbeafe" },
+  { name: "global.color.gray.900", value: "#111827", label: "#111827" },
+  { name: "global.color.gray.50", value: "#f9fafb", label: "#f9fafb" },
+];
 
-export const semanticTokens = [
-  { name: 'color.interactive.primary', references: 'global.color.blue.600', value: '#2563eb' },
-  { name: 'color.text.default', references: 'global.color.gray.900', value: '#111827' },
-  { name: 'color.surface.subtle', references: 'global.color.gray.50', value: '#f9fafb' },
-]
+export const tokenChain = [
+  {
+    primitive: { name: "global.color.blue.600", value: "#2563eb" },
+    semantic: "color.interactive.primary",
+    component: "button.background.default",
+  },
+  {
+    primitive: { name: "global.color.gray.900", value: "#111827" },
+    semantic: "color.text.default",
+    component: "button.label.default",
+  },
+  {
+    primitive: { name: "global.color.gray.50", value: "#f9fafb" },
+    semantic: "color.surface.subtle",
+    component: "card.background.default",
+  },
+];
 
 ## Overview
 
 Design tokens are variables that store specific design choices. They hold data for attributes like colors, fonts, and spacing.
 
 <DemoCard label="Global color tokens">
-  {tokenSwatches.map(token => (
+  {tokenSwatches.map((token) => (
     <Flex key={token.name} align="center" gap="4" className="demo-row">
       <Box
         className="color-swatch"
-        style={{ '--swatch-bg': token.value }}
+        style={{ "--swatch-bg": token.value }}
         aria-hidden="true"
       />
-      <Text as="span" className="token-mono token-mono-flex">{token.name}</Text>
-      <Text as="span" className="token-mono token-mono-muted">{token.label}</Text>
+      <Text as="span" className="token-mono token-mono-flex">
+        {token.name}
+      </Text>
+      <Text as="span" className="token-mono token-mono-muted">
+        {token.label}
+      </Text>
     </Flex>
   ))}
 </DemoCard>
 
 ## Standard format
 
-These variables use a common JSON format. This standard lets different software tools and codebases share the same visual information reliably.
+The [W3C Design Tokens Community Group](https://www.w3.org/community/design-tokens/) is standardizing a JSON format for design tokens. Aligning to it makes your tokens portable between tools like Tokens Studio, Style Dictionary, and others.
 
-The [W3C Design Tokens Community Group](https://www.w3.org/community/design-tokens/) is standardizing a JSON format for design tokens. Aligning to it makes your tokens portable between tools — Tokens Studio, Style Dictionary, and others already support reading and writing this format.
+None of this tooling is required to start. Plain CSS custom properties are tokens too. Declare them in `:root` (your HTML) and reference them directly, with no build step:
+
+```css
+:root {
+  --color-text-default: #111827;
+  --color-interactive-primary: #2563eb;
+  --spacing-component-padding-sm: 8px;
+}
+```
+
+This covers a single-platform, single-brand system fine. The W3C format and a build step earn their keep once you need the same tokens on iOS or Android, or supported JavaScript files. At that point one source of truth gets transformed into each platform's native format instead of hand-maintained in parallel.
 
 ```json
 {
@@ -61,84 +86,47 @@ The [W3C Design Tokens Community Group](https://www.w3.org/community/design-toke
 }
 ```
 
-<Callout type="info">
-  The [W3C Design Tokens spec](https://tr.designtokens.org/format/) uses `$type` and `$value` as reserved keys, and references other tokens with curly brace syntax: `{token.name}`.
-</Callout>
-
 ## Token levels
 
 Teams often organize tokens into three categories:
 
-**Primitives** — basic values, such as a hex code.
+- **Primitives** — basic values, such as a hex code.
 
-**Semantics** — names that describe a purpose, such as "action-color".
+- **Semantics** — names that describe a purpose, such as "action-color".
 
-**Components** — values for a specific item, such as a button.
+- **Components** — values for a specific item, such as a button.
 
-<DemoCard label="Semantic tokens → Global references">
-  {semanticTokens.map(token => (
-    <Flex key={token.name} align="center" gap="4" className="demo-row">
+<DemoCard label="Primitives → Semantics → Components">
+  {tokenChain.map((token) => (
+    <Flex key={token.component} align="center" gap="4" className="demo-row">
       <Box
         className="color-swatch-sm"
-        style={{ '--swatch-bg': token.value }}
+        style={{ "--swatch-bg": token.primitive.value }}
         aria-hidden="true"
       />
-      <Text as="span" className="token-mono token-mono-flex">{token.name}</Text>
-      <Text as="span" color="gray" size="1">→</Text>
-      <Text as="span" className="token-mono token-mono-muted">{token.references}</Text>
+      <Text as="span" className="token-mono token-mono-muted">
+        {token.primitive.name}
+      </Text>
+      <Text as="span" color="gray" size="1">
+        →
+      </Text>
+      <Text as="span" className="token-mono">
+        {token.semantic}
+      </Text>
+      <Text as="span" color="gray" size="1">
+        →
+      </Text>
+      <Text as="span" className="token-mono token-mono-flex">
+        {token.component}
+      </Text>
     </Flex>
   ))}
 </DemoCard>
 
-## Naming structure
-
-A token name has three parts that explain its use:
-
-**Foundation** — the type of attribute, like color.
-
-**Property** — the UI part, like a border.
-
-**Modifier** — the state or purpose, like "hover".
-
-```
-// Foundation: what it applies to
-// Property: what visual attribute
-// Modifier: the state or purpose
-
-color.text.default          // default body text
-color.text.muted            // secondary/helper text
-color.border.interactive    // borders on interactive elements
-color.border.interactive.hover  // hover state border
-spacing.component.padding.sm    // small component padding
-```
-
-Avoid encoding values in names (`color-gray-200` is a primitive token, not a semantic one) and avoid encoding components in semantic names (`button-blue` leaks into the wrong tier).
-
-## Themes and updates
-
-Tokens make theming possible. A system has light and dark modes by changing the values assigned to the token names. When a design changes, a team updates the token once to change the style across the entire product.
-
-## Tooling & delivery
-
-The primary tools in this space:
-
-- [**Style Dictionary**](https://styledictionary.com/) (Amazon) — transform tokens into CSS custom properties, Sass variables, iOS/Android formats. The most battle-tested tool.
-- **Theo** (Salesforce) — similar to Style Dictionary, slightly different DX.
-- **Token Pipeline** / **Token Transformer** — part of the [Tokens Studio](https://tokens.studio/) ecosystem, closer to the W3C spec format.
-- [**Tokens Studio for Figma**](https://tokens.studio/) — design-side authoring that outputs W3C-format JSON, consumed by a build step.
-
-The general architecture looks like this:
-
-```
-Design (Figma / Tokens Studio)
-  ↓  JSON token files
-Build step (Style Dictionary)
-  ↓  Platform-specific outputs
-├── CSS custom properties  (web)
-├── Swift/ObjC constants  (iOS)
-└── Kotlin constants       (Android)
-```
-
 <Callout type="info" title="Sources">
-  [Design Tokens Community Group](https://www.w3.org/community/design-tokens/) · [Overview - Design tokens - Atlassian Design](https://www.atlassian.design/foundations/design-tokens) · [Design System Intro Page Redesign](https://www.designsystems.com/) · [Design Systems 101 - NN/G](https://www.nngroup.com/articles/design-systems-101/)
+  [Design Tokens Community Group](https://www.w3.org/community/design-tokens/) ·
+  [Overview - Design tokens - Atlassian
+  Design](https://www.atlassian.design/foundations/design-tokens) · [Design
+  System Intro Page Redesign](https://www.designsystems.com/) · [Design Systems
+  101 - NN/G](https://www.nngroup.com/articles/design-systems-101/)
 </Callout>

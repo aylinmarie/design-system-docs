@@ -3,6 +3,7 @@ import { Outlet } from 'react-router-dom'
 import { Box } from '@radix-ui/themes'
 import { Header } from './Header'
 import { Sidebar } from './Sidebar'
+import { Footer } from './Footer'
 
 export function Layout() {
   const [menuOpen, setMenuOpen] = useState(false)
@@ -18,6 +19,7 @@ export function Layout() {
           py={{ initial: '7', sm: '8', md: '9' }}
         >
           <Outlet />
+          <Footer />
         </Box>
         <Box className="app-toc-spacer" display={{ initial: 'none', lg: 'block' }} />
       </Box>

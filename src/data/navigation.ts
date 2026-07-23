@@ -17,21 +17,15 @@ export const navigation: NavGroup[] = [
     ],
   },
   {
-    title: "Resources",
+    title: "Foundations",
     items: [
-      { label: "DS Collections", path: "/resources/ds-collections" },
+      { label: "Design Tokens", path: "/design-tokens" },
+      // { label: "Typography", path: "/typography" },
+      // { label: "Color", path: "/color" },
+      // { label: "Spacing & Grid", path: "/spacing" },
+      // { label: "Iconography", path: "/iconography" },
     ],
   },
-  // {
-  //   title: "Foundations",
-  //   items: [
-  //     { label: "Design Tokens", path: "/design-tokens" },
-  //     { label: "Typography", path: "/typography" },
-  //     { label: "Color", path: "/color" },
-  //     { label: "Spacing & Grid", path: "/spacing" },
-  //     { label: "Iconography", path: "/iconography" },
-  //   ],
-  // },
   // {
   //   title: "Accessibility",
   //   items: [
@@ -63,4 +57,11 @@ export const navigation: NavGroup[] = [
   //     { label: "Versioning & Releases", path: "/versioning" },
   //   ],
   // },
+  // Resources must stay last — keep new groups above this one.
+  {
+    title: "Resources",
+    items: [
+      { label: "Design System Collection", path: "/design-system-collection" },
+    ],
+  },
 ];

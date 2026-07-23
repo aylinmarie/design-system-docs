@@ -3,6 +3,7 @@ import { Analytics } from '@vercel/analytics/react'
 import type { ComponentType } from 'react'
 import { Layout } from './components/Layout'
 import { DocPage, type Frontmatter } from './components/DocPage'
+import { PrivacyPolicy } from './pages/PrivacyPolicy'
 
 import Introduction, { frontmatter as introductionFm } from './pages/Introduction.mdx'
 import WhatIsADesignSystem, { frontmatter as whatIsADesignSystemFm } from './pages/WhatIsADesignSystem.mdx'
@@ -22,7 +23,7 @@ import ComponentApi, { frontmatter as componentApiFm } from './pages/ComponentAp
 import Composition, { frontmatter as compositionFm } from './pages/Composition.mdx'
 import Governance, { frontmatter as governanceFm } from './pages/Governance.mdx'
 import Versioning, { frontmatter as versioningFm } from './pages/Versioning.mdx'
-import DSCollections, { frontmatter as dsCollectionsFm } from './pages/DSCollections.mdx'
+import DesignSystemCollection, { frontmatter as designSystemCollectionFm } from './pages/DesignSystemCollection.mdx'
 
 function docRoute(path: string, Content: ComponentType, frontmatter: Frontmatter) {
   return (
@@ -61,7 +62,8 @@ export default function App() {
           {docRoute('/composition', Composition, compositionFm)}
           {docRoute('/governance', Governance, governanceFm)}
           {docRoute('/versioning', Versioning, versioningFm)}
-          {docRoute('/resources/ds-collections', DSCollections, dsCollectionsFm)}
+          {docRoute('/design-system-collection', DesignSystemCollection, designSystemCollectionFm)}
+          <Route path="/privacy-policy" element={<PrivacyPolicy />} />
         </Route>
       </Routes>
       <Analytics />
