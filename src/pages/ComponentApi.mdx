@@ -6,7 +6,7 @@ dek: >-
   with the same care you'd give a public SDK.
 ---
 
-import { Callout } from '../components/Callout'
+import { Callout } from "../components/Callout";
 
 ## Designing the props API
 
@@ -20,7 +20,7 @@ Good component APIs share common traits:
 ```jsx
 // ❌ Inconsistent, unclear API
 <Button
-  btnColor="blue"
+  btncolor="indigo"
   big
   notDisabled={false}
   handleClick={fn}
@@ -36,7 +36,8 @@ Good component APIs share common traits:
 ```
 
 <Callout type="tip" title="The rule of least surprise">
-  If a developer has to read the documentation to understand a prop, the prop name is wrong. Name it so the usage is self-documenting.
+  If a developer has to read the documentation to understand a prop, the prop
+  name is wrong. Name it so the usage is self-documenting.
 </Callout>
 
 ## Slots & composition
