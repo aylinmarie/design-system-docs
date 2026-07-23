@@ -1,7 +1,7 @@
 ---
 category: Foundations
 title: Design Tokens
-dek: >-
+dek: >
   The atomic decisions of your system. Every visual property that repeats is
   a candidate for a token.
 ---
@@ -23,11 +23,9 @@ export const semanticTokens = [
   { name: 'color.surface.subtle', references: 'global.color.gray.50', value: '#f9fafb' },
 ]
 
-## What are tokens?
+## Overview
 
-Design tokens are named entities that store design values. Instead of hardcoding `#2563eb` in a component, you reference `color.interactive.primary`. The name carries intent; the value can change without the component knowing.
-
-This indirection is what makes tokens powerful. You can theme your system, support dark mode, and swap brand colors without touching component code.
+Design tokens are variables that store specific design choices. They hold data for attributes like colors, fonts, and spacing.
 
 <DemoCard label="Global color tokens">
   {tokenSwatches.map(token => (
@@ -43,17 +41,39 @@ This indirection is what makes tokens powerful. You can theme your system, suppo
   ))}
 </DemoCard>
 
-## Taxonomy: global → semantic → component
+## Standard format
 
-The most scalable token systems use three tiers:
+These variables use a common JSON format. This standard lets different software tools and codebases share the same visual information reliably.
 
-### 1. Global (primitive) tokens
+The [W3C Design Tokens Community Group](https://www.w3.org/community/design-tokens/) is standardizing a JSON format for design tokens. Aligning to it makes your tokens portable between tools — Tokens Studio, Style Dictionary, and others already support reading and writing this format.
 
-Raw values — the full palette, the full type scale. Named by what they are, not how they're used. `global.color.blue.600` is a global token. There can be many of these, and that's fine — they're the vocabulary, not the grammar.
+```json
+{
+  "color": {
+    "interactive": {
+      "primary": {
+        "$value": "{global.color.blue.600}",
+        "$type": "color",
+        "$description": "Primary action color"
+      }
+    }
+  }
+}
+```
 
-### 2. Semantic (alias) tokens
+<Callout type="info">
+  The [W3C Design Tokens spec](https://tr.designtokens.org/format/) uses `$type` and `$value` as reserved keys, and references other tokens with curly brace syntax: `{token.name}`.
+</Callout>
 
-Intent-bearing names that reference global tokens. `color.interactive.primary` points to `global.color.blue.600`. This is the layer you swap for theming. Components reference semantic tokens, never globals directly.
+## Token levels
+
+Teams often organize tokens into three categories:
+
+**Primitives** — basic values, such as a hex code.
+
+**Semantics** — names that describe a purpose, such as "action-color".
+
+**Components** — values for a specific item, such as a button.
 
 <DemoCard label="Semantic tokens → Global references">
   {semanticTokens.map(token => (
@@ -70,32 +90,33 @@ Intent-bearing names that reference global tokens. `color.interactive.primary` p
   ))}
 </DemoCard>
 
-### 3. Component tokens
+## Naming structure
 
-Scoped to a specific component. `button.background.primary` → `color.interactive.primary`. Use these when components have unique styling needs that shouldn't be shared globally.
+A token name has three parts that explain its use:
 
-<Callout type="tip" title="Start with semantic tokens">
-  Most teams start with component tokens and then struggle to theme the system. Start with semantic tokens — they give you theming for free.
-</Callout>
+**Foundation** — the type of attribute, like color.
 
-## Naming conventions
+**Property** — the UI part, like a border.
 
-Good token names follow a predictable pattern: `category.property.variant.state`.
+**Modifier** — the state or purpose, like "hover".
 
 ```
-// Category: what it applies to
+// Foundation: what it applies to
 // Property: what visual attribute
-// Variant: which variant of that attribute
-// State: optional — hover, focus, disabled
+// Modifier: the state or purpose
 
 color.text.default          // default body text
 color.text.muted            // secondary/helper text
 color.border.interactive    // borders on interactive elements
-color.border.interactive.focus  // focus state border
+color.border.interactive.hover  // hover state border
 spacing.component.padding.sm    // small component padding
 ```
 
-Avoid encoding values in names (`color-gray-200` is a global token, not a semantic one) and avoid encoding components in semantic names (`button-blue` leaks into the wrong tier).
+Avoid encoding values in names (`color-gray-200` is a primitive token, not a semantic one) and avoid encoding components in semantic names (`button-blue` leaks into the wrong tier).
+
+## Themes and updates
+
+Tokens make theming possible. A system has light and dark modes by changing the values assigned to the token names. When a design changes, a team updates the token once to change the style across the entire product.
 
 ## Tooling & delivery
 
@@ -118,24 +139,6 @@ Build step (Style Dictionary)
 └── Kotlin constants       (Android)
 ```
 
-## Token formats (W3C)
-
-The [W3C Design Tokens Community Group](https://www.w3.org/community/design-tokens/) is standardizing a JSON format for design tokens. Aligning to it makes your tokens portable between tools — Tokens Studio, Style Dictionary, and others already support reading and writing this format.
-
-```json
-{
-  "color": {
-    "interactive": {
-      "primary": {
-        "$value": "{global.color.blue.600}",
-        "$type": "color",
-        "$description": "Primary action color"
-      }
-    }
-  }
-}
-```
-
-<Callout type="info">
-  The [W3C Design Tokens spec](https://tr.designtokens.org/format/) uses `$type` and `$value` as reserved keys, and references other tokens with curly brace syntax: `{token.name}`.
+<Callout type="info" title="Sources">
+  [Design Tokens Community Group](https://www.w3.org/community/design-tokens/) · [Overview - Design tokens - Atlassian Design](https://www.atlassian.design/foundations/design-tokens) · [Design System Intro Page Redesign](https://www.designsystems.com/) · [Design Systems 101 - NN/G](https://www.nngroup.com/articles/design-systems-101/)
 </Callout>
