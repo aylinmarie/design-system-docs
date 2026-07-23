@@ -44,6 +44,15 @@ almost no logic.
    a JSX container gets wrapped in its own `<p>`, and `Callout`'s inner `Text`
    already renders a `<p>`-equivalent; nesting produces invalid HTML. Plain
    text (no explicit `<p>`) is fine.
+7. **Hand-written block JSX not wrapped in a `{(...)}` expression** — any
+   static (non-`.map()`) block-level JSX written directly in the MDX body
+   (e.g. a one-off `<Flex>`/`<Box>`/`<a>` CTA, not a data-driven widget) gets
+   its loose text/child silently auto-wrapped by MDX in a markdown paragraph,
+   which the `h2`/`p` → Radix mapping then turns into a `<Text as="p" mb="3">`
+   — injecting unwanted margin the author never asked for (this broke the
+   Introduction page's CTA buttons once already). `.map()`-driven content is
+   naturally safe since it's already inside a JS expression. Flag any
+   hand-written static JSX block that ISN'T wrapped as `{(<Flex>...</Flex>)}`.
 
 ## What NOT to flag
 

@@ -11,16 +11,18 @@ dek: >-
 import { Box, Card, Flex, Text } from '@radix-ui/themes'
 import { GitBranch } from 'lucide-react'
 
-<Flex className="hero-cta-row">
-  <a
-    href="https://github.com/aylinmarie/design-system-docs"
-    target="_blank"
-    rel="noopener noreferrer"
-    className="github-cta-btn"
-  >
-    View on GitHub &rarr;
-  </a>
-</Flex>
+{(
+  <Flex className="hero-cta-row">
+    <a
+      href="https://github.com/aylinmarie/design-system-docs"
+      target="_blank"
+      rel="noopener noreferrer"
+      className="github-cta-btn"
+    >
+      View on GitHub →
+    </a>
+  </Flex>
+)}
 
 ## Who this is for
 
@@ -38,26 +40,28 @@ This guide is open source. If you find an error, want to add nuance to a section
 
 The goal is to keep this opinionated but not dogmatic. Design systems work looks different at different scales and in different organizations. Where there are genuine tradeoffs, the guide names them rather than pretending there's one right answer.
 
-<Card variant="surface" mt="2">
-  <Flex align="center" gap="4">
-    <Box className="github-icon-wrap" aria-hidden="true">
-      <GitBranch size={18} />
-    </Box>
-    <Box flexGrow="1">
-      <Text as="div" size="2" weight="bold" mb="1">
-        Open source on GitHub
-      </Text>
-      <Text as="div" size="1" color="gray">
-        Star it, fork it, or open a PR — the source is public and contributions are welcome.
-      </Text>
-    </Box>
-    <a
-      href="https://github.com/aylinmarie/design-system-docs"
-      className="github-cta-btn"
-      target="_blank"
-      rel="noopener noreferrer"
-    >
-      View on GitHub
-    </a>
-  </Flex>
-</Card>
+{(
+  <Card variant="surface" mt="2">
+    <Flex align="center" gap="4">
+      <Box className="github-icon-wrap" aria-hidden="true">
+        <GitBranch size={18} />
+      </Box>
+      <Box flexGrow="1">
+        <Text as="div" size="2" weight="bold" mb="1">
+          Open source on GitHub
+        </Text>
+        <Text as="div" size="1" color="gray">
+          Star it, fork it, or open a PR — the source is public and contributions are welcome.
+        </Text>
+      </Box>
+      <a
+        href="https://github.com/aylinmarie/design-system-docs"
+        className="github-cta-btn"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        View on GitHub
+      </a>
+    </Flex>
+  </Card>
+)}
