@@ -30,7 +30,7 @@ export function ThemeModeProvider({ children }: { children: ReactNode }) {
 
   return (
     <ThemeModeContext.Provider value={{ mode, toggle }}>
-      <Theme appearance={mode}>
+      <Theme grayColor="gray" radius="large" scaling="95%" appearance={mode}>
         {children}
       </Theme>
     </ThemeModeContext.Provider>
