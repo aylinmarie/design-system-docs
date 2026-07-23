@@ -1,0 +1,89 @@
+---
+category: Accessibility
+title: Keyboard Navigation
+dek: >-
+  Keyboard accessibility enables anyone who can't use a pointer — motor
+  disabilities, power users, assistive tech users — to use your product
+  fully.
+---
+
+import { Box, Text } from '@radix-ui/themes'
+import { DemoCard } from '../components/mdx/DemoCard'
+import { Callout } from '../components/Callout'
+
+export const keyboardPatterns = [
+  { widget: 'Button', keys: 'Enter, Space', behavior: 'Activates the button' },
+  { widget: 'Link', keys: 'Enter', behavior: 'Navigates to destination' },
+  { widget: 'Checkbox', keys: 'Space', behavior: 'Toggles checked state' },
+  { widget: 'Radio group', keys: 'Arrow keys', behavior: 'Moves between options (roving tabindex)' },
+  { widget: 'Select / Combobox', keys: 'Enter/Space to open, arrows to navigate, Enter to select', behavior: 'Opens listbox, moves through options' },
+  { widget: 'Dialog', keys: 'Escape', behavior: 'Closes and returns focus to trigger' },
+  { widget: 'Tabs', keys: 'Arrow keys to switch, Tab to move into panel', behavior: 'Roving tabindex across tab list' },
+  { widget: 'Menu', keys: 'Escape to close, arrows to navigate', behavior: 'Roving tabindex, Escape dismisses' },
+]
+
+## Why keyboard access
+
+Keyboard-accessible interfaces support: people with motor impairments who use keyboards, switches, or voice control; screen reader users who navigate primarily via keyboard; power users who prefer keyboard for efficiency; and developers testing the product.
+
+Every interactive element must be reachable by Tab key, operable by keyboard, and clearly indicate focus. No exceptions.
+
+<Callout type="warning" title="The click-only trap">
+  The most common keyboard failure: attaching behavior only to `click` events on non-button elements. A `div` with `onClick` doesn't receive keyboard events, doesn't appear in the tab order, and provides no semantic role. Use native elements (`button`, `a`) or add `role`, `tabindex`, and `onKeyDown`.
+</Callout>
+
+## Focus order & management
+
+The natural tab order follows DOM order. This means the visual layout and DOM order must be aligned — don't reorder elements with CSS in a way that breaks keyboard traversal.
+
+Three situations where programmatic focus management is required:
+
+1. **Opening a modal** — focus must move into the dialog on open, and return to the trigger on close
+2. **Client-side navigation** — focus should move to the new page heading or main content area
+3. **Dynamic content** — when content updates without a navigation (inline errors, expanded sections), move focus to the updated element or a relevant heading
+
+```jsx
+// Moving focus to a dialog on open
+function openDialog(dialogRef) {
+  // Find the first focusable element
+  const firstFocusable = dialogRef.current?.querySelector(
+    'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+  )
+  firstFocusable?.focus()
+}
+
+// Returning focus after close
+function closeDialog(triggerRef) {
+  triggerRef.current?.focus()
+}
+```
+
+## Common keyboard patterns
+
+The [ARIA Authoring Practices Guide (APG)](https://www.w3.org/WAI/ARIA/apg/) defines keyboard interaction patterns for common widget types. These are the patterns your system components should implement:
+
+<DemoCard>
+  <Box className="kbd-table-header">
+    <Text size="1" weight="bold" color="gray" className="demo-label">Widget</Text>
+    <Text size="1" weight="bold" color="gray" className="demo-label">Keys</Text>
+    <Text size="1" weight="bold" color="gray" className="demo-label">Behavior</Text>
+  </Box>
+  {keyboardPatterns.map(pattern => (
+    <Box key={pattern.widget} className="kbd-table-row">
+      <Text size="1" weight="medium">{pattern.widget}</Text>
+      <Text as="span" className="kbd-mono">{pattern.keys}</Text>
+      <Text size="1" color="gray">{pattern.behavior}</Text>
+    </Box>
+  ))}
+</DemoCard>
+
+## Focus traps
+
+A focus trap keeps keyboard focus inside a container — required for modals and dialogs (users shouldn't be able to Tab out of an open modal). Implementing one correctly:
+
+- Find all focusable elements within the container
+- On Tab at the last element, move to the first
+- On Shift+Tab at the first element, move to the last
+- Release the trap when the dialog closes
+
+Don't implement this yourself — use a well-tested library like [`focus-trap-react`](https://github.com/focus-trap/focus-trap-react) or the focus trap built into [Radix UI's Dialog primitive](https://www.radix-ui.com/primitives/docs/components/dialog). Focus traps are deceptively subtle to get right across browsers and screen readers.

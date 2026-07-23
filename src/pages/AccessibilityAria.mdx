@@ -1,0 +1,121 @@
+---
+category: Accessibility
+title: ARIA & Semantics
+dek: >-
+  Semantic HTML communicates structure. ARIA fills the gaps for patterns that
+  HTML can't express natively.
+---
+
+import { Callout } from '../components/Callout'
+
+## First rule of ARIA
+
+The first rule of ARIA use: **don't use ARIA if you can use a native HTML element that already has the role and behavior you need.**
+
+```html
+<!-- ❌ Unnecessary ARIA — use native HTML instead -->
+<div role="button" tabindex="0" aria-pressed="false">
+  Toggle
+</div>
+
+<!-- ✅ Native semantics — built-in keyboard, role, and state -->
+<button type="button" aria-pressed="false">
+  Toggle
+</button>
+```
+
+Native HTML elements give you role, keyboard behavior, and state management for free. ARIA only adds a role to the accessibility tree — it doesn't add keyboard interaction. You still have to wire that up.
+
+## Roles, states, properties
+
+ARIA has three categories of attributes:
+
+### Roles
+
+Define what an element is. `role="dialog"`, `role="tablist"`, `role="combobox"`. Use only when the native element semantics aren't sufficient.
+
+### States
+
+Communicate dynamic, changing conditions. `aria-expanded`, `aria-checked`, `aria-selected`, `aria-disabled`. These must be updated in JavaScript when the state changes.
+
+```jsx
+// Keep ARIA state in sync with component state
+function Accordion({ label, children }) {
+  const [open, setOpen] = useState(false)
+  return (
+    <>
+      <button
+        aria-expanded={open}
+        aria-controls="panel-id"
+        onClick={() => setOpen(!open)}
+      >
+        {label}
+      </button>
+      <div id="panel-id" hidden={!open}>
+        {children}
+      </div>
+    </>
+  )
+}
+```
+
+### Properties
+
+Describe relationships and metadata. `aria-label`, `aria-describedby`, `aria-controls`, `aria-owns`. These are typically static or set once.
+
+<Callout type="warning" title="ARIA doesn't change appearance">
+  ARIA attributes modify the accessibility tree only. `aria-hidden="true"` removes something from screen readers but doesn't hide it visually. Always pair ARIA with appropriate visual presentation.
+</Callout>
+
+## Live regions
+
+Live regions announce dynamic content changes to screen readers without moving focus. Critical for: form validation errors, toast notifications, search results updating, status messages.
+
+```html
+<!-- Status message that updates dynamically -->
+<div
+  role="status"
+  aria-live="polite"
+  aria-atomic="true"
+>
+  {statusMessage}
+</div>
+
+<!-- Error that needs immediate attention -->
+<div
+  role="alert"
+  aria-live="assertive"
+>
+  {errorMessage}
+</div>
+```
+
+Use `assertive` sparingly — it interrupts whatever the screen reader is currently reading. Reserve it for actual errors. Use `polite` for status updates and confirmations.
+
+## Labeling patterns
+
+Every interactive element needs an accessible name. The precedence order (highest to lowest):
+
+1. `aria-labelledby` — references another visible element's text
+2. `aria-label` — provides a string label directly
+3. Native `<label>` element (for form inputs)
+4. Title attribute (last resort, poor support)
+
+```html
+<!-- aria-labelledby — preferred when a visible heading exists -->
+<section aria-labelledby="section-heading">
+  <h2 id="section-heading">User profile</h2>
+  ...
+</section>
+
+<!-- aria-label — for icon buttons, landmarks without headings -->
+<button aria-label="Close dialog">
+  <XIcon aria-hidden="true" />
+</button>
+
+<!-- Visually hidden label — shows in the DOM, hidden visually -->
+<label>
+  <span class="sr-only">Search</span>
+  <input type="search" />
+</label>
+```

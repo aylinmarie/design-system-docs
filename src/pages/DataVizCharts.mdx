@@ -1,0 +1,82 @@
+---
+category: Data Visualization
+title: Chart Patterns
+dek: >-
+  When all dashboards in a product use the same chart anatomy, users can
+  switch between them without relearning how to read axes, legends, or
+  tooltips. That's the practical return on standardizing chart patterns.
+---
+
+import { Box, Flex, Text } from '@radix-ui/themes'
+import { DemoCard } from '../components/mdx/DemoCard'
+import { Callout } from '../components/Callout'
+
+export const chartTypes = [
+  { type: 'Bar / Column', use: 'Comparing quantities across categories', avoid: 'More than ~10 categories', icon: '▬' },
+  { type: 'Line', use: 'Trends over time, continuous data', avoid: 'Discrete, unordered categories', icon: '╱' },
+  { type: 'Scatter', use: 'Correlation between two variables', avoid: 'When one variable is categorical', icon: '⠿' },
+  { type: 'Area', use: 'Part-to-whole over time (stacked)', avoid: 'More than 4–5 series (becomes unreadable)', icon: '△' },
+  { type: 'Heatmap', use: 'Density, patterns across two dimensions', avoid: 'Small datasets where exact values matter', icon: '▦' },
+  { type: 'Donut / Pie', use: 'Part-to-whole (max 5 slices)', avoid: 'Comparisons, trends, or more than 5 slices', icon: '◎' },
+]
+
+## Choosing the right chart
+
+The choice of chart type should be driven by the data relationship you're communicating, not aesthetic preference. Use this as a reference:
+
+<DemoCard>
+  <Box className="chart-table-header">
+    <Text size="1" weight="bold" color="gray" className="demo-label">Chart type</Text>
+    <Text size="1" weight="bold" color="gray" className="demo-label">Use when</Text>
+    <Text size="1" weight="bold" color="gray" className="demo-label">Avoid when</Text>
+  </Box>
+  {chartTypes.map(chart => (
+    <Box key={chart.type} className="chart-table-row">
+      <Flex align="center" gap="2">
+        <span className="chart-icon">{chart.icon}</span>
+        <Text size="1" weight="medium">{chart.type}</Text>
+      </Flex>
+      <Text size="1" color="gray">{chart.use}</Text>
+      <Text size="1" color="gray">{chart.avoid}</Text>
+    </Box>
+  ))}
+</DemoCard>
+
+## Common chart patterns
+
+### The anatomy of a system chart
+
+Document the anatomy of your standard chart components so that all instances share the same structure:
+
+- **Chart container** — handles sizing, responsive behavior, loading/empty states
+- **Title region** — title, subtitle, optional metadata (date range, source)
+- **Legend** — positioned above the chart (not to the right) for better scannability
+- **Plot area** — the marks themselves, bounded by axes
+- **Axes** — x-axis at bottom, y-axis at left; labels outside the plot area
+- **Tooltip** — on hover/focus, shows exact values with accessible keyboard support
+
+### Sparklines & summary metrics
+
+For dashboards, a common pattern is a metric card with an inline sparkline — a small trend chart without axes. Keep sparklines strictly presentational (no interaction). The metric number is what the user needs; the sparkline provides directional context only.
+
+```jsx
+// Metric card pattern
+<div role="figure" aria-label="Monthly active users: 24,891 (↑12% vs. last month)">
+  <MetricValue value={24891} label="Monthly active users" />
+  <ChangeIndicator delta={+12} unit="%" period="vs. last month" />
+  <Sparkline data={historicalData} aria-hidden="true" />
+</div>
+```
+
+## Anti-patterns to avoid
+
+<Callout type="warning" title="The worst offenders">
+  These chart patterns appear constantly and communicate poorly.
+</Callout>
+
+- **3D charts** — depth encoding distorts area and angle perception. Always.
+- **Dual y-axes** — implies a relationship between two unrelated series. If you need two y-axes, you probably need two charts.
+- **Pie charts with more than 5 slices** — use a ranked bar chart instead, and show the percentage as a label.
+- **Truncated y-axes** — starting a bar chart at something other than zero exaggerates differences. If the range is too tight, use a different chart type.
+- **Overloaded legends** — if the legend has more than 6 items, the chart is trying to show too much at once. Split it.
+- **Animation as default** — loading animations on charts add latency with no perceptual benefit. Save animation for transitions that communicate data change.

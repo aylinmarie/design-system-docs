@@ -1,0 +1,103 @@
+---
+category: Data Visualization
+title: Color in Data Viz
+dek: >-
+  Data viz color has different constraints than UI color. Distinctness,
+  perceptual ordering, and colorblind accessibility all demand specific
+  choices.
+---
+
+import { Box, Flex, Text } from '@radix-ui/themes'
+import { DemoCard } from '../components/mdx/DemoCard'
+import { Callout } from '../components/Callout'
+
+export const categoricalColors = [
+  { name: 'Series 1', hex: '#7c3aed', label: 'Violet' },
+  { name: 'Series 2', hex: '#2563eb', label: 'Blue' },
+  { name: 'Series 3', hex: '#059669', label: 'Green' },
+  { name: 'Series 4', hex: '#d97706', label: 'Amber' },
+  { name: 'Series 5', hex: '#dc2626', label: 'Red' },
+  { name: 'Series 6', hex: '#0891b2', label: 'Cyan' },
+]
+
+export const sequentialColors = ['#f5f3ff', '#ddd6fe', '#a78bfa', '#7c3aed', '#5b21b6', '#3b0764']
+export const barHeights = [70, 50, 85, 40, 65, 55]
+
+## Scale types
+
+Choose the palette type based on what the data represents:
+
+- **Categorical** — for nominal data with no order (product lines, countries, cohorts). Each category gets a visually distinct color.
+- **Sequential** — for ordered, continuous data (temperature, revenue). Uses a single hue ramping from light to dark.
+- **Diverging** — for data with a meaningful midpoint (above/below baseline, positive/negative). Two hues meeting at a neutral center.
+
+## Categorical palettes
+
+Building a good categorical palette is harder than it looks. Requirements: colors must be visually distinct (hue difference ≥ 30°), distinguishable when small (line weight, marker size), and work on both white and dark backgrounds.
+
+<DemoCard label="Categorical palette — 6 colors">
+  <Flex p="4" gap="3">
+    {categoricalColors.map(color => (
+      <Box key={color.name} className="cat-color-item">
+        <Box
+          className="cat-swatch"
+          style={{ '--swatch-bg': color.hex }}
+          aria-label={`${color.name}: ${color.hex}`}
+        />
+        <Text as="span" className="cat-swatch-label">{color.label}</Text>
+      </Box>
+    ))}
+  </Flex>
+  <Box px="4" pb="4">
+    <Text size="1" color="gray" mb="2" style={{ display: 'block' }}>Simulated use — bar chart</Text>
+    <Flex className="bar-chart-demo">
+      {categoricalColors.map((color, i) => (
+        <Box
+          key={color.name}
+          className="bar-chart-bar"
+          style={{
+            '--bar-color': color.hex,
+            '--bar-height': `${barHeights[i]}%`,
+          }}
+          aria-label={`${color.name} bar`}
+        />
+      ))}
+    </Flex>
+  </Box>
+</DemoCard>
+
+<Text size="1" color="gray" mb="2" style={{ display: 'block' }}>Sequential scale — single hue (violet)</Text>
+<Flex className="seq-strip" mb="6">
+  {sequentialColors.map((hex, i) => (
+    <Box
+      key={i}
+      className="seq-strip-item"
+      style={{ '--strip-color': hex }}
+      aria-label={hex}
+    />
+  ))}
+</Flex>
+
+## Color blindness
+
+About 8% of men and 0.5% of women have some form of color vision deficiency. The most common: deuteranopia (green deficiency) and protanopia (red deficiency), collectively "red-green" color blindness.
+
+Rules for colorblind-accessible visualization:
+
+- **Never use red + green as the only distinguishing encoding** — the most common failure in alert/success charts and positive/negative series
+- **Vary lightness, not just hue** — colors at different lightness values remain distinguishable even with color vision deficiencies
+- **Use secondary encodings** — pattern fills, dashed vs. solid lines, different marker shapes
+- **Test with simulation** — Figma has a built-in color blindness viewer; Coblis is a web tool for testing images
+
+<Callout type="warning" title="The red/green dashboard">
+  "Red = bad, green = good" is the most common colorblind failure in product analytics. Use a diverging scale with blue/orange instead — distinguishable under all common forms of color vision deficiency.
+</Callout>
+
+## Viz in dark mode
+
+Visualization colors need a separate dark mode adjustment — the same saturated colors that work on white become harsh and over-vibrant on dark backgrounds. In dark mode:
+
+- Reduce saturation by 15–25%
+- Increase lightness slightly so colors don't disappear
+- Use lighter gridlines (white at low opacity rather than gray)
+- Labels need to pass contrast against the dark surface (often requires increasing font weight)

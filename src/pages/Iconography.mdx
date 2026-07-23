@@ -1,0 +1,98 @@
+---
+category: Foundations
+title: Iconography
+dek: >-
+  Icons are functional glyphs, not decoration. They need to be legible,
+  consistent, and accessible.
+---
+
+import { Box, Flex } from '@radix-ui/themes'
+import { DemoCard } from '../components/mdx/DemoCard'
+import { Callout } from '../components/Callout'
+import { Search, Bell, Settings, ArrowRight, Check, X, ChevronDown, Home, User, Lock, Eye, Star, Heart } from 'lucide-react'
+
+export const sampleIcons = [
+  { icon: Search, name: 'Search' },
+  { icon: Bell, name: 'Bell' },
+  { icon: Settings, name: 'Settings' },
+  { icon: ArrowRight, name: 'ArrowRight' },
+  { icon: Check, name: 'Check' },
+  { icon: X, name: 'X' },
+  { icon: ChevronDown, name: 'ChevronDown' },
+  { icon: Home, name: 'Home' },
+  { icon: User, name: 'User' },
+  { icon: Lock, name: 'Lock' },
+  { icon: Eye, name: 'Eye' },
+  { icon: Star, name: 'Star' },
+  { icon: Heart, name: 'Heart' },
+]
+
+## Designing the system
+
+Most teams don't design their own icon set — they choose an existing one and customize it. The decision criteria:
+
+- **Visual style consistency** — stroke weight, corner radius, and fill approach should be uniform
+- **Coverage** — does it have the icons your product needs? Industry icons, directional arrows, status indicators?
+- **License** — MIT-licensed sets (Lucide, Heroicons, Phosphor) are safe for commercial use
+- **Figma support** — the set should have a Figma library with components, not just SVG exports
+
+<DemoCard label="Sample icon set (Lucide)">
+  <Flex wrap="wrap" gap="2" p="4">
+    {sampleIcons.map(({ icon: Icon, name }) => (
+      <Box key={name} className="icon-demo-item" title={name}>
+        <Icon size={20} aria-hidden="true" />
+        <span className="icon-demo-name">{name}</span>
+      </Box>
+    ))}
+  </Flex>
+</DemoCard>
+
+## Sizes & grid
+
+Icons should be drawn on a consistent grid (16×16 or 24×24 being most common) and scaled in multiples. Define your sizes as tokens:
+
+- **12px** — status indicators inside dense UI
+- **16px** — inline with text, most common UI size
+- **20px** — nav items, primary actions
+- **24px** — empty states, feature icons, large CTAs
+- **32–48px** — illustration-scale icons
+
+<Callout type="tip" title="Optical size matters">
+  A 24px icon scaled to 16px looks thin and weak. An icon drawn for 16px has a heavier stroke that compensates for its small size. Use icons from the correct size grid, or switch to a variable icon set that handles this automatically.
+</Callout>
+
+## Accessible icons
+
+Icons are one of the most common sources of accessibility failures. The rule is simple:
+
+- **Decorative icons** (always paired with visible text) → `aria-hidden="true"`
+- **Standalone icons** (icon-only buttons) → need an accessible name via `aria-label` or a visually hidden label
+- **Informational icons** (status indicators, severity) → need a text alternative nearby or `aria-label`
+
+```html
+<!-- Decorative icon — hidden from screen readers -->
+<button>
+  <SearchIcon aria-hidden="true" />
+  Search
+</button>
+
+<!-- Standalone icon button — needs accessible name -->
+<button aria-label="Search">
+  <SearchIcon aria-hidden="true" />
+</button>
+
+<!-- Informational icon — status must be communicated -->
+<span>
+  <ErrorIcon aria-hidden="true" />
+  <span class="sr-only">Error: </span>
+  Invalid email address
+</span>
+```
+
+## Delivery formats
+
+Three options for delivering icons in a design system:
+
+1. **SVG sprites** — a single SVG file with all icons, referenced by ID. Good for performance; requires a build step.
+2. **Inline SVG components** — each icon is a React (or Vue, Svelte) component. Best DX; slightly larger bundle if not tree-shaken properly.
+3. **Icon font** — avoid. Poor accessibility, rendering artifacts, and loading behavior.

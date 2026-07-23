@@ -1,0 +1,100 @@
+---
+category: Component Architecture
+title: Component API Design
+dek: >-
+  A component's API is a contract with every team that uses it. Design it
+  with the same care you'd give a public SDK.
+---
+
+import { Callout } from '../components/Callout'
+
+## Designing the props API
+
+Good component APIs share common traits:
+
+- **Minimal surface area** — expose only what users need to control. Every prop is a maintenance commitment.
+- **Sensible defaults** — the most common use case should require zero props
+- **Consistent naming** — use the same prop names across similar components. `isDisabled` vs `disabled` — pick one and stick to it.
+- **Semantic types** — use string unions over booleans for states: `size="sm" | "md" | "lg"` is more extensible than `isSmall`
+
+```jsx
+// ❌ Inconsistent, unclear API
+<Button
+  btnColor="blue"
+  big
+  notDisabled={false}
+  handleClick={fn}
+/>
+
+// ✅ Consistent, semantic API
+<Button
+  variant="primary"
+  size="lg"
+  isDisabled={false}
+  onClick={fn}
+/>
+```
+
+<Callout type="tip" title="The rule of least surprise">
+  If a developer has to read the documentation to understand a prop, the prop name is wrong. Name it so the usage is self-documenting.
+</Callout>
+
+## Slots & composition
+
+Props-only APIs break down when component interiors need to be customized. Use slots (named children) to give consumers control over interior content without exposing every internal detail:
+
+```jsx
+// Rigid props-only API — inflexible
+<Card
+  title="Revenue"
+  subtitle="Last 30 days"
+  icon="chart"
+  value="$12,400"
+/>
+
+// Composable slot-based API — flexible
+<Card>
+  <Card.Header>
+    <ChartIcon aria-hidden="true" />
+    <Card.Title>Revenue</Card.Title>
+    <Card.Subtitle>Last 30 days</Card.Subtitle>
+  </Card.Header>
+  <Card.Body>
+    <MetricValue value={12400} currency="USD" />
+  </Card.Body>
+</Card>
+```
+
+The slot pattern is more verbose but far more flexible. Reserve props-only APIs for truly atomic components where slot composition would be unnecessary.
+
+## Variants vs. props
+
+A common API design question: should visual variations be a single `variant` prop or separate boolean props?
+
+Use a `variant` prop when variations are **mutually exclusive** (a button can't be both primary and secondary). Use separate props when variations are **independent** (a button can be loading AND disabled at the same time).
+
+```jsx
+// Variant — mutually exclusive visual treatments
+<Button variant="primary" />
+<Button variant="secondary" />
+<Button variant="destructive" />
+
+// Independent props — combinable states
+<Button
+  variant="primary"
+  isLoading={isSubmitting}
+  isDisabled={!isValid}
+/>
+```
+
+## Unstyled primitives
+
+The most extensible design system architecture separates logic and behavior from styling. Radix UI popularized this pattern: headless, unstyled primitives that handle accessibility and interaction, with styling layered on top.
+
+The benefits:
+
+- Product teams can fully control the visual appearance without fighting the component's built-in styles
+- Accessibility behavior is shared; visual expression is not
+- Easier to adopt gradually — teams can use the primitive without adopting the full design system aesthetic
+
+Libraries worth knowing: [Radix UI](https://www.radix-ui.com/), [React Aria](https://react-spectrum.adobe.com/react-aria/) (Adobe), [Headless UI](https://headlessui.com/) (Tailwind Labs). These are solid foundations to build a component library on top of, rather than implementing accessibility primitives from scratch.

@@ -1,0 +1,67 @@
+---
+category: Getting Started
+title: Introduction
+dek: >-
+  designsystemdocs.io is an open source, community-driven knowledge base and
+  reference directory for design system strategy, architecture, and
+  governance — for designers and engineers building, contributing to, or
+  inheriting one.
+---
+
+import { Box, Card, Flex, Text } from '@radix-ui/themes'
+import { GitBranch } from 'lucide-react'
+
+{(
+  <Flex className="hero-cta-row">
+    <a
+      href="https://github.com/aylinmarie/design-system-docs"
+      target="_blank"
+      rel="noopener noreferrer"
+      className="github-cta-btn"
+    >
+      View on GitHub →
+    </a>
+  </Flex>
+)}
+
+## Who this is for
+
+This guide is for practitioners — designers and engineers who are building, contributing to, or inheriting a design system. It assumes you're already building products and have hit some of the friction that a design system is meant to solve.
+
+The scope runs from a solo designer formalizing conventions to a tech lead architecting a platform for dozens of product squads.
+
+## Contribute
+
+This guide is open source. If you find an error, want to add nuance to a section, or think something important is missing, contributions are welcome.
+
+- **Corrections** — open an issue or PR on GitHub with a specific change and why
+- **New sections** — open an issue first to discuss scope before writing; it's easier to align before than after
+- **Examples** — real-world examples from your own experience are the highest-value addition
+
+The goal is to keep this opinionated but not dogmatic. Design systems work looks different at different scales and in different organizations. Where there are genuine tradeoffs, the guide names them rather than pretending there's one right answer.
+
+{(
+  <Card variant="surface" mt="2">
+    <Flex align="center" gap="4">
+      <Box className="github-icon-wrap" aria-hidden="true">
+        <GitBranch size={18} />
+      </Box>
+      <Box flexGrow="1">
+        <Text as="div" size="2" weight="bold" mb="1">
+          Open source on GitHub
+        </Text>
+        <Text as="div" size="1" color="gray">
+          Star it, fork it, or open a PR — the source is public and contributions are welcome.
+        </Text>
+      </Box>
+      <a
+        href="https://github.com/aylinmarie/design-system-docs"
+        className="github-cta-btn"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        View on GitHub
+      </a>
+    </Flex>
+  </Card>
+)}
