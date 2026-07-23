@@ -7,7 +7,7 @@ dek: >-
   those with visual, motor, cognitive, or auditory disabilities.
 ---
 
-import { Box, Flex, Text } from '@radix-ui/themes'
+import { Box, Card, Flex, Text } from '@radix-ui/themes'
 import { Callout } from '../components/Callout'
 
 export const wcagLevels = [
@@ -26,19 +26,21 @@ The [Web Content Accessibility Guidelines (WCAG)](https://www.w3.org/WAI/standar
 
 <Box mb="5">
   {wcagLevels.map(item => (
-    <Flex key={item.level} gap="4" align="start" p="4" mb="3" style={{ border: '1px solid var(--gray-a5)', borderRadius: 'var(--radius-3)' }}>
-      <Box
-        className="wcag-badge"
-        style={{ '--badge-bg': item.color }}
-        aria-label={`Level ${item.level}`}
-      >
-        {item.level}
-      </Box>
-      <Box>
-        <Text as="div" size="2" weight="bold" mb="1">{item.label}</Text>
-        <Text as="div" size="2" color="gray">{item.desc}</Text>
-      </Box>
-    </Flex>
+    <Card key={item.level} variant="surface" mb="3">
+      <Flex gap="4" align="start">
+        <Box
+          className="wcag-badge"
+          style={{ '--badge-bg': item.color }}
+          aria-label={`Level ${item.level}`}
+        >
+          {item.level}
+        </Box>
+        <Box>
+          <Text as="div" size="2" weight="bold" mb="1">{item.label}</Text>
+          <Text as="div" size="2" color="gray">{item.desc}</Text>
+        </Box>
+      </Flex>
+    </Card>
   ))}
 </Box>
 

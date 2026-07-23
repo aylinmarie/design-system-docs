@@ -7,8 +7,7 @@ dek: >-
   tooltips. That's the practical return on standardizing chart patterns.
 ---
 
-import { Box, Flex, Text } from '@radix-ui/themes'
-import { DemoCard } from '../components/mdx/DemoCard'
+import { Table, Flex, Text } from '@radix-ui/themes'
 import { Callout } from '../components/Callout'
 
 export const chartTypes = [
@@ -24,23 +23,29 @@ export const chartTypes = [
 
 The choice of chart type should be driven by the data relationship you're communicating, not aesthetic preference. Use this as a reference:
 
-<DemoCard>
-  <Box className="chart-table-header">
-    <Text size="1" weight="bold" color="gray" className="demo-label">Chart type</Text>
-    <Text size="1" weight="bold" color="gray" className="demo-label">Use when</Text>
-    <Text size="1" weight="bold" color="gray" className="demo-label">Avoid when</Text>
-  </Box>
-  {chartTypes.map(chart => (
-    <Box key={chart.type} className="chart-table-row">
-      <Flex align="center" gap="2">
-        <span className="chart-icon">{chart.icon}</span>
-        <Text size="1" weight="medium">{chart.type}</Text>
-      </Flex>
-      <Text size="1" color="gray">{chart.use}</Text>
-      <Text size="1" color="gray">{chart.avoid}</Text>
-    </Box>
-  ))}
-</DemoCard>
+<Table.Root variant="surface">
+  <Table.Header>
+    <Table.Row>
+      <Table.ColumnHeaderCell>Chart type</Table.ColumnHeaderCell>
+      <Table.ColumnHeaderCell>Use when</Table.ColumnHeaderCell>
+      <Table.ColumnHeaderCell>Avoid when</Table.ColumnHeaderCell>
+    </Table.Row>
+  </Table.Header>
+  <Table.Body>
+    {chartTypes.map(chart => (
+      <Table.Row key={chart.type}>
+        <Table.Cell>
+          <Flex align="center" gap="2">
+            <span className="chart-icon">{chart.icon}</span>
+            <Text>{chart.type}</Text>
+          </Flex>
+        </Table.Cell>
+        <Table.Cell><Text color="gray">{chart.use}</Text></Table.Cell>
+        <Table.Cell><Text color="gray">{chart.avoid}</Text></Table.Cell>
+      </Table.Row>
+    ))}
+  </Table.Body>
+</Table.Root>
 
 ## Common chart patterns
 

@@ -33,8 +33,8 @@ Use a mathematical ratio to generate your scale. Common ratios: **1.25 (Major Th
   {typeScale.map(step => (
     <Flex key={step.name} align="baseline" className="type-scale-row">
       <Box className="type-scale-meta">
-        <Text as="span" className="token-mono token-mono-muted" style={{ display: 'block' }}>{step.size}</Text>
-        <Text as="span" className="token-mono token-mono-accent" style={{ display: 'block' }}>{step.name}</Text>
+        <Text as="div" className="token-mono token-mono-muted">{step.size}</Text>
+        <Text as="div" className="token-mono token-mono-accent">{step.name}</Text>
       </Box>
       <div
         className="type-sample"
