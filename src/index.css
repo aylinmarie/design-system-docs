@@ -246,10 +246,15 @@ body {
 /* ==========================================
    Doc navigation
    ========================================== */
-.docnav-link { display: inline-flex; text-decoration: none; }
-.docnav-link:hover { border-bottom: none; }
+.docnav-link,
+.doc-article .docnav-link,
+.doc-article .docnav-link:hover { display: inline-flex; text-decoration: none; border-bottom: none; }
 .docnav-icon { color: var(--gray-8); flex-shrink: 0; transition: color 0.1s; }
+.docnav-label { color: var(--gray-9); transition: color 0.1s; }
+.docnav-title { color: var(--gray-12); transition: color 0.1s; }
 .docnav-link:hover .docnav-icon { color: var(--accent-9); }
+.docnav-link:hover .docnav-label,
+.docnav-link:hover .docnav-title { color: var(--accent-11); }
 
 /* ==========================================
    Doc article prose

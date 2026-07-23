@@ -1,4 +1,4 @@
-import { Box, Flex, Text, Link } from '@radix-ui/themes'
+import { Box, Flex, Text, Link, Separator } from '@radix-ui/themes'
 import { Link as RouterLink } from 'react-router-dom'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 import { navigation } from '../data/navigation'
@@ -17,27 +17,28 @@ export function DocNav({ currentPath }: DocNavProps) {
 
   return (
     <Box mt="8">
+      <Separator size="4" mb="5" />
       <Flex justify="between" align="center">
         {prev ? (
-          <Link asChild color="gray" underline="none" className="docnav-link">
+          <Link asChild underline="none" className="docnav-link">
             <RouterLink to={prev.path}>
               <Flex align="center" gap="2">
                 <ChevronLeft size={14} className="docnav-icon" aria-hidden="true" />
                 <Box>
-                  <Text as="div" size="1" color="gray">Previous</Text>
-                  <Text as="div" size="2" weight="medium">{prev.label}</Text>
+                  <Text as="div" size="1" className="docnav-label">Previous</Text>
+                  <Text as="div" size="2" weight="medium" className="docnav-title">{prev.label}</Text>
                 </Box>
               </Flex>
             </RouterLink>
           </Link>
         ) : <Box />}
         {next ? (
-          <Link asChild color="gray" underline="none" className="docnav-link">
+          <Link asChild underline="none" className="docnav-link">
             <RouterLink to={next.path}>
               <Flex align="center" gap="2">
                 <Box style={{ textAlign: 'right' }}>
-                  <Text as="div" size="1" color="gray">Next</Text>
-                  <Text as="div" size="2" weight="medium">{next.label}</Text>
+                  <Text as="div" size="1" className="docnav-label">Next</Text>
+                  <Text as="div" size="2" weight="medium" className="docnav-title">{next.label}</Text>
                 </Box>
                 <ChevronRight size={14} className="docnav-icon" aria-hidden="true" />
               </Flex>
