@@ -7,8 +7,7 @@ dek: >-
   fully.
 ---
 
-import { Box, Text } from '@radix-ui/themes'
-import { DemoCard } from '../components/mdx/DemoCard'
+import { Table, Text } from '@radix-ui/themes'
 import { Callout } from '../components/Callout'
 
 export const keyboardPatterns = [
@@ -62,20 +61,24 @@ function closeDialog(triggerRef) {
 
 The [ARIA Authoring Practices Guide (APG)](https://www.w3.org/WAI/ARIA/apg/) defines keyboard interaction patterns for common widget types. These are the patterns your system components should implement:
 
-<DemoCard>
-  <Box className="kbd-table-header">
-    <Text size="1" weight="bold" color="gray" className="demo-label">Widget</Text>
-    <Text size="1" weight="bold" color="gray" className="demo-label">Keys</Text>
-    <Text size="1" weight="bold" color="gray" className="demo-label">Behavior</Text>
-  </Box>
-  {keyboardPatterns.map(pattern => (
-    <Box key={pattern.widget} className="kbd-table-row">
-      <Text size="1" weight="medium">{pattern.widget}</Text>
-      <Text as="span" className="kbd-mono">{pattern.keys}</Text>
-      <Text size="1" color="gray">{pattern.behavior}</Text>
-    </Box>
-  ))}
-</DemoCard>
+<Table.Root variant="surface">
+  <Table.Header>
+    <Table.Row>
+      <Table.ColumnHeaderCell>Widget</Table.ColumnHeaderCell>
+      <Table.ColumnHeaderCell>Keys</Table.ColumnHeaderCell>
+      <Table.ColumnHeaderCell>Behavior</Table.ColumnHeaderCell>
+    </Table.Row>
+  </Table.Header>
+  <Table.Body>
+    {keyboardPatterns.map(pattern => (
+      <Table.Row key={pattern.widget}>
+        <Table.Cell>{pattern.widget}</Table.Cell>
+        <Table.Cell><Text as="span" className="kbd-mono">{pattern.keys}</Text></Table.Cell>
+        <Table.Cell><Text color="gray">{pattern.behavior}</Text></Table.Cell>
+      </Table.Row>
+    ))}
+  </Table.Body>
+</Table.Root>
 
 ## Focus traps
 

@@ -46,7 +46,7 @@ The scale below is a solid starting point. Steps 1–6 are for component-level s
         aria-hidden="true"
         style={{ '--bar-width': `${Math.min(step.px * 3, 240)}px` }}
       />
-      <Text as="span" className="token-mono token-mono-muted" style={{ marginLeft: 'auto' }}>{step.value}</Text>
+      <Text as="span" className="token-mono token-mono-muted" ml="auto">{step.value}</Text>
     </Flex>
   ))}
 </DemoCard>

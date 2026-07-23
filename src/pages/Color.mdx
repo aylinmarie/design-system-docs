@@ -37,7 +37,7 @@ Start with a global palette — a full range of named steps for each color. A 50
 
 {palette.map(color => (
   <Box key={color.name} mb="4">
-    <Text size="1" weight="bold" color="gray" className="demo-label" mb="2" style={{ display: 'block' }}>{color.name}</Text>
+    <Text as="div" size="1" weight="bold" color="gray" className="demo-label" mb="2">{color.name}</Text>
     <Flex gap="2">
       {color.shades.map(shade => (
         <Box key={shade.step} className="palette-col">
