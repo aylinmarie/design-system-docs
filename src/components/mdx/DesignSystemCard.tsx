@@ -3,7 +3,7 @@ import { Card, Flex, Text, Box } from '@radix-ui/themes'
 import { Logomark } from '../Logomark'
 import type { DesignSystemEntry } from '../../data/designSystems'
 
-export function DesignSystemCard({ name, url }: DesignSystemEntry) {
+export function DesignSystemCard({ name, url, noFavicon }: DesignSystemEntry) {
   const [faviconFailed, setFaviconFailed] = useState(false)
   const { origin, hostname } = new URL(url)
   const faviconUrl = `${origin}/favicon.ico`
@@ -13,7 +13,7 @@ export function DesignSystemCard({ name, url }: DesignSystemEntry) {
       <a href={url} target="_blank" rel="noopener noreferrer">
         <Flex align="start" gap="3">
           <Box className="ds-card-thumb">
-            {faviconFailed ? (
+            {noFavicon || faviconFailed ? (
               <Logomark />
             ) : (
               <img
