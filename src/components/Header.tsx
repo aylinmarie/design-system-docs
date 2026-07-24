@@ -1,5 +1,5 @@
 import { Box, Text, IconButton, Flex, Badge } from "@radix-ui/themes";
-import { Menu, X, Search, Sun, Moon } from "lucide-react";
+import { Menu, X, Sun, Moon } from "lucide-react";
 import { Link as RouterLink } from "react-router-dom";
 import { useThemeMode } from "./ThemeModeProvider";
 import { Logomark } from "./Logomark";
