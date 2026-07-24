@@ -18,11 +18,11 @@ React 19, React Router 7, [Radix UI Themes](https://www.radix-ui.com/themes), Vi
 ## Development
 
 ```bash
-npm install
-npm run dev      # start the dev server
-npm run build    # type-check and build for production
-npm run lint     # run oxlint
-npm run preview  # preview the production build locally
+pnpm install
+pnpm run dev      # start the dev server
+pnpm run build    # type-check and build for production
+pnpm run lint     # run oxlint
+pnpm run preview  # preview the production build locally
 ```
 
 ## Contributing

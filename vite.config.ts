@@ -16,4 +16,17 @@ export default defineConfig({
     }),
     react(),
   ],
+  build: {
+    rollupOptions: {
+      output: {
+        // Split rarely-changing vendor code from app/page code so browsers
+        // can cache it across deploys instead of re-downloading it whenever
+        // any doc page changes.
+        manualChunks: {
+          'vendor-react': ['react', 'react-dom', 'react-router-dom'],
+          'vendor-radix': ['@radix-ui/themes'],
+        },
+      },
+    },
+  },
 })
