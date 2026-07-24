@@ -86,7 +86,6 @@ body {
   flex-shrink: 0;
 }
 .header-divider { width: 1px; height: 14px; background: var(--gray-a6); flex-shrink: 0; }
-.header-beta { text-transform: uppercase; letter-spacing: 0.08em; }
 .header-search { display: none; flex: 1; max-width: 20rem; }
 @media (min-width: 640px) { .header-search { display: block; } }
 .header-search-box {
