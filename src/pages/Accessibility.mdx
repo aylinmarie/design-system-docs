@@ -1,43 +1,58 @@
 ---
-category: Accessibility
-title: Why it matters
+category: Foundations
+title: Accessibility
 dek: >-
   Accessibility is a technical and design standard that determines whether
-  your product works for the full range of people who use it — including
+  your product works for the full range of people who use it including
   those with visual, motor, cognitive, or auditory disabilities.
 ---
 
-import { Box, Card, Flex, Text } from '@radix-ui/themes'
-import { Callout } from '../components/Callout'
+import { Box, Card, Flex, Text } from "@radix-ui/themes";
+import { Callout } from "../components/Callout";
 
 export const wcagLevels = [
-  { level: 'A', color: '#22c55e', label: 'Minimum', desc: 'Basic access. Failing A criteria creates hard blocks for assistive technology users. These are non-negotiable.' },
-  { level: 'AA', color: '#7c3aed', label: 'Standard', desc: 'The legal standard in most jurisdictions and the target for most products. Covers contrast, keyboard access, and error handling.' },
-  { level: 'AAA', color: '#6366f1', label: 'Enhanced', desc: 'The highest level. Not required for entire sites but worth targeting for specific high-priority flows.' },
-]
-
-<Callout type="tip" title="The multiplier effect">
-  Fix accessibility in the system once and every product team that consumes it inherits the fix. That's a much better return than each team solving the same problem independently.
-</Callout>
+  {
+    level: "A",
+    color: "#22c55e",
+    label: "Minimum",
+    desc: "Basic access. Failing A criteria creates hard blocks for assistive technology users. These are non-negotiable.",
+  },
+  {
+    level: "AA",
+    color: "#7c3aed",
+    label: "Standard",
+    desc: "The legal standard in most jurisdictions and the target for most products. Covers contrast, keyboard access, and error handling.",
+  },
+  {
+    level: "AAA",
+    color: "#6366f1",
+    label: "Enhanced",
+    desc: "The highest level. Not required for entire sites but worth targeting for specific high-priority flows.",
+  },
+];
 
 ## WCAG conformance levels
 
 The [Web Content Accessibility Guidelines (WCAG)](https://www.w3.org/WAI/standards-guidelines/wcag/) organize requirements into three levels:
 
 <Box mb="5">
-  {wcagLevels.map(item => (
+  {wcagLevels.map((item) => (
     <Card key={item.level} variant="surface" mb="3">
       <Flex gap="4" align="start">
         <Box
           className="wcag-badge"
-          style={{ '--badge-bg': item.color }}
+          style={{ "--badge-bg": item.color }}
           aria-label={`Level ${item.level}`}
         >
           {item.level}
         </Box>
         <Box>
-          <Text as="div" size="2" weight="bold" mb="1">{item.label}</Text>
-          <Text as="div" size="2" color="gray">{item.desc}</Text>
+          <Text as="div" size="2" weight="bold" mb="1">
+            {item.label}
+          </Text>
+          <Text as="div" size="2" color="gray">
+            {item.desc}
+          </Text>
         </Box>
       </Flex>
     </Card>
@@ -46,23 +61,19 @@ The [Web Content Accessibility Guidelines (WCAG)](https://www.w3.org/WAI/standar
 
 ## The system's role
 
-A design system can't guarantee accessible products — that depends on how components are used in context. But it can dramatically raise the floor by making accessible patterns the default and inaccessible patterns harder to produce.
+A design system can't guarantee accessible products. That depends on how components are used in context, but it can dramatically raise the floor by making accessible patterns the default.
 
 What the system should own:
 
 - Focus management and visible focus styles on all interactive elements
 - Color token pairings that pass contrast in their intended combinations
-- Semantic HTML choices in component markup (not just `div` everywhere)
-- ARIA patterns for complex widgets (modals, comboboxes, tabs, trees)
+- Semantic HTML choices in component markup
+- ARIA patterns only if necessary
 - Motion reduction support via `prefers-reduced-motion`
-
-## Baking in accessibility
-
-Concrete things to do at the system level:
 
 ### Focus styles
 
-Never remove focus outlines without replacing them. The default browser focus ring is ugly but functional — replace it with a branded, clearly visible ring:
+Never remove focus outlines without replacing them. The default browser focus ring is functional but many systems replace it with a branded, clearly visible ring:
 
 ```css
 /* System-level focus reset */
@@ -71,19 +82,15 @@ Never remove focus outlines without replacing them. The default browser focus ri
   outline-offset: 2px;
   border-radius: 2px;
 }
-
-/* Remove outline for mouse users — :focus-visible handles this
-   automatically, but be explicit for older browser support */
-:focus:not(:focus-visible) {
-  outline: none;
-}
 ```
 
 ### Motion
 
 ```css
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
+  *,
+  *::before,
+  *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
@@ -104,13 +111,15 @@ Every page that includes a navigation sidebar needs a "Skip to main content" lin
 
 ## Testing strategy
 
-Automated tools catch ~30–40% of accessibility issues. Manual testing catches the rest. A solid strategy covers both:
+Automated tools catch a good amount of accessibility issues, but not all. Manual testing is just as important if not more:
 
 1. **Automated** — axe-core in CI (via jest-axe or Playwright), catching contrast failures, missing labels, and structure issues
 2. **Keyboard testing** — navigate every component with Tab, Shift+Tab, Enter, Space, Escape, and arrow keys
-3. **Screen reader testing** — VoiceOver on macOS, NVDA + Chrome on Windows. Quarterly audits at minimum.
+3. **Screen reader testing** — VoiceOver on macOS, NVDA + Chrome on Windows. Create a cadence on audits.
 4. **Zoom testing** — test at 200% and 400% zoom. Content should reflow, not overflow.
 
 <Callout type="info">
-  Add axe-core to your Storybook or component test suite. A failure caught at the system level fixes every product that consumes that component — which is a much better return than catching it in individual product code reviews.
+  Add axe-core to your Storybook or component test suite. A failure caught at
+  the system level fixes every product that consumes that component which is a
+  much better return than catching it in individual product code reviews.
 </Callout>

@@ -19,6 +19,7 @@ export const navigation: NavGroup[] = [
   {
     title: "Foundations",
     items: [
+      { label: "Accessibility", path: "/accessibility" },
       { label: "Design Tokens", path: "/design-tokens" },
       // { label: "Typography", path: "/typography" },
       // { label: "Color", path: "/color" },
@@ -27,13 +28,13 @@ export const navigation: NavGroup[] = [
     ],
   },
   // {
-  //   title: "Accessibility",
-  //   items: [
-  //     { label: "Why It Matters", path: "/accessibility" },
-  //     { label: "Color & Contrast", path: "/accessibility/color-contrast" },
-  //     { label: "Keyboard Navigation", path: "/accessibility/keyboard" },
-  //     { label: "ARIA & Semantics", path: "/accessibility/aria" },
-  //   ],
+  // title: "Accessibility",
+  // items: [
+  // { label: "Why It Matters", path: "/accessibility" },
+  // { label: "Color & Contrast", path: "/accessibility/color-contrast" },
+  // { label: "Keyboard Navigation", path: "/accessibility/keyboard" },
+  // { label: "ARIA & Semantics", path: "/accessibility/aria" },
+  // ],
   // },
   // {
   //   title: "Data Visualization",
