@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { Analytics } from '@vercel/analytics/react'
+import { SpeedInsights } from '@vercel/speed-insights/react'
 import { lazy, Suspense, type ComponentType } from 'react'
 import { Layout } from './components/Layout'
 import { DocPage, type Frontmatter } from './components/DocPage'
@@ -57,6 +58,7 @@ export default function App() {
         </Route>
       </Routes>
       <Analytics />
+      <SpeedInsights />
     </BrowserRouter>
   )
 }
