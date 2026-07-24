@@ -1,39 +1,29 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { Analytics } from '@vercel/analytics/react'
-import type { ComponentType } from 'react'
+import { lazy, Suspense, type ComponentType } from 'react'
 import { Layout } from './components/Layout'
 import { DocPage, type Frontmatter } from './components/DocPage'
 import { PrivacyPolicy } from './pages/PrivacyPolicy'
 
-import Introduction, { frontmatter as introductionFm } from './pages/Introduction.mdx'
-import WhatIsADesignSystem, { frontmatter as whatIsADesignSystemFm } from './pages/WhatIsADesignSystem.mdx'
-import DesignTokens, { frontmatter as designTokensFm } from './pages/DesignTokens.mdx'
-import Typography, { frontmatter as typographyFm } from './pages/Typography.mdx'
-import Color, { frontmatter as colorFm } from './pages/Color.mdx'
-import Spacing, { frontmatter as spacingFm } from './pages/Spacing.mdx'
-import Iconography, { frontmatter as iconographyFm } from './pages/Iconography.mdx'
-import Accessibility, { frontmatter as accessibilityFm } from './pages/Accessibility.mdx'
-import AccessibilityContrast, { frontmatter as accessibilityContrastFm } from './pages/AccessibilityContrast.mdx'
-import AccessibilityKeyboard, { frontmatter as accessibilityKeyboardFm } from './pages/AccessibilityKeyboard.mdx'
-import AccessibilityAria, { frontmatter as accessibilityAriaFm } from './pages/AccessibilityAria.mdx'
-import DataViz, { frontmatter as dataVizFm } from './pages/DataViz.mdx'
-import DataVizColor, { frontmatter as dataVizColorFm } from './pages/DataVizColor.mdx'
-import DataVizCharts, { frontmatter as dataVizChartsFm } from './pages/DataVizCharts.mdx'
-import ComponentApi, { frontmatter as componentApiFm } from './pages/ComponentApi.mdx'
-import Composition, { frontmatter as compositionFm } from './pages/Composition.mdx'
-import Governance, { frontmatter as governanceFm } from './pages/Governance.mdx'
-import Versioning, { frontmatter as versioningFm } from './pages/Versioning.mdx'
-import DesignSystemCollection, { frontmatter as designSystemCollectionFm } from './pages/DesignSystemCollection.mdx'
+function docRoute(path: string, load: () => Promise<{ default: ComponentType; frontmatter: Frontmatter }>) {
+  const LazyPage = lazy(() =>
+    load().then(({ default: Content, frontmatter }) => ({
+      default: () => (
+        <DocPage {...frontmatter}>
+          <Content />
+        </DocPage>
+      ),
+    })),
+  )
 
-function docRoute(path: string, Content: ComponentType, frontmatter: Frontmatter) {
   return (
     <Route
       key={path}
       path={path}
       element={
-        <DocPage {...frontmatter}>
-          <Content />
-        </DocPage>
+        <Suspense fallback={null}>
+          <LazyPage />
+        </Suspense>
       }
     />
   )
@@ -44,25 +34,25 @@ export default function App() {
     <BrowserRouter>
       <Routes>
         <Route element={<Layout />}>
-          {docRoute('/', Introduction, introductionFm)}
-          {docRoute('/what-is-a-design-system', WhatIsADesignSystem, whatIsADesignSystemFm)}
-          {docRoute('/design-tokens', DesignTokens, designTokensFm)}
-          {docRoute('/typography', Typography, typographyFm)}
-          {docRoute('/color', Color, colorFm)}
-          {docRoute('/spacing', Spacing, spacingFm)}
-          {docRoute('/iconography', Iconography, iconographyFm)}
-          {docRoute('/accessibility', Accessibility, accessibilityFm)}
-          {docRoute('/accessibility/color-contrast', AccessibilityContrast, accessibilityContrastFm)}
-          {docRoute('/accessibility/keyboard', AccessibilityKeyboard, accessibilityKeyboardFm)}
-          {docRoute('/accessibility/aria', AccessibilityAria, accessibilityAriaFm)}
-          {docRoute('/data-viz', DataViz, dataVizFm)}
-          {docRoute('/data-viz/color', DataVizColor, dataVizColorFm)}
-          {docRoute('/data-viz/charts', DataVizCharts, dataVizChartsFm)}
-          {docRoute('/component-api', ComponentApi, componentApiFm)}
-          {docRoute('/composition', Composition, compositionFm)}
-          {docRoute('/governance', Governance, governanceFm)}
-          {docRoute('/versioning', Versioning, versioningFm)}
-          {docRoute('/design-system-collection', DesignSystemCollection, designSystemCollectionFm)}
+          {docRoute('/', () => import('./pages/Introduction.mdx'))}
+          {docRoute('/what-is-a-design-system', () => import('./pages/WhatIsADesignSystem.mdx'))}
+          {docRoute('/design-tokens', () => import('./pages/DesignTokens.mdx'))}
+          {docRoute('/typography', () => import('./pages/Typography.mdx'))}
+          {docRoute('/color', () => import('./pages/Color.mdx'))}
+          {docRoute('/spacing', () => import('./pages/Spacing.mdx'))}
+          {docRoute('/iconography', () => import('./pages/Iconography.mdx'))}
+          {docRoute('/accessibility', () => import('./pages/Accessibility.mdx'))}
+          {docRoute('/accessibility/color-contrast', () => import('./pages/AccessibilityContrast.mdx'))}
+          {docRoute('/accessibility/keyboard', () => import('./pages/AccessibilityKeyboard.mdx'))}
+          {docRoute('/accessibility/aria', () => import('./pages/AccessibilityAria.mdx'))}
+          {docRoute('/data-viz', () => import('./pages/DataViz.mdx'))}
+          {docRoute('/data-viz/color', () => import('./pages/DataVizColor.mdx'))}
+          {docRoute('/data-viz/charts', () => import('./pages/DataVizCharts.mdx'))}
+          {docRoute('/component-api', () => import('./pages/ComponentApi.mdx'))}
+          {docRoute('/composition', () => import('./pages/Composition.mdx'))}
+          {docRoute('/governance', () => import('./pages/Governance.mdx'))}
+          {docRoute('/versioning', () => import('./pages/Versioning.mdx'))}
+          {docRoute('/design-system-collection', () => import('./pages/DesignSystemCollection.mdx'))}
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
         </Route>
       </Routes>
